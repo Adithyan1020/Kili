@@ -33,7 +33,7 @@ const Consultation = () => {
               height: '400px', 
               background: 'url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800") center/cover',
               borderRadius: '50% 50% 50% 10%',
-              boxShadow: '0 0 50px rgba(255, 157, 0, 0.2)'
+              boxShadow: '0 0 50px rgba(0, 255, 163, 0.2)'
             }}
           />
         </div>

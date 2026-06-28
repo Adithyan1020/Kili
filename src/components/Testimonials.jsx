@@ -45,7 +45,7 @@ const Testimonials = () => {
             whileInView="visible"
             viewport={{ once: false }}
             variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ color: '#fff', fontSize: '3rem', perspective: '1000px' }}
+            style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px' }}
           >
             <SplitWord>What Our Clients Say</SplitWord>
           </motion.h2>
@@ -76,7 +76,7 @@ const Testimonials = () => {
               }}
             >
               <div style={{ color: 'var(--color-accent)', fontSize: '2rem', lineHeight: '1' }}>"</div>
-              <p style={{ color: 'var(--color-text-light)', fontSize: '1.1rem', flex: 1, fontStyle: 'italic' }}>
+              <p style={{ color: 'var(--text-primary)', fontSize: '1.1rem', flex: 1, fontStyle: 'italic' }}>
                 {t.quote}
               </p>
               <div style={{ display: 'flex', alignItems: 'center', gap: '15px', marginTop: '20px' }}>
@@ -86,8 +86,8 @@ const Testimonials = () => {
                   style={{ width: '50px', height: '50px', borderRadius: '50%', objectFit: 'cover' }} 
                 />
                 <div>
-                  <h4 style={{ color: '#fff', fontSize: '1.1rem', margin: 0 }}>{t.name}</h4>
-                  <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>{t.role}</div>
+                  <h4 style={{ color: 'var(--text-primary)', fontSize: '1.1rem', margin: 0 }}>{t.name}</h4>
+                  <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{t.role}</div>
                 </div>
               </div>
             </motion.div>

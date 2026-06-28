@@ -11,15 +11,33 @@
 :root {
   --font-main: 'IBM Plex Sans', sans-serif;
   --font-heading: 'Syne', sans-serif;
-  --color-bg-dark: #12161c;
-  --color-bg-darker: #0c1015;
-  --color-accent: #ff9d00;
-  --color-text-light: #ffffff;
-  --color-text-muted: #94a3b8;
-  --color-bg-light: #f8fafc;
-  --color-text-dark: #1e293b;
-  --color-text-dark-muted: #64748b;
   --transition-speed: 0.3s;
+}
+
+[data-theme='light'] {
+  --bg-primary: #D3C7AD;
+  --bg-secondary: #C8BCA2;
+  --text-primary: #28374A;
+  --text-secondary: #4A6384;
+  --color-accent: #754437;
+  --color-accent-hover: #5A3329;
+  --color-border: rgba(40, 55, 74, 0.15);
+  --card-bg: rgba(40, 55, 74, 0.05);
+  --card-bg-hover: rgba(40, 55, 74, 0.1);
+  --verde-opaco: #6B6751;
+}
+
+[data-theme='dark'] {
+  --bg-primary: #28374A;
+  --bg-secondary: #1F2B3A;
+  --text-primary: #D3C7AD;
+  --text-secondary: #9B9483;
+  --color-accent: #754437;
+  --color-accent-hover: #8D5445;
+  --color-border: rgba(211, 199, 173, 0.15);
+  --card-bg: rgba(211, 199, 173, 0.05);
+  --card-bg-hover: rgba(211, 199, 173, 0.1);
+  --verde-opaco: #6B6751;
 }
 
 * {
@@ -30,10 +48,11 @@
 
 body {
   font-family: var(--font-main);
-  background-color: var(--color-bg-light);
-  color: var(--color-text-dark);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
+  transition: background-color var(--transition-speed), color var(--transition-speed);
 }
 
 a {
@@ -74,7 +93,7 @@ h2 {
 /* Buttons */
 .btn-primary {
   background-color: var(--color-accent);
-  color: #fff;
+  color: var(--bg-primary);
   padding: 12px 24px;
   border-radius: 50px;
   font-weight: 600;
@@ -82,22 +101,22 @@ h2 {
 }
 
 .btn-primary:hover {
-  background-color: #e68a00;
+  background-color: var(--color-accent-hover);
   transform: translateY(-2px);
 }
 
 .btn-secondary {
   background-color: transparent;
-  color: #fff;
+  color: var(--text-primary);
   padding: 12px 24px;
   border-radius: 50px;
-  border: 1px solid rgba(255, 255, 255, 0.3);
+  border: 1px solid var(--color-border);
   font-weight: 600;
   transition: all var(--transition-speed);
 }
 
 .btn-secondary:hover {
-  background-color: rgba(255, 255, 255, 0.1);
+  background-color: var(--card-bg-hover);
 }
 
 /* Sections */
@@ -106,13 +125,14 @@ section {
 }
 
 .section-dark {
-  background-color: var(--color-bg-dark);
-  color: var(--color-text-light);
+  background-color: var(--bg-secondary);
+  color: var(--text-primary);
+  border-top: 1px solid var(--color-border);
 }
 
 .section-light {
-  background-color: var(--color-bg-light);
-  color: var(--color-text-dark);
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
 }
 
 /* Responsive Grid Classes */
@@ -129,6 +149,44 @@ section {
   gap: 40px;
 }
 
+/* Mobile Menu Fixes */
+.mobile-menu-overlay {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.hide-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.hide-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Bento Box Grid */
+.bento-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  max-width: 1000px;
+  margin: 40px auto 0;
+}
+
+.bento-item-0 { grid-column: span 2; grid-row: span 1; }
+.bento-item-1 { grid-column: span 1; grid-row: span 2; }
+.bento-item-2 { grid-column: span 1; grid-row: span 1; }
+.bento-item-3 { grid-column: span 1; grid-row: span 1; }
+
+@media (max-width: 768px) {
+  .bento-grid {
+    grid-template-columns: 1fr;
+  }
+  .bento-item-0, .bento-item-1, .bento-item-2, .bento-item-3 {
+    grid-column: span 1;
+    grid-row: span 1;
+  }
+}
+
+
 /* Mobile Menu Styles */
 .mobile-menu-overlay {
   position: fixed;
@@ -136,8 +194,7 @@ section {
   left: 0;
   right: 0;
   bottom: 0;
-  background-color: rgba(18, 22, 28, 0.98);
-  backdrop-filter: blur(20px);
+  background-color: var(--bg-primary);
   z-index: 999;
   display: flex;
   flex-direction: column;
@@ -150,7 +207,7 @@ section {
   font-size: 3rem;
   font-family: var(--font-heading);
   text-transform: uppercase;
-  color: #fff;
+  color: var(--text-primary);
   letter-spacing: 2px;
 }
 
@@ -159,7 +216,7 @@ section {
   z-index: 1001;
   background: none;
   border: none;
-  color: #fff;
+  color: var(--text-primary);
   cursor: pointer;
 }
 
@@ -200,7 +257,6 @@ section {
     transform: translate(-50%, -50%) scale(1.5) !important;
     width: 100vw !important;
     opacity: 0.15 !important;
-    pointer-events: none;
     z-index: 0;
   }
 
