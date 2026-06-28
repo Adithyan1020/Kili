@@ -26,9 +26,15 @@ const Destinations = () => {
         >
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px' }}>you want</div>
           <h2 style={{ color: '#fff', fontSize: '2.5rem' }}>Which Country?</h2>
-          <p style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false }}
+            style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}
+          >
             Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet.
-          </p>
+          </motion.p>
         </motion.div>
 
         {/* Flag Selection */}
@@ -102,9 +108,15 @@ const Destinations = () => {
               <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
                 {countries.find(c => c.id === selectedCountry)?.name.toUpperCase()}
               </h3>
-              <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: false }}
+                style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
+              >
                 Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed. Ut finibus nisl magna proin eu. Arcu sed proin cras tempus.
-              </p>
+              </motion.p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
                 {['Visa cards', 'Fast book', 'Economy selected', 'International', 'Free network'].map((perk, i) => (

@@ -39,9 +39,15 @@ const WhyTrustUs = () => {
           
           <motion.div variants={itemVariants}>
             <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', fontWeight: '600', color: '#fff' }}>Why should you trust TRUVIQ?</h3>
-            <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: '700px' }}>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+              viewport={{ once: false }}
+              style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: '700px' }}
+            >
               Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed. Ut finibus nisl magna proin eu. Arcu sed proin cras tempus.
-            </p>
+            </motion.p>
           </motion.div>
         </motion.div>
 
@@ -82,9 +88,15 @@ const WhyTrustUs = () => {
               <h2 style={{ fontSize: '2.5rem', marginBottom: '15px', fontStyle: 'italic' }}>
                 According<br/>to your<br/><span style={{ color: 'var(--color-accent)' }}>ability!!</span>
               </h2>
-              <p style={{ color: 'rgba(255,255,255,0.8)' }}>
+              <motion.p 
+                initial={{ opacity: 0, y: 20 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+                viewport={{ once: false }}
+                style={{ color: 'rgba(255,255,255,0.8)' }}
+              >
                 Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed.
-              </p>
+              </motion.p>
             </div>
             <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               Read More

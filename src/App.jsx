@@ -1,14 +1,21 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhyTrustUs from './components/WhyTrustUs';
 import Destinations from './components/Destinations';
 import Testimonials from './components/Testimonials';
+import Loader from './components/Loader';
 import './index.css';
 
 function App() {
+  const [isLoading, setIsLoading] = useState(true);
+
   return (
-    <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh' }}>
+    <>
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+      
+      {!isLoading && (
+        <div style={{ backgroundColor: 'var(--color-bg-light)', minHeight: '100vh' }}>
       <Navbar />
       <Hero />
       <WhyTrustUs />
@@ -24,7 +31,9 @@ function App() {
           <p style={{ color: 'var(--color-text-muted)' }}>© 2026 TRUVIQ Immigration & Consultancy. All rights reserved.</p>
         </div>
       </footer>
-    </div>
+        </div>
+      )}
+    </>
   );
 }
 

@@ -40,9 +40,15 @@ const Testimonials = () => {
             Success Stories
           </div>
           <h2 style={{ color: '#fff', fontSize: '3rem' }}>What Our Clients Say</h2>
-          <p style={{ color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}>
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: false }}
+            style={{ color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}
+          >
             Don't just take our word for it. Read about the journeys of people who trusted us with their global relocation.
-          </p>
+          </motion.p>
         </motion.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>

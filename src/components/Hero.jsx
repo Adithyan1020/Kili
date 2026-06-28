@@ -42,20 +42,22 @@ const Hero = () => {
               <span style={{ color: 'var(--color-accent)' }}>TRUVIQ</span> IMMIGRATION<br/>& CONSULTANCY
             </h1>
 
-            <p style={{
-              color: 'var(--color-text-muted)',
-              fontSize: '1.4rem',
-              marginBottom: '40px',
-              maxWidth: '450px',
-              fontWeight: '500'
-            }}>
+            <motion.p 
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
+              style={{
+                color: 'var(--color-text-muted)',
+                fontSize: '1.4rem',
+                marginBottom: '40px',
+                maxWidth: '450px',
+                fontWeight: '500'
+              }}
+            >
               Your Journey. Our Commitment.
-            </p>
+            </motion.p>
             
-            <div style={{ display: 'flex', gap: '20px', alignItems: 'center' }}>
-              <button className="btn-primary" style={{ padding: '14px 32px', fontSize: '1.1rem' }}>Get Started</button>
-              <button className="btn-secondary" style={{ padding: '14px 32px', fontSize: '1.1rem' }}>Learn More</button>
-            </div>
+
           </motion.div>
 
           {/* Right Globe Content */}
