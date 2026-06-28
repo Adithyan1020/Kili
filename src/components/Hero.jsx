@@ -21,12 +21,7 @@ const Hero = () => {
       }}
     >
       <div className="container">
-        <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '40px',
-          alignItems: 'center'
-        }}>
+        <div className="grid-2-col">
           
           {/* Left Text Content */}
             <motion.div 

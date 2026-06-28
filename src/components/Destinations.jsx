@@ -32,10 +32,22 @@ const Destinations = () => {
         </motion.div>
 
         {/* Flag Selection */}
-        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '60px', flexWrap: 'wrap' }}>
+        <motion.div 
+          initial="hidden"
+          whileInView="visible"
+          viewport={{ once: false, margin: "-50px" }}
+          variants={{
+            visible: { transition: { staggerChildren: 0.1 } }
+          }}
+          style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '60px', flexWrap: 'wrap' }}
+        >
           {countries.map((c) => (
             <motion.button
               key={c.id}
+              variants={{
+                hidden: { opacity: 0, y: 30 },
+                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
+              }}
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
               onClick={() => setSelectedCountry(c.id)}
@@ -57,26 +69,25 @@ const Destinations = () => {
               <img src={c.flag} alt={`${c.name} flag`} style={{ width: '40px', height: 'auto', borderRadius: '4px' }} />
             </motion.button>
           ))}
-        </div>
+        </motion.div>
 
         {/* Country Details */}
-        <AnimatePresence mode="wait">
+        <motion.div
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-50px" }}
+          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
+        >
+          <AnimatePresence mode="wait">
           <motion.div
+            className="grid-2-col"
             key={selectedCountry}
             initial={{ opacity: 0, x: 20 }}
             animate={{ opacity: 1, x: 0 }}
             exit={{ opacity: 0, x: -20 }}
             transition={{ duration: 0.4 }}
             style={{
-              background: 'rgba(255, 255, 255, 0.03)',
-              border: '1px solid rgba(255, 255, 255, 0.05)',
-              borderRadius: '24px',
-              padding: '60px',
-              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '60px',
-              alignItems: 'center'
+              padding: '20px 0',
             }}
           >
             <div>
@@ -107,7 +118,8 @@ const Destinations = () => {
               <button className="btn-primary" style={{ padding: '12px 30px' }}>Get Started</button>
             </div>
           </motion.div>
-        </AnimatePresence>
+          </AnimatePresence>
+        </motion.div>
       </div>
     </section>
   );

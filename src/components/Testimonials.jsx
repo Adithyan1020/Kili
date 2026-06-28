@@ -54,10 +54,7 @@ const Testimonials = () => {
               transition={{ duration: 1, delay: index * 0.15, ease: [0.16, 1, 0.3, 1] }}
               viewport={{ once: false, margin: "-50px" }}
               style={{
-                background: 'rgba(255, 255, 255, 0.03)',
-                border: '1px solid rgba(255, 255, 255, 0.05)',
-                borderRadius: '24px',
-                padding: '40px',
+                padding: '20px',
                 display: 'flex',
                 flexDirection: 'column',
                 gap: '20px'

@@ -53,7 +53,7 @@ const Navbar = () => {
         </div>
 
         {/* Desktop Links */}
-        <div style={{ display: 'flex', gap: '30px', alignItems: 'center', color: 'rgba(255,255,255,0.8)' }} className="desktop-links">
+        <div style={{ display: 'flex', gap: '30px', alignItems: 'center', color: 'rgba(255,255,255,0.8)' }} className="desktop-nav">
           <a href="#about" onClick={(e) => scrollToSection(e, 'about')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.8)'}>About</a>
           <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.8)'}>Testimonials</a>
           <a href="#countries" onClick={(e) => scrollToSection(e, 'countries')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'rgba(255,255,255,0.8)'}>Countries</a>
@@ -61,7 +61,7 @@ const Navbar = () => {
         </div>
 
         {/* Contact Info */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }} className="desktop-nav">
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff' }}>
             <PhoneCall size={18} color="var(--color-accent)" />
             <div style={{ display: 'flex', flexDirection: 'column' }}>
@@ -71,7 +71,32 @@ const Navbar = () => {
           </div>
           <button className="btn-primary" style={{ padding: '8px 20px' }}>Apply</button>
         </div>
+        {/* Mobile Menu Button */}
+        <button 
+          className="hamburger-btn" 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+        >
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
       </div>
+
+      {/* Mobile Menu Overlay */}
+      <AnimatePresence>
+        {mobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            transition={{ duration: 0.3 }}
+            className="mobile-menu-overlay"
+          >
+            <a href="#about" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'about'); setMobileMenuOpen(false); }}>About</a>
+            <a href="#testimonials" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'testimonials'); setMobileMenuOpen(false); }}>Testimonials</a>
+            <a href="#countries" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'countries'); setMobileMenuOpen(false); }}>Countries</a>
+            <a href="#contact" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'contact'); setMobileMenuOpen(false); }}>Contact</a>
+          </motion.div>
+        )}
+      </AnimatePresence>
     </motion.nav>
   );
 };

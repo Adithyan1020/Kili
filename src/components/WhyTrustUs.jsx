@@ -27,12 +27,8 @@ const WhyTrustUs = () => {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, margin: "-50px" }}
-          style={{ 
-            display: 'grid', 
-            gridTemplateColumns: '1fr 2fr', 
-            gap: '40px',
-            marginBottom: '60px'
-          }}
+          className="grid-sidebar"
+          style={{ marginBottom: '60px' }}
         >
           <motion.div variants={itemVariants}>
             <h2 style={{ fontSize: '2rem', margin: 0, color: '#fff' }}>
