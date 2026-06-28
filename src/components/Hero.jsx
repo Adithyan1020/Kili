@@ -73,14 +73,14 @@ const Hero = () => {
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
+            className="hero-globe-container"
             style={{
               position: 'relative',
               display: 'flex',
               justifyContent: 'center',
               alignItems: 'center',
               width: '100%',
-              aspectRatio: '1',
-              transform: 'scale(1.2)' // Scale up slightly to make it more prominent
+              aspectRatio: '1'
             }}
           >
             <MilitaryMap

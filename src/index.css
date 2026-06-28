@@ -182,10 +182,23 @@ section {
   }
 
   h1 {
-    font-size: clamp(3rem, 10vw, 4rem) !important;
+    font-size: clamp(2rem, 8vw, 2.5rem) !important;
   }
   
   h2 {
-    font-size: 2rem !important;
+    font-size: 1.5rem !important;
   }
+  
+  h3 {
+    font-size: 1.25rem !important;
+  }
+
+  .hero-globe-container {
+    transform: scale(0.9) !important;
+    margin-top: 20px;
+  }
+}
+
+.hero-globe-container {
+  transform: scale(1.2);
 }
