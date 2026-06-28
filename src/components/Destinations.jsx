@@ -42,7 +42,7 @@ const Destinations = () => {
             viewport={{ once: false }}
             style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}
           >
-            Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet.
+            Explore our top destination countries and discover the perfect place to build your future.
           </motion.p>
         </motion.div>
 
@@ -124,7 +124,7 @@ const Destinations = () => {
                 viewport={{ once: false }}
                 style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
               >
-                Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed. Ut finibus nisl magna proin eu. Arcu sed proin cras tempus.
+                We provide comprehensive immigration services tailored to your specific goals. From work permits to permanent residency, our expert team will guide you through every step of the process.
               </motion.p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>

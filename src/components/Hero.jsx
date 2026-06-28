@@ -26,6 +26,7 @@ const Hero = () => {
           
           {/* Left Text Content */}
             <motion.div 
+              className="hero-text-content"
               style={{ opacity, y }}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}

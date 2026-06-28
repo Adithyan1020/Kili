@@ -55,7 +55,7 @@ const WhyTrustUs = () => {
               viewport={{ once: false }}
               style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', maxWidth: '700px' }}
             >
-              Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed. Ut finibus nisl magna proin eu. Arcu sed proin cras tempus.
+              With over a decade of experience, TRUVIQ provides expert guidance for your immigration journey. Our dedicated consultants navigate the complexities of global visas to ensure a seamless transition for you and your family.
             </motion.p>
           </motion.div>
         </motion.div>
@@ -113,7 +113,7 @@ const WhyTrustUs = () => {
                 viewport={{ once: false }}
                 style={{ color: 'rgba(255,255,255,0.8)' }}
               >
-                Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed.
+                Our personalized approach guarantees that every application is handled with the utmost care, maximizing your chances of a successful outcome.
               </motion.p>
             </motion.div>
             <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
