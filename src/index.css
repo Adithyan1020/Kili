@@ -1,4 +1,5 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&display=swap');
 
 @font-face {
   font-family: 'Galgo Condensed';
@@ -8,7 +9,8 @@
 }
 
 :root {
-  --font-main: 'Inter', sans-serif;
+  --font-main: 'IBM Plex Sans', sans-serif;
+  --font-heading: 'Syne', sans-serif;
   --color-bg-dark: #12161c;
   --color-bg-darker: #0c1015;
   --color-accent: #ff9d00;
@@ -55,7 +57,7 @@ button {
 
 /* Typography */
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'Galgo Condensed', var(--font-main);
+  font-family: var(--font-heading);
   font-weight: 700;
   line-height: 1.2;
 }
@@ -146,7 +148,7 @@ section {
 
 .mobile-menu-link {
   font-size: 3rem;
-  font-family: 'Galgo Condensed', var(--font-main);
+  font-family: var(--font-heading);
   text-transform: uppercase;
   color: #fff;
   letter-spacing: 2px;

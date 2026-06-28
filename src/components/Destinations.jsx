@@ -8,8 +8,8 @@ const countries = [
   { id: 'pl', name: 'Poland', flag: 'https://flagcdn.com/w80/pl.png', map: '/map/Poland_map_flag.svg.png' },
   { id: 'de', name: 'Germany', flag: 'https://flagcdn.com/w80/de.png', map: '/map/german_map.png' },
   { id: 'us', name: 'USA', flag: 'https://flagcdn.com/w80/us.png', map: '/map/USA_Flag_Map.svg' },
-  { id: 'it', name: 'Italy', flag: 'https://flagcdn.com/w80/it.png', map: '/map/map-of-italy-and-flag.jpg' },
-  { id: 'gb', name: 'UK', flag: 'https://flagcdn.com/w80/gb.png', map: '/map/Map-of-UK-Cartoon-Style-580x386.jpg' },
+  { id: 'it', name: 'Italy', flag: 'https://flagcdn.com/w80/it.png', map: '/map/italy.png' },
+  { id: 'gb', name: 'UK', flag: 'https://flagcdn.com/w80/gb.png', map: '/map/uk.png' },
 ];
 
 const Destinations = () => {
