@@ -45,16 +45,17 @@ const ServiceCard = ({ service }) => {
 
   return (
     <motion.div
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
+      onMouseEnter={() => window.matchMedia('(hover: hover)').matches && setIsHovered(true)}
+      onMouseLeave={() => window.matchMedia('(hover: hover)').matches && setIsHovered(false)}
+      onClick={() => setIsHovered(!isHovered)}
       style={{
-        minWidth: '350px',
-        width: '350px',
+        minWidth: 'min(350px, 85vw)',
+        width: 'min(350px, 85vw)',
         position: 'relative',
         background: isHovered ? 'var(--color-accent)' : 'var(--card-bg)',
         border: '1px solid var(--color-border)',
         borderRadius: '24px',
-        padding: '40px',
+        padding: '30px',
         display: 'flex',
         flexDirection: 'column',
         overflow: 'hidden',
