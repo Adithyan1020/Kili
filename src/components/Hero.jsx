@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
+import { SplitWord } from './AnimatedText';
 import MilitaryMap from './MilitaryMap';
 
 const Hero = () => {
@@ -32,15 +33,22 @@ const Hero = () => {
             >
 
             
-            <h1 style={{ 
-              fontSize: 'clamp(2.5rem, 4vw, 4rem)', 
-              lineHeight: 1.4, 
-              marginBottom: '20px',
-              textTransform: 'uppercase',
-              letterSpacing: '0px'
-            }}>
-              <span style={{ color: 'var(--color-accent)' }}>TRUVIQ</span> IMMIGRATION<br/>& CONSULTANCY
-            </h1>
+            <motion.h1 
+              initial="hidden"
+              animate="visible"
+              variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } } }}
+              style={{ 
+                fontSize: 'clamp(2.5rem, 4vw, 4rem)', 
+                lineHeight: 1.4, 
+                marginBottom: '20px',
+                textTransform: 'uppercase',
+                letterSpacing: '0px',
+                perspective: '1000px'
+              }}
+            >
+              <span style={{ color: 'var(--color-accent)' }}><SplitWord>TRUVIQ</SplitWord></span> <SplitWord>IMMIGRATION</SplitWord><br/>
+              <SplitWord>& CONSULTANCY</SplitWord>
+            </motion.h1>
 
             <motion.p 
               initial={{ opacity: 0, y: 20 }}

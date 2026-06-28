@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { SplitWord } from './AnimatedText';
 
 const testimonials = [
   {
@@ -39,7 +40,15 @@ const Testimonials = () => {
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Success Stories
           </div>
-          <h2 style={{ color: '#fff', fontSize: '3rem' }}>What Our Clients Say</h2>
+          <motion.h2 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+            style={{ color: '#fff', fontSize: '3rem', perspective: '1000px' }}
+          >
+            <SplitWord>What Our Clients Say</SplitWord>
+          </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}

@@ -1,5 +1,6 @@
 import React from 'react';
 import { motion } from 'framer-motion';
+import { SplitWord } from './AnimatedText';
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -37,8 +38,16 @@ const WhyTrustUs = () => {
             <div style={{ width: '40px', height: '4px', backgroundColor: 'var(--color-accent)', marginTop: '15px' }} />
           </motion.div>
           
-          <motion.div variants={itemVariants}>
-            <h3 style={{ fontSize: '1.8rem', marginBottom: '15px', fontWeight: '600', color: '#fff' }}>Why should you trust TRUVIQ?</h3>
+          <motion.div variants={itemVariants} style={{ perspective: '1000px' }}>
+            <motion.h3 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false }}
+              variants={{ visible: { transition: { staggerChildren: 0.03 } } }}
+              style={{ fontSize: '1.8rem', marginBottom: '15px', fontWeight: '600', color: '#fff' }}
+            >
+              <SplitWord>Why should you trust TRUVIQ?</SplitWord>
+            </motion.h3>
             <motion.p 
               initial={{ opacity: 0, y: 20 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -84,10 +93,18 @@ const WhyTrustUs = () => {
             justifyContent: 'space-between',
             color: '#fff'
           }}>
-            <div style={{ maxWidth: '600px' }}>
-              <h2 style={{ fontSize: '2.5rem', marginBottom: '15px', fontStyle: 'italic' }}>
-                According<br/>to your<br/><span style={{ color: 'var(--color-accent)' }}>ability!!</span>
-              </h2>
+            <motion.div variants={itemVariants} style={{ perspective: '1000px' }}>
+            <motion.h2 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: false }}
+              variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+              style={{ fontSize: '2.5rem', marginBottom: '15px', fontStyle: 'italic' }}
+            >
+              <SplitWord>According</SplitWord><br/>
+              <SplitWord>to your</SplitWord><br/>
+              <span style={{ color: 'var(--color-accent)' }}><SplitWord>ability!!</SplitWord></span>
+            </motion.h2>
               <motion.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -97,7 +114,7 @@ const WhyTrustUs = () => {
               >
                 Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed.
               </motion.p>
-            </div>
+            </motion.div>
             <button className="btn-primary" style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
               Read More
               <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>

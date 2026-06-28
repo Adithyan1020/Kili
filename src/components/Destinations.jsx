@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
+import { SplitWord } from './AnimatedText';
 import { CheckCircle2 } from 'lucide-react';
 
 const countries = [
@@ -25,7 +26,15 @@ const Destinations = () => {
           style={{ textAlign: 'center', marginBottom: '60px' }}
         >
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px' }}>you want</div>
-          <h2 style={{ color: '#fff', fontSize: '2.5rem' }}>Which Country?</h2>
+          <motion.h2 
+            initial="hidden"
+            whileInView="visible"
+            viewport={{ once: false }}
+            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+            style={{ color: '#fff', fontSize: '2.5rem', perspective: '1000px' }}
+          >
+            <SplitWord>Which Country?</SplitWord>
+          </motion.h2>
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
