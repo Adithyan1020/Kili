@@ -1,0 +1,116 @@
+import React, { useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
+import { CheckCircle2 } from 'lucide-react';
+
+const countries = [
+  { id: 'fr', name: 'France', flag: 'https://flagcdn.com/w80/fr.png', map: '/map/France_map.svg' },
+  { id: 'pl', name: 'Poland', flag: 'https://flagcdn.com/w80/pl.png', map: '/map/Poland_map_flag.svg.png' },
+  { id: 'de', name: 'Germany', flag: 'https://flagcdn.com/w80/de.png', map: '/map/german_map.png' },
+  { id: 'us', name: 'USA', flag: 'https://flagcdn.com/w80/us.png', map: '/map/USA_Flag_Map.svg' },
+  { id: 'it', name: 'Italy', flag: 'https://flagcdn.com/w80/it.png', map: '/map/map-of-italy-and-flag.jpg' },
+  { id: 'gb', name: 'UK', flag: 'https://flagcdn.com/w80/gb.png', map: '/map/Map-of-UK-Cartoon-Style-580x386.jpg' },
+];
+
+const Destinations = () => {
+  const [selectedCountry, setSelectedCountry] = useState('it');
+
+  return (
+    <section className="section-dark" id="countries" style={{ padding: '80px 0', background: 'var(--color-bg-darker)' }}>
+      <div className="container">
+        <motion.div 
+          initial={{ opacity: 0, y: 30 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
+          viewport={{ once: false, margin: "-50px" }}
+          style={{ textAlign: 'center', marginBottom: '60px' }}
+        >
+          <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px' }}>you want</div>
+          <h2 style={{ color: '#fff', fontSize: '2.5rem' }}>Which Country?</h2>
+          <p style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}>
+            Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet.
+          </p>
+        </motion.div>
+
+        {/* Flag Selection */}
+        <div style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '60px', flexWrap: 'wrap' }}>
+          {countries.map((c) => (
+            <motion.button
+              key={c.id}
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+              onClick={() => setSelectedCountry(c.id)}
+              style={{
+                width: '80px',
+                height: '80px',
+                borderRadius: '16px',
+                background: selectedCountry === c.id ? 'rgba(255,255,255,0.1)' : 'transparent',
+                boxShadow: selectedCountry === c.id ? '0 10px 25px rgba(0,0,0,0.5)' : 'none',
+                border: selectedCountry === c.id ? '2px solid var(--color-accent)' : '2px solid transparent',
+                fontSize: '2.5rem',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                transition: 'all 0.3s ease',
+                cursor: 'pointer'
+              }}
+            >
+              <img src={c.flag} alt={`${c.name} flag`} style={{ width: '40px', height: 'auto', borderRadius: '4px' }} />
+            </motion.button>
+          ))}
+        </div>
+
+        {/* Country Details */}
+        <AnimatePresence mode="wait">
+          <motion.div
+            key={selectedCountry}
+            initial={{ opacity: 0, x: 20 }}
+            animate={{ opacity: 1, x: 0 }}
+            exit={{ opacity: 0, x: -20 }}
+            transition={{ duration: 0.4 }}
+            style={{
+              background: 'rgba(255, 255, 255, 0.03)',
+              border: '1px solid rgba(255, 255, 255, 0.05)',
+              borderRadius: '24px',
+              padding: '60px',
+              boxShadow: '0 20px 40px rgba(0,0,0,0.3)',
+              display: 'grid',
+              gridTemplateColumns: '1fr 1fr',
+              gap: '60px',
+              alignItems: 'center'
+            }}
+          >
+            <div>
+              <img 
+                src={countries.find(c => c.id === selectedCountry)?.map} 
+                alt={`${countries.find(c => c.id === selectedCountry)?.name} Map`} 
+                style={{ width: '100%', maxWidth: '400px', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }}
+              />
+            </div>
+            <div>
+              <div style={{ color: 'var(--color-text-muted)', marginBottom: '5px' }}>About</div>
+              <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
+                {countries.find(c => c.id === selectedCountry)?.name.toUpperCase()}
+              </h3>
+              <p style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}>
+                Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna condimentum et sed. Ut finibus nisl magna proin eu. Arcu sed proin cras tempus.
+              </p>
+              
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
+                {['Visa cards', 'Fast book', 'Economy selected', 'International', 'Free network'].map((perk, i) => (
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff' }}>
+                    <CheckCircle2 size={20} color="var(--color-accent)" />
+                    <span style={{ fontWeight: '500' }}>{perk}</span>
+                  </div>
+                ))}
+              </div>
+
+              <button className="btn-primary" style={{ padding: '12px 30px' }}>Get Started</button>
+            </div>
+          </motion.div>
+        </AnimatePresence>
+      </div>
+    </section>
+  );
+};
+
+export default Destinations;
