@@ -10,7 +10,7 @@ const Navbar = () => {
     const handleScroll = () => {
       setIsScrolled(window.scrollY > 50);
     };
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener('scroll', handleScroll, { passive: true });
     return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
@@ -35,9 +35,9 @@ const Navbar = () => {
         right: 0,
         zIndex: 1000,
         padding: isScrolled ? '15px 0' : '25px 0',
-        backgroundColor: isScrolled ? 'rgba(18, 22, 28, 0.95)' : 'transparent',
-        backdropFilter: isScrolled ? 'blur(10px)' : 'none',
+        backgroundColor: isScrolled ? '#12161c' : 'transparent',
         borderBottom: isScrolled ? '1px solid rgba(255, 255, 255, 0.05)' : 'none',
+        willChange: 'background-color, padding',
         transition: 'all 0.3s ease',
       }}
     >

@@ -65,18 +65,19 @@ const WhyTrustUs = () => {
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           style={{
             position: 'relative',
             width: '100%',
             height: '500px',
             borderRadius: '20px',
             overflow: 'hidden',
-            boxShadow: '0 20px 40px rgba(0,0,0,0.1)'
+            boxShadow: '0 20px 40px rgba(0,0,0,0.1)',
+            willChange: 'transform, opacity'
           }}
         >
           <img 
-            src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=1600" 
+            src="https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&fm=webp&q=30&w=600" 
             alt="London Bridge Placeholder" 
             style={{ width: '100%', height: '100%', objectFit: 'cover' }}
           />
