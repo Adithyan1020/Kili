@@ -102,18 +102,18 @@ const Hero = ({ theme }) => {
                 rotateZ: -20,
                 enableDrag: true,
                 dragSensitivity: 0.4,
-                glowColor: "#754437",
+                glowColor: theme === 'light' ? "#B25640" : "#B25640",
                 glowIntensity: 0.4,
                 showStars: true,
                 showLabels: true
               }}
               mapStyle={{
                 oceanColor: "transparent",
-                landFill: theme === 'light' ? "#C8BCA2" : "#1F2B3A",
-                landStroke: theme === 'light' ? "#BDB197" : "#3C516D",
+                landFill: theme === 'light' ? "#EBE9DF" : "#181E3A",
+                landStroke: theme === 'light' ? "#7F858D" : "#222B52",
                 strokeWidth: 0.8,
-                hoverColor: "#754437",
-                disabledColor: theme === 'light' ? "#D3C7AD" : "#28374A"
+                hoverColor: theme === 'light' ? "#B25640" : "#B25640",
+                disabledColor: theme === 'light' ? "#F8F7F0" : "#222B52"
               }}
               countries={[
                 {code: "FRA", name: "France", enabled: true},
@@ -124,12 +124,12 @@ const Hero = ({ theme }) => {
                 {code: "GBR", name: "UK", enabled: true}
               ]}
               markers={[
-                { label: "France", description: "Visa & Immigration", latitude: 46.2276, longitude: 2.2137, color: "#754437" },
-                { label: "Poland", description: "Visa & Immigration", latitude: 51.9194, longitude: 19.1451, color: "#754437" },
-                { label: "Germany", description: "Visa & Immigration", latitude: 51.1657, longitude: 10.4515, color: "#754437" },
-                { label: "USA", description: "Visa & Immigration", latitude: 37.0902, longitude: -95.7129, color: "#754437" },
-                { label: "Italy", description: "Visa & Immigration", latitude: 41.8719, longitude: 12.5674, color: "#754437" },
-                { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: "#754437" },
+                { label: "France", description: "Visa & Immigration", latitude: 46.2276, longitude: 2.2137, color: "#B25640" },
+                { label: "Poland", description: "Visa & Immigration", latitude: 51.9194, longitude: 19.1451, color: "#B25640" },
+                { label: "Germany", description: "Visa & Immigration", latitude: 51.1657, longitude: 10.4515, color: "#B25640" },
+                { label: "USA", description: "Visa & Immigration", latitude: 37.0902, longitude: -95.7129, color: "#B25640" },
+                { label: "Italy", description: "Visa & Immigration", latitude: 41.8719, longitude: 12.5674, color: "#B25640" },
+                { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: "#B25640" },
               ]}
               tooltip={{ show: true, background: "rgba(18, 20, 23, 0.92)", textColor: "#e7ece9", borderColor: "rgba(140, 150, 145, 0.32)" }}
               grid={{ show: true, color: "#5b636a", opacity: 0.2 }}
