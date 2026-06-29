@@ -55,8 +55,8 @@ body {
   transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out;
 }
 
-/* Make sure elements that use background/border colors also transition smoothly */
-div, section, button, a, span {
+/* Targeted smooth transitions for theme switching instead of global tags */
+.theme-transition {
   transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out, border-color var(--transition-speed) ease-in-out, fill var(--transition-speed) ease-in-out, opacity var(--transition-speed) ease-in-out;
 }
 
