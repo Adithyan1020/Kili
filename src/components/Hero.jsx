@@ -16,12 +16,12 @@ const Hero = ({ theme }) => {
     const isSlowConnection = navigator.connection && 
       (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
     
-    // Safari and iOS often lock hardwareConcurrency to 2 or 4 to prevent fingerprinting.
-    // We only trigger fallback if it's explicitly 2 or fewer cores (very old devices).
-    const hasLowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+    // Use deviceMemory API: <= 4GB RAM strongly correlates with budget/older devices.
+    // Safari doesn't support this (returns undefined), which perfectly prevents false positives on iPhones/Macs.
+    const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
     
     // We fall back to the lightweight static visual if any of these criteria match
-    if (prefersReducedMotion || isSlowConnection || hasLowCores) {
+    if (prefersReducedMotion || isSlowConnection || hasLowMemory) {
       setIsLowEnd(true);
     }
   }, []);
