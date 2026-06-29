@@ -112,19 +112,17 @@ const Hero = ({ theme }) => {
             }}
           >
             {isLowEnd ? (
-              <div style={{ width: '100%', height: '100%', padding: '10%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', overflow: 'visible' }}>
-                  <circle cx="50" cy="50" r="48" fill={theme === 'light' ? '#D5DEEF' : '#2A4165'} stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" />
-                  <ellipse cx="50" cy="50" rx="24" ry="48" fill="none" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
-                  <ellipse cx="50" cy="50" rx="10" ry="48" fill="none" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
-                  <path d="M 2 50 L 98 50" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
-                  <path d="M 12 25 L 88 25" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
-                  <path d="M 12 75 L 88 75" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
-                  {/* Static accent nodes */}
-                  <circle cx="70" cy="30" r="3" fill="var(--color-accent)" opacity="0.8" />
-                  <circle cx="30" cy="65" r="2.5" fill="var(--color-accent)" opacity="0.8" />
-                  <circle cx="60" cy="70" r="4" fill="var(--color-accent)" opacity="0.8" />
-                </svg>
+              <div style={{ width: '100%', height: '100%', padding: '5%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <img 
+                  src="/static_globe.png" 
+                  alt="Interactive Globe Static Fallback" 
+                  style={{ 
+                    width: '100%', 
+                    height: 'auto', 
+                    objectFit: 'contain',
+                    filter: theme === 'light' ? 'none' : 'brightness(0.9) contrast(1.1)' 
+                  }} 
+                />
               </div>
             ) : (
               <MilitaryMap

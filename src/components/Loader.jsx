@@ -44,7 +44,9 @@ const Loader = ({ onComplete }) => {
       loadedCount++;
       setProgress(loadedCount / assetsToPreload.length);
       if (loadedCount >= assetsToPreload.length) {
-        finishLoading();
+        document.fonts.ready.then(() => {
+          finishLoading();
+        });
       }
     };
 
