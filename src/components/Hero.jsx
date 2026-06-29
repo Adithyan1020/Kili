@@ -27,7 +27,7 @@ const Hero = ({ theme }) => {
           {/* Left Text Content */}
             <motion.div 
               className="hero-text-content"
-              style={{ opacity, y, willChange: 'transform, opacity' }}
+              style={{ opacity, y }}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -90,8 +90,7 @@ const Hero = ({ theme }) => {
               justifyContent: 'center',
               alignItems: 'center',
               width: '100%',
-              aspectRatio: '1',
-              willChange: 'transform, opacity'
+              aspectRatio: '1'
             }}
           >
             <MilitaryMap
