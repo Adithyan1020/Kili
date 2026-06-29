@@ -11,33 +11,33 @@
 :root {
   --font-main: 'IBM Plex Sans', sans-serif;
   --font-heading: 'Syne', sans-serif;
-  --transition-speed: 0.3s;
+  --transition-speed: 0.8s;
 }
 
 [data-theme='light'] {
-  --bg-primary: #F8F7F0;
-  --bg-secondary: #EBE9DF;
-  --text-primary: #222B52;
-  --text-secondary: #7F858D;
-  --color-accent: #B25640;
-  --color-accent-hover: #984936;
-  --color-border: rgba(34, 43, 82, 0.15);
-  --card-bg: rgba(34, 43, 82, 0.05);
-  --card-bg-hover: rgba(34, 43, 82, 0.1);
-  --verde-opaco: #7F858D;
+  --bg-primary: #F0F3FA;
+  --bg-secondary: #D5DEEF;
+  --text-primary: #395886;
+  --text-secondary: #638ECB;
+  --color-accent: #638ECB;
+  --color-accent-hover: #395886;
+  --color-border: rgba(57, 88, 134, 0.15);
+  --card-bg: rgba(57, 88, 134, 0.05);
+  --card-bg-hover: rgba(57, 88, 134, 0.1);
+  --verde-opaco: #8AAEE0;
 }
 
 [data-theme='dark'] {
-  --bg-primary: #222B52;
-  --bg-secondary: #181E3A;
-  --text-primary: #F8F7F0;
-  --text-secondary: #A3ABB5;
-  --color-accent: #B25640;
-  --color-accent-hover: #D1664C;
-  --color-border: rgba(248, 247, 240, 0.15);
-  --card-bg: rgba(248, 247, 240, 0.05);
-  --card-bg-hover: rgba(248, 247, 240, 0.1);
-  --verde-opaco: #7F858D;
+  --bg-primary: #395886;
+  --bg-secondary: #2A4165;
+  --text-primary: #F0F3FA;
+  --text-secondary: #B1C9EF;
+  --color-accent: #8AAEE0;
+  --color-accent-hover: #D5DEEF;
+  --color-border: rgba(240, 243, 250, 0.15);
+  --card-bg: rgba(240, 243, 250, 0.05);
+  --card-bg-hover: rgba(240, 243, 250, 0.1);
+  --verde-opaco: #638ECB;
 }
 
 * {
@@ -52,7 +52,12 @@ body {
   color: var(--text-primary);
   line-height: 1.6;
   overflow-x: hidden;
-  transition: background-color var(--transition-speed), color var(--transition-speed);
+  transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out;
+}
+
+/* Make sure elements that use background/border colors also transition smoothly */
+div, section, button, a, span {
+  transition: background-color var(--transition-speed) ease-in-out, color var(--transition-speed) ease-in-out, border-color var(--transition-speed) ease-in-out, fill var(--transition-speed) ease-in-out, opacity var(--transition-speed) ease-in-out;
 }
 
 a {

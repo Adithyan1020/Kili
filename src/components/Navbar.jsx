@@ -61,27 +61,30 @@ const Navbar = ({ theme, toggleTheme }) => {
           <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Contact</a>
         </div>
 
-        {/* Contact Info & Theme Toggle */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }} className="desktop-nav">
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
-            <PhoneCall size={18} color="var(--color-accent)" />
-            <div style={{ display: 'flex', flexDirection: 'column' }}>
-              <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Service Center</span>
-              <span style={{ fontWeight: '600' }}>0215 555 010</span>
+        {/* Right Controls */}
+        <div style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+          <div className="desktop-nav" style={{ display: 'flex', alignItems: 'center', gap: '20px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
+              <PhoneCall size={18} color="var(--color-accent)" />
+              <div style={{ display: 'flex', flexDirection: 'column' }}>
+                <span style={{ fontSize: '0.8rem', color: 'var(--color-text-muted)' }}>Service Center</span>
+                <span style={{ fontWeight: '600' }}>0215 555 010</span>
+              </div>
             </div>
+            <button className="btn-primary" style={{ padding: '8px 20px' }}>Apply</button>
           </div>
-          <button onClick={toggleTheme} style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          
+          <button onClick={toggleTheme} style={{ color: 'var(--text-primary)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '8px', borderRadius: '50%', backgroundColor: 'var(--card-bg)' }}>
             {theme === 'light' ? <Moon size={20} /> : <Sun size={20} />}
           </button>
-          <button className="btn-primary" style={{ padding: '8px 20px' }}>Apply</button>
+
+          <button 
+            className="hamburger-btn" 
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
-        {/* Mobile Menu Button */}
-        <button 
-          className="hamburger-btn" 
-          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-        >
-          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
-        </button>
       </div>
 
       {/* Mobile Menu Overlay */}
