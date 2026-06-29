@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 import { CheckCircle2, Globe2, GraduationCap, Plane, Plus } from 'lucide-react';
 
@@ -44,7 +44,7 @@ const ServiceCard = ({ service }) => {
   const [isHovered, setIsHovered] = useState(false);
 
   return (
-    <motion.div
+    <m.div
       onMouseEnter={() => window.matchMedia('(hover: hover)').matches && setIsHovered(true)}
       onMouseLeave={() => window.matchMedia('(hover: hover)').matches && setIsHovered(false)}
       onClick={() => setIsHovered(!isHovered)}
@@ -67,33 +67,33 @@ const ServiceCard = ({ service }) => {
       whileHover={{ y: -10 }}
     >
       {/* Icon */}
-      <motion.div 
+      <m.div 
         animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--color-accent)' }}
         transition={{ duration: 0.3 }}
         style={{ marginBottom: '20px' }}
       >
         {service.icon}
-      </motion.div>
+      </m.div>
 
       {/* Title & Desc */}
-      <motion.h3 
+      <m.h3 
         animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--text-primary)' }}
         style={{ fontSize: '1.8rem', marginBottom: '15px', fontWeight: '600' }}
       >
         {service.title}
-      </motion.h3>
+      </m.h3>
       
-      <motion.p 
+      <m.p 
         animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--text-secondary)' }}
         style={{ fontSize: '1.1rem', marginBottom: '20px', lineHeight: 1.6 }}
       >
         {service.description}
-      </motion.p>
+      </m.p>
 
       {/* Expandable Features */}
       <AnimatePresence>
         {isHovered && (
-          <motion.div
+          <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
@@ -112,13 +112,13 @@ const ServiceCard = ({ service }) => {
                 </div>
               ))}
             </div>
-          </motion.div>
+          </m.div>
         )}
       </AnimatePresence>
 
       {/* Plus Button Micro Interaction */}
       <div style={{ flexGrow: 1 }} />
-      <motion.div
+      <m.div
         animate={{ 
           backgroundColor: isHovered ? 'var(--bg-primary)' : 'var(--card-bg)',
           color: isHovered ? 'var(--color-accent)' : 'var(--text-primary)',
@@ -137,8 +137,8 @@ const ServiceCard = ({ service }) => {
         }}
       >
         <Plus size={24} />
-      </motion.div>
-    </motion.div>
+      </m.div>
+    </m.div>
   );
 };
 
@@ -146,7 +146,7 @@ const Services = () => {
   return (
     <section id="services" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-dark)' }}>
       <div className="container">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -157,7 +157,7 @@ const Services = () => {
             Turn Your International Dreams Into Reality
           </div>
           <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', flexWrap: 'wrap', gap: '20px' }}>
-            <motion.h2 
+            <m.h2 
               initial="hidden"
               whileInView="visible"
               viewport={{ once: true }}
@@ -165,12 +165,12 @@ const Services = () => {
               style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px', margin: 0 }}
             >
               <SplitWord>Our Expertise</SplitWord>
-            </motion.h2>
+            </m.h2>
             <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '400px', margin: 0, lineHeight: 1.6 }}>
               Every successful journey begins with the right advice. TRUVIQ provides end-to-end immigration solutions.
             </p>
           </div>
-        </motion.div>
+        </m.div>
 
         {/* Horizontal Scrolling Container */}
         <div 
@@ -196,3 +196,4 @@ const Services = () => {
 };
 
 export default Services;
+

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 
 const assetsToPreload = [
   'https://flagcdn.com/w80/fr.png',
@@ -61,7 +61,7 @@ const Loader = ({ onComplete }) => {
   return (
     <AnimatePresence>
       {!isFadingOut && (
-        <motion.div
+        <m.div
           exit={{ opacity: 0, y: -20 }}
           transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
           style={{
@@ -76,14 +76,14 @@ const Loader = ({ onComplete }) => {
             color: '#fff'
           }}
         >
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.9 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
             style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '30px' }}
           >
             {/* Simple Spinning Ring */}
-            <motion.div
+            <m.div
               animate={{ rotate: 360 }}
               transition={{ repeat: Infinity, duration: 1.5, ease: 'linear' }}
               style={{
@@ -104,11 +104,12 @@ const Loader = ({ onComplete }) => {
             <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', fontVariantNumeric: 'tabular-nums' }}>
               {Math.round(progress * 100)}%
             </div>
-          </motion.div>
-        </motion.div>
+          </m.div>
+        </m.div>
       )}
     </AnimatePresence>
   );
 };
 
 export default Loader;
+

@@ -1,5 +1,5 @@
-import React from 'react';
-import { motion, useScroll, useTransform } from 'framer-motion';
+import React, { useState, useEffect } from 'react';
+import { m, useScroll, useTransform } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 import MilitaryMap from './MilitaryMap';
 
@@ -7,6 +7,24 @@ const Hero = ({ theme }) => {
   const { scrollY } = useScroll();
   const opacity = useTransform(scrollY, [0, 400], [1, 0]);
   const y = useTransform(scrollY, [0, 400], [0, 100]);
+  
+  const [isLowEnd, setIsLowEnd] = useState(false);
+
+  useEffect(() => {
+    // Detect low-end hardware, slow networks, or reduced motion preference
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const isSlowConnection = navigator.connection && 
+      (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+    
+    // Safari and iOS often lock hardwareConcurrency to 2 or 4 to prevent fingerprinting.
+    // We only trigger fallback if it's explicitly 2 or fewer cores (very old devices).
+    const hasLowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+    
+    // We fall back to the lightweight static visual if any of these criteria match
+    if (prefersReducedMotion || isSlowConnection || hasLowCores) {
+      setIsLowEnd(true);
+    }
+  }, []);
 
   return (
     <section 
@@ -25,7 +43,7 @@ const Hero = ({ theme }) => {
         <div className="grid-2-col">
           
           {/* Left Text Content */}
-            <motion.div 
+            <m.div 
               className="hero-text-content"
               style={{ opacity, y }}
               initial={{ opacity: 0, y: 40 }}
@@ -34,7 +52,7 @@ const Hero = ({ theme }) => {
             >
 
             
-            <motion.h1 
+            <m.h1 
               initial="hidden"
               animate="visible"
               variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } } }}
@@ -49,9 +67,9 @@ const Hero = ({ theme }) => {
             >
               <span style={{ color: 'var(--color-accent)' }}><SplitWord>TRUVIQ</SplitWord></span> <SplitWord>IMMIGRATION</SplitWord><br/>
               <SplitWord>& CONSULTANCY</SplitWord>
-            </motion.h1>
+            </m.h1>
 
-            <motion.p 
+            <m.p 
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
@@ -65,21 +83,21 @@ const Hero = ({ theme }) => {
             >
               <span style={{ fontSize: '1.4rem', color: 'var(--text-primary)', fontWeight: '600', display: 'block', marginBottom: '15px' }}>Your Trusted Gateway to Global Opportunities</span>
               Expert Immigration & Visa Solutions Designed Around Your Future.
-            </motion.p>
+            </m.p>
             
-            <motion.div
+            <m.div
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
               style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}
             >
               <button className="btn-primary" style={{ padding: '15px 30px', fontSize: '1.1rem' }}>Book Expert Consultation</button>
-            </motion.div>
+            </m.div>
 
-          </motion.div>
+          </m.div>
 
           {/* Right Globe Content */}
-          <motion.div
+          <m.div
             initial={{ opacity: 0, scale: 0.8 }}
             animate={{ opacity: 1, scale: 1 }}
             transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
@@ -93,49 +111,72 @@ const Hero = ({ theme }) => {
               aspectRatio: '1'
             }}
           >
-            <MilitaryMap
-              interaction={{
-                autoRotate: true,
-                autoRotateSpeed: 4,
-                rotateX: 0,
-                rotateY: 20,
-                rotateZ: -20,
-                enableDrag: true,
-                dragSensitivity: 0.4,
-                glowColor: theme === 'light' ? "#638ECB" : "#8AAEE0",
-                glowIntensity: 0.4,
-                showStars: true,
-                showLabels: true
-              }}
-              mapStyle={{
-                oceanColor: "transparent",
-                landFill: theme === 'light' ? "#D5DEEF" : "#2A4165",
-                landStroke: theme === 'light' ? "#8AAEE0" : "#1F314C",
-                strokeWidth: 0.8,
-                hoverColor: theme === 'light' ? "#638ECB" : "#8AAEE0",
-                disabledColor: theme === 'light' ? "#F0F3FA" : "#395886"
-              }}
-              countries={[
-                {code: "FRA", name: "France", enabled: true},
-                {code: "POL", name: "Poland", enabled: true},
-                {code: "DEU", name: "Germany", enabled: true},
-                {code: "USA", name: "USA", enabled: true},
-                {code: "ITA", name: "Italy", enabled: true},
-                {code: "GBR", name: "UK", enabled: true}
-              ]}
-              markers={[
-                { label: "France", description: "Visa & Immigration", latitude: 46.2276, longitude: 2.2137, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-                { label: "Poland", description: "Visa & Immigration", latitude: 51.9194, longitude: 19.1451, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-                { label: "Germany", description: "Visa & Immigration", latitude: 51.1657, longitude: 10.4515, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-                { label: "USA", description: "Visa & Immigration", latitude: 37.0902, longitude: -95.7129, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-                { label: "Italy", description: "Visa & Immigration", latitude: 41.8719, longitude: 12.5674, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-                { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
-              ]}
-              tooltip={{ show: true, background: "rgba(18, 20, 23, 0.92)", textColor: "#e7ece9", borderColor: "rgba(140, 150, 145, 0.32)" }}
-              grid={{ show: true, color: "#5b636a", opacity: 0.2 }}
-              layout={{ cornerRadius: 0, padding: 0, showBorder: false, borderColor: "transparent" }}
-            />
-          </motion.div>
+            {isLowEnd ? (
+              <div style={{ width: '100%', height: '100%', padding: '10%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                <svg viewBox="0 0 100 100" style={{ width: '100%', height: '100%', overflow: 'visible', filter: 'drop-shadow(0px 0px 20px rgba(99, 142, 203, 0.4))' }}>
+                  <circle cx="50" cy="50" r="48" fill={theme === 'light' ? '#D5DEEF' : '#2A4165'} stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" />
+                  <ellipse cx="50" cy="50" rx="24" ry="48" fill="none" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
+                  <ellipse cx="50" cy="50" rx="10" ry="48" fill="none" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
+                  <path d="M 2 50 L 98 50" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
+                  <path d="M 12 25 L 88 25" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
+                  <path d="M 12 75 L 88 75" stroke={theme === 'light' ? '#8AAEE0' : '#1F314C'} strokeWidth="1" opacity="0.6" />
+                  {/* Subtle pulsing accent nodes */}
+                  <circle cx="70" cy="30" r="3" fill="var(--color-accent)" opacity="0.8">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="3s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="30" cy="65" r="2.5" fill="var(--color-accent)" opacity="0.8">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="4s" repeatCount="indefinite" />
+                  </circle>
+                  <circle cx="60" cy="70" r="4" fill="var(--color-accent)" opacity="0.8">
+                    <animate attributeName="opacity" values="0.4;1;0.4" dur="2.5s" repeatCount="indefinite" />
+                  </circle>
+                </svg>
+              </div>
+            ) : (
+              <MilitaryMap
+                interaction={{
+                  autoRotate: true,
+                  autoRotateSpeed: 4,
+                  rotateX: 0,
+                  rotateY: 20,
+                  rotateZ: -20,
+                  enableDrag: true,
+                  dragSensitivity: 0.4,
+                  glowColor: theme === 'light' ? "#638ECB" : "#8AAEE0",
+                  glowIntensity: 0.4,
+                  showStars: true,
+                  showLabels: true
+                }}
+                mapStyle={{
+                  oceanColor: "transparent",
+                  landFill: theme === 'light' ? "#D5DEEF" : "#2A4165",
+                  landStroke: theme === 'light' ? "#8AAEE0" : "#1F314C",
+                  strokeWidth: 0.8,
+                  hoverColor: theme === 'light' ? "#638ECB" : "#8AAEE0",
+                  disabledColor: theme === 'light' ? "#F0F3FA" : "#395886"
+                }}
+                countries={[
+                  {code: "FRA", name: "France", enabled: true},
+                  {code: "POL", name: "Poland", enabled: true},
+                  {code: "DEU", name: "Germany", enabled: true},
+                  {code: "USA", name: "USA", enabled: true},
+                  {code: "ITA", name: "Italy", enabled: true},
+                  {code: "GBR", name: "UK", enabled: true}
+                ]}
+                markers={[
+                  { label: "France", description: "Visa & Immigration", latitude: 46.2276, longitude: 2.2137, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                  { label: "Poland", description: "Visa & Immigration", latitude: 51.9194, longitude: 19.1451, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                  { label: "Germany", description: "Visa & Immigration", latitude: 51.1657, longitude: 10.4515, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                  { label: "USA", description: "Visa & Immigration", latitude: 37.0902, longitude: -95.7129, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                  { label: "Italy", description: "Visa & Immigration", latitude: 41.8719, longitude: 12.5674, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                  { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: theme === 'light' ? "#638ECB" : "#8AAEE0" },
+                ]}
+                tooltip={{ show: true, background: "rgba(18, 20, 23, 0.92)", textColor: "#e7ece9", borderColor: "rgba(140, 150, 145, 0.32)" }}
+                grid={{ show: true, color: "#5b636a", opacity: 0.2 }}
+                layout={{ cornerRadius: 0, padding: 0, showBorder: false, borderColor: "transparent" }}
+              />
+            )}
+          </m.div>
 
         </div>
       </div>
@@ -144,3 +185,4 @@ const Hero = ({ theme }) => {
 };
 
 export default Hero;
+

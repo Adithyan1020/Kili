@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 import { ShieldCheck, Target, HeartHandshake, MessageSquare } from 'lucide-react';
 
@@ -47,7 +47,7 @@ const WhyTrustUs = () => {
   return (
     <section id="about" className="section-dark" style={{ position: 'relative', padding: '100px 0', background: 'var(--color-bg-darker)' }}>
       <div className="container">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -57,7 +57,7 @@ const WhyTrustUs = () => {
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Professional Guidance. Transparent Process. Personal Commitment.
           </div>
-          <motion.h2 
+          <m.h2 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -65,9 +65,9 @@ const WhyTrustUs = () => {
             style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px', marginBottom: '20px' }}
           >
             <SplitWord>Why Choose TRUVIQ?</SplitWord>
-          </motion.h2>
+          </m.h2>
 
-          <motion.p 
+          <m.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -76,10 +76,10 @@ const WhyTrustUs = () => {
           >
             At TRUVIQ, we help individuals, students, and families achieve their international goals with strategic guidance, transparent processes, and personalized support.<br/><br/>
             Whether you are planning to study abroad, work overseas, migrate permanently, or visit your loved ones, our experts guide you at every stage of your journey.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
-        <motion.div 
+        <m.div 
           variants={containerVariants}
           initial="hidden"
           whileInView="visible"
@@ -87,7 +87,7 @@ const WhyTrustUs = () => {
           className="bento-grid"
         >
           {points.map((point, index) => (
-            <motion.div 
+            <m.div 
               key={index} 
               variants={itemVariants}
               className={`bento-item-${index}`}
@@ -111,9 +111,9 @@ const WhyTrustUs = () => {
                   {point.desc}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
-        </motion.div>
+        </m.div>
 
       </div>
     </section>
@@ -121,3 +121,4 @@ const WhyTrustUs = () => {
 };
 
 export default WhyTrustUs;
+

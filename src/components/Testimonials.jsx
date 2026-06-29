@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 
 const testimonials = [
@@ -30,7 +30,7 @@ const Testimonials = () => {
   return (
     <section id="testimonials" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-darker)' }}>
       <div className="container">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -40,7 +40,7 @@ const Testimonials = () => {
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             Success Stories
           </div>
-          <motion.h2 
+          <m.h2 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false }}
@@ -48,8 +48,8 @@ const Testimonials = () => {
             style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px' }}
           >
             <SplitWord>What Our Clients Say</SplitWord>
-          </motion.h2>
-          <motion.p 
+          </m.h2>
+          <m.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -57,12 +57,12 @@ const Testimonials = () => {
             style={{ color: 'var(--color-text-muted)', maxWidth: '600px', margin: '0 auto', fontSize: '1.1rem' }}
           >
             Don't just take our word for it. Read about the journeys of people who trusted us with their global relocation.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '30px' }}>
           {testimonials.map((t, index) => (
-            <motion.div
+            <m.div
               key={t.id}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -90,7 +90,7 @@ const Testimonials = () => {
                   <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>{t.role}</div>
                 </div>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -99,3 +99,4 @@ const Testimonials = () => {
 };
 
 export default Testimonials;
+

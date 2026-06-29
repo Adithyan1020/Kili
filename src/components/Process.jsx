@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 
 const steps = [
@@ -34,7 +34,7 @@ const Process = () => {
   return (
     <section id="process" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-dark)' }}>
       <div className="container">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -44,7 +44,7 @@ const Process = () => {
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
             How It Works
           </div>
-          <motion.h2 
+          <m.h2 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true }}
@@ -52,8 +52,8 @@ const Process = () => {
             style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px' }}
           >
             <SplitWord>Our Simple 5-Step Process</SplitWord>
-          </motion.h2>
-        </motion.div>
+          </m.h2>
+        </m.div>
 
         <div style={{ maxWidth: '800px', margin: '0 auto', position: 'relative' }}>
           {/* Vertical Line */}
@@ -68,7 +68,7 @@ const Process = () => {
           }} />
 
           {steps.map((step, index) => (
-            <motion.div 
+            <m.div 
               key={index}
               initial={{ opacity: 0, y: 40 }}
               whileInView={{ opacity: 1, y: 0 }}
@@ -116,7 +116,7 @@ const Process = () => {
                   {step.desc}
                 </p>
               </div>
-            </motion.div>
+            </m.div>
           ))}
         </div>
       </div>
@@ -125,3 +125,4 @@ const Process = () => {
 };
 
 export default Process;
+

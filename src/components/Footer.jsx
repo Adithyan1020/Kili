@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 import { Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
@@ -82,3 +82,4 @@ const Footer = () => {
 };
 
 export default Footer;
+

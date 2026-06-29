@@ -1,12 +1,12 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const Consultation = () => {
   return (
     <section className="section-dark" style={{ padding: '100px 0' }}>
       <div className="container">
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '80px' }}>
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, x: -30 }}
             whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
@@ -21,9 +21,9 @@ const Consultation = () => {
               Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna.
             </p>
             <button className="btn-primary" style={{ marginTop: '30px' }}>Apply</button>
-          </motion.div>
+          </m.div>
           
-          <motion.div 
+          <m.div 
             initial={{ opacity: 0, scale: 0.8 }}
             whileInView={{ opacity: 1, scale: 1 }}
             transition={{ duration: 0.6 }}
@@ -39,7 +39,7 @@ const Consultation = () => {
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '30px' }}>
-          <motion.div 
+          <m.div 
             whileHover={{ y: -10 }}
             style={{ 
               background: 'rgba(255,255,255,0.05)', 
@@ -54,8 +54,8 @@ const Consultation = () => {
             }}
           >
             <h4 style={{ fontSize: '1.5rem', color: '#fff' }}>With Person</h4>
-          </motion.div>
-          <motion.div 
+          </m.div>
+          <m.div 
             whileHover={{ y: -10 }}
             style={{ 
               background: 'rgba(255,255,255,0.05)', 
@@ -70,7 +70,7 @@ const Consultation = () => {
             }}
           >
             <h4 style={{ fontSize: '1.5rem', color: '#fff' }}>With Family</h4>
-          </motion.div>
+          </m.div>
         </div>
       </div>
     </section>
@@ -78,3 +78,4 @@ const Consultation = () => {
 };
 
 export default Consultation;
+

@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { LazyMotion, domAnimation } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhyTrustUs from './components/WhyTrustUs';
@@ -23,7 +24,7 @@ function App() {
   };
 
   return (
-    <>
+    <LazyMotion features={domAnimation}>
       {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
       
       {!isLoading && (
@@ -38,7 +39,7 @@ function App() {
       <Footer />
         </div>
       )}
-    </>
+    </LazyMotion>
   );
 }
 

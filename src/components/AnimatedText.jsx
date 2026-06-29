@@ -1,5 +1,5 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { m } from 'framer-motion';
 
 const letterVariants = {
   hidden: { opacity: 0, rotateX: -90, y: 20 },
@@ -23,13 +23,13 @@ export const SplitWord = ({ children, style }) => {
       {words.map((word, wordIndex) => (
         <span key={wordIndex} style={{ display: 'inline-block', whiteSpace: 'nowrap' }}>
           {word.split('').map((char, charIndex) => (
-            <motion.span 
+            <m.span 
               key={charIndex} 
               variants={letterVariants} 
               style={{ display: 'inline-block', transformOrigin: '50% 50%' }}
             >
               {char}
-            </motion.span>
+            </m.span>
           ))}
           {/* Add a non-breaking space after each word, except the last one */}
           {wordIndex < words.length - 1 && <span style={{ display: 'inline-block' }}>&nbsp;</span>}
@@ -38,3 +38,4 @@ export const SplitWord = ({ children, style }) => {
     </span>
   );
 };
+

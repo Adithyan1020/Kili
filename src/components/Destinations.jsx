@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { m, AnimatePresence } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
 import { CheckCircle2 } from 'lucide-react';
 
@@ -18,7 +18,7 @@ const Destinations = () => {
   return (
     <section className="section-dark" id="countries" style={{ padding: '80px 0', background: 'var(--color-bg-darker)' }}>
       <div className="container">
-        <motion.div 
+        <m.div 
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
@@ -26,7 +26,7 @@ const Destinations = () => {
           style={{ textAlign: 'center', marginBottom: '60px' }}
         >
           <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px' }}>you want</div>
-          <motion.h2 
+          <m.h2 
             initial="hidden"
             whileInView="visible"
             viewport={{ once: false }}
@@ -34,8 +34,8 @@ const Destinations = () => {
             style={{ color: '#fff', fontSize: '2.5rem', perspective: '1000px' }}
           >
             <SplitWord>Which Country?</SplitWord>
-          </motion.h2>
-          <motion.p 
+          </m.h2>
+          <m.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -43,11 +43,11 @@ const Destinations = () => {
             style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}
           >
             Explore our top destination countries and discover the perfect place to build your future.
-          </motion.p>
-        </motion.div>
+          </m.p>
+        </m.div>
 
         {/* Flag Selection */}
-        <motion.div 
+        <m.div 
           initial="hidden"
           whileInView="visible"
           viewport={{ once: false, margin: "-50px" }}
@@ -57,7 +57,7 @@ const Destinations = () => {
           style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '60px', flexWrap: 'wrap' }}
         >
           {countries.map((c) => (
-            <motion.button
+            <m.button
               key={c.id}
               variants={{
                 hidden: { opacity: 0, y: 30 },
@@ -82,19 +82,19 @@ const Destinations = () => {
               }}
             >
               <img src={c.flag} alt={`${c.name} flag`} style={{ width: '40px', height: 'auto', borderRadius: '4px' }} />
-            </motion.button>
+            </m.button>
           ))}
-        </motion.div>
+        </m.div>
 
         {/* Country Details */}
-        <motion.div
+        <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: false, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           <AnimatePresence mode="wait">
-          <motion.div
+          <m.div
             className="grid-2-col"
             key={selectedCountry}
             initial={{ opacity: 0, x: 20 }}
@@ -117,7 +117,7 @@ const Destinations = () => {
               <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
                 {countries.find(c => c.id === selectedCountry)?.name.toUpperCase()}
               </h3>
-              <motion.p 
+              <m.p 
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
@@ -125,7 +125,7 @@ const Destinations = () => {
                 style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
               >
                 We provide comprehensive immigration services tailored to your specific goals. From work permits to permanent residency, our expert team will guide you through every step of the process.
-              </motion.p>
+              </m.p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
                 {['Visa cards', 'Fast book', 'Economy selected', 'International', 'Free network'].map((perk, i) => (
@@ -138,12 +138,13 @@ const Destinations = () => {
 
               <button className="btn-primary" style={{ padding: '12px 30px' }}>Get Started</button>
             </div>
-          </motion.div>
+          </m.div>
           </AnimatePresence>
-        </motion.div>
+        </m.div>
       </div>
     </section>
   );
 };
 
 export default Destinations;
+
