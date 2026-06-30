@@ -45,7 +45,7 @@ const WhyTrustUs = () => {
   ];
 
   return (
-    <section id="about" className="section-dark" style={{ position: 'relative', padding: '100px 0', background: 'var(--color-bg-darker)' }}>
+    <section id="about" className="section-dark" style={{ position: 'relative', padding: '100px 0' }}>
       <div className="container">
         <m.div 
           initial={{ opacity: 0, y: 30 }}

@@ -54,11 +54,11 @@ const Navbar = ({ theme, toggleTheme }) => {
 
         {/* Desktop Links */}
         <div style={{ display: 'flex', gap: '30px', alignItems: 'center', color: 'var(--text-secondary)' }} className="desktop-nav">
-          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>About</a>
-          <a href="#services" onClick={(e) => scrollToSection(e, 'services')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Services</a>
-          <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Testimonials</a>
-          <a href="#countries" onClick={(e) => scrollToSection(e, 'countries')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Countries</a>
-          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} style={{ transition: 'color 0.2s' }} onMouseOver={e => e.target.style.color = 'var(--color-accent)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Contact</a>
+          <a href="#about" onClick={(e) => scrollToSection(e, 'about')} className="nav-link">About</a>
+          <a href="#services" onClick={(e) => scrollToSection(e, 'services')} className="nav-link">Services</a>
+          <a href="#countries" onClick={(e) => scrollToSection(e, 'countries')} className="nav-link">Countries</a>
+          <a href="#testimonials" onClick={(e) => scrollToSection(e, 'testimonials')} className="nav-link">Testimonials</a>
+          <a href="#contact" onClick={(e) => scrollToSection(e, 'contact')} className="nav-link">Contact</a>
         </div>
 
         {/* Right Controls */}
@@ -99,8 +99,8 @@ const Navbar = ({ theme, toggleTheme }) => {
           >
             <a href="#about" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'about'); setMobileMenuOpen(false); }}>About</a>
             <a href="#services" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'services'); setMobileMenuOpen(false); }}>Services</a>
-            <a href="#testimonials" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'testimonials'); setMobileMenuOpen(false); }}>Testimonials</a>
             <a href="#countries" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'countries'); setMobileMenuOpen(false); }}>Countries</a>
+            <a href="#testimonials" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'testimonials'); setMobileMenuOpen(false); }}>Testimonials</a>
             <a href="#contact" className="mobile-menu-link" onClick={(e) => { scrollToSection(e, 'contact'); setMobileMenuOpen(false); }}>Contact</a>
           </m.div>
         )}

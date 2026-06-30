@@ -32,7 +32,7 @@ const steps = [
 
 const Process = () => {
   return (
-    <section id="process" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-dark)' }}>
+    <section id="process" className="section-dark" style={{ padding: '100px 0' }}>
       <div className="container">
         <m.div 
           initial={{ opacity: 0, y: 30 }}

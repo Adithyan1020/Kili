@@ -144,7 +144,7 @@ const ServiceCard = ({ service }) => {
 
 const Services = () => {
   return (
-    <section id="services" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-dark)' }}>
+    <section id="services" className="section-dark" style={{ padding: '100px 0' }}>
       <div className="container">
         <m.div 
           initial={{ opacity: 0, y: 30 }}

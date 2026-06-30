@@ -16,7 +16,7 @@ const Destinations = () => {
   const [selectedCountry, setSelectedCountry] = useState('it');
 
   return (
-    <section className="section-dark" id="countries" style={{ padding: '80px 0', background: 'var(--color-bg-darker)' }}>
+    <section className="section-light" id="countries" style={{ padding: '80px 0' }}>
       <div className="container">
         <m.div 
           initial={{ opacity: 0, y: 30 }}
@@ -31,7 +31,7 @@ const Destinations = () => {
             whileInView="visible"
             viewport={{ once: false }}
             variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ color: '#fff', fontSize: '2.5rem', perspective: '1000px' }}
+            style={{ color: 'var(--text-primary)', fontSize: '2.5rem', perspective: '1000px' }}
           >
             <SplitWord>Which Country?</SplitWord>
           </m.h2>
@@ -114,7 +114,7 @@ const Destinations = () => {
             </div>
             <div>
               <div style={{ color: 'var(--color-text-muted)', marginBottom: '5px' }}>About</div>
-              <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: '#fff' }}>
+              <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: 'var(--text-primary)' }}>
                 {countries.find(c => c.id === selectedCountry)?.name.toUpperCase()}
               </h3>
               <m.p 
@@ -129,7 +129,7 @@ const Destinations = () => {
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
                 {['Visa cards', 'Fast book', 'Economy selected', 'International', 'Free network'].map((perk, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: '#fff' }}>
+                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
                     <CheckCircle2 size={20} color="var(--color-accent)" />
                     <span style={{ fontWeight: '500' }}>{perk}</span>
                   </div>

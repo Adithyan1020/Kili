@@ -28,7 +28,7 @@ const testimonials = [
 
 const Testimonials = () => {
   return (
-    <section id="testimonials" className="section-dark" style={{ padding: '100px 0', background: 'var(--color-bg-darker)' }}>
+    <section id="testimonials" className="section-dark" style={{ padding: '100px 0' }}>
       <div className="container">
         <m.div 
           initial={{ opacity: 0, y: 30 }}
