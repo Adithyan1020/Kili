@@ -4,7 +4,7 @@ import { Phone, Mail, MapPin } from 'lucide-react';
 
 const Footer = () => {
   return (
-    <footer id="contact" className="section-dark" style={{ background: 'var(--bg-tertiary)', paddingTop: '80px', borderTop: '1px solid var(--color-border)' }}>
+    <footer id="contact" className="section-dark" style={{ paddingTop: '80px', borderTop: '1px solid var(--color-border)' }}>
       <div className="container">
         
         {/* Top Grid */}
