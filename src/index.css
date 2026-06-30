@@ -14,7 +14,7 @@
 }
 
 [data-theme='light'] {
-  --bg-primary: #E2EAF1;
+  --bg-primary: #EAFDF6;
   --bg-secondary: rgba(255, 255, 255, 0.5);
   --text-primary: #151A1F;
   --text-secondary: #3B4758;
@@ -23,10 +23,10 @@
   --color-border: rgba(21, 26, 31, 0.15);
   --card-bg: rgba(255, 255, 255, 0.5);
   --card-bg-hover: rgba(255, 255, 255, 0.8);
-  --verde-opaco: #11C266;
-  --mesh-color-1: rgba(30, 190, 210, 0.6);
-  --mesh-color-2: rgba(18, 190, 100, 0.4);
-  --mesh-color-3: rgba(0, 90, 210, 0.35);
+  --verde-opaco: #84ffc9;
+  --mesh-color-1: rgba(132, 255, 201, 0.7);
+  --mesh-color-2: rgba(132, 255, 201, 0.5);
+  --mesh-color-3: rgba(132, 255, 201, 0.6);
 }
 
 [data-theme='dark'] {
