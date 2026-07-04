@@ -16,12 +16,13 @@ const Hero = ({ theme }) => {
     const isSlowConnection = navigator.connection && 
       (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
     
-    // Use deviceMemory API: <= 4GB RAM strongly correlates with budget/older devices.
-    // Safari doesn't support this (returns undefined), which perfectly prevents false positives on iPhones/Macs.
-    const hasLowMemory = navigator.deviceMemory && navigator.deviceMemory <= 4;
+    // Better heuristic: check cores and memory if available, or if it's a mobile device to be safer
+    const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
+    const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
+    const isMobileSafari = /iPhone|iPad|iPod/i.test(navigator.userAgent) && /WebKit/i.test(navigator.userAgent) && !/CriOS/i.test(navigator.userAgent);
     
-    // We fall back to the lightweight static visual if any of these criteria match
-    if (prefersReducedMotion || isSlowConnection || hasLowMemory) {
+    // We fall back to the lightweight static visual if any of these criteria match, or if it's an older iPhone
+    if (prefersReducedMotion || isSlowConnection || lowCores || lowMemory || (isMobileSafari && window.screen.height < 800)) {
       setIsLowEnd(true);
     }
   }, []);
@@ -45,7 +46,7 @@ const Hero = ({ theme }) => {
           {/* Left Text Content */}
             <m.div 
               className="hero-text-content"
-              style={{ opacity, y }}
+              style={{ opacity, y, textAlign: 'left' }}
               initial={{ opacity: 0, y: 40 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
@@ -89,7 +90,7 @@ const Hero = ({ theme }) => {
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'center' }}
+              style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'flex-start' }}
             >
               <button className="btn-primary" style={{ padding: '15px 30px', fontSize: '1.1rem' }}>Book Expert Consultation</button>
             </m.div>
@@ -116,6 +117,10 @@ const Hero = ({ theme }) => {
                 <img 
                   src="/static_globe.png" 
                   alt="Interactive Globe Static Fallback" 
+                  onError={(e) => {
+                    e.target.style.display = 'none';
+                    // Optional: show a glowing circle or just leave empty if image fails
+                  }}
                   style={{ 
                     width: '100%', 
                     height: 'auto', 
@@ -148,20 +153,17 @@ const Hero = ({ theme }) => {
                   disabledColor: theme === 'light' ? "#FFFFFF" : "#151A1F"
                 }}
                 countries={[
+                  {code: "CAN", name: "Canada", enabled: true},
+                  {code: "AUS", name: "Australia", enabled: true},
+                  {code: "GBR", name: "UK", enabled: true},
                   {code: "FRA", name: "France", enabled: true},
-                  {code: "POL", name: "Poland", enabled: true},
-                  {code: "DEU", name: "Germany", enabled: true},
-                  {code: "USA", name: "USA", enabled: true},
-                  {code: "ITA", name: "Italy", enabled: true},
-                  {code: "GBR", name: "UK", enabled: true}
+                  {code: "DEU", name: "Germany", enabled: true}
                 ]}
                 markers={[
-                  { label: "France", description: "Visa & Immigration", latitude: 46.2276, longitude: 2.2137, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
-                  { label: "Poland", description: "Visa & Immigration", latitude: 51.9194, longitude: 19.1451, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
-                  { label: "Germany", description: "Visa & Immigration", latitude: 51.1657, longitude: 10.4515, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
-                  { label: "USA", description: "Visa & Immigration", latitude: 37.0902, longitude: -95.7129, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
-                  { label: "Italy", description: "Visa & Immigration", latitude: 41.8719, longitude: 12.5674, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
-                  { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: theme === 'light' ? "#0E8392" : "#5BEEFC" },
+                  { label: "Canada", description: "Visa & Immigration", latitude: 56.1304, longitude: -106.3468, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
+                  { label: "Australia", description: "Visa & Immigration", latitude: -25.2744, longitude: 133.7751, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
+                  { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
+                  { label: "Europe", description: "Visa & Immigration", latitude: 48.8566, longitude: 2.3522, color: theme === 'light' ? "#0C707D" : "#5BEEFC" }
                 ]}
                 tooltip={{ show: true, background: "rgba(18, 20, 23, 0.92)", textColor: "#e7ece9", borderColor: "rgba(140, 150, 145, 0.32)" }}
                 grid={{ show: true, color: "#5b636a", opacity: 0.2 }}

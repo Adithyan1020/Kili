@@ -1,41 +1,75 @@
 import React from 'react';
 import { m } from 'framer-motion';
+import { SplitWord } from './AnimatedText';
 
 const Consultation = () => {
   return (
-    <section className="section-dark" style={{ padding: '100px 0' }}>
+    <section id="contact" className="section-dark" style={{ padding: '100px 0', overflow: 'hidden' }}>
       <div className="container">
-        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '80px' }}>
-          <m.div 
-            initial={{ opacity: 0, x: -30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
-            <h2 style={{ color: 'var(--color-accent)', fontSize: '1.2rem', textTransform: 'uppercase', letterSpacing: '1px' }}>
-              Free Consultation
-            </h2>
-            <h3 style={{ fontSize: '3rem', color: '#fff' }}>
-              FOR YOUR<br/>IMMIGRATION
-            </h3>
-            <p style={{ color: 'rgba(255,255,255,0.7)', marginTop: '20px', maxWidth: '400px' }}>
-              Lorem ipsum dolor sit amet consectetur. Amet sed ut cursum sed laoreet urna.
-            </p>
-            <button className="btn-primary" style={{ marginTop: '30px' }}>Apply</button>
-          </m.div>
+        
+        {/* Top text and image - add flexWrap for mobile */}
+        <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginBottom: '80px', flexWrap: 'wrap', gap: '40px' }}>
           
+          {/* Left Text */}
           <m.div 
-            initial={{ opacity: 0, scale: 0.8 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 0.6 }}
+            initial={{ opacity: 0, x: -50 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
             viewport={{ once: true }}
-            style={{ 
-              width: '400px', 
-              height: '400px', 
-              background: 'url("https://images.unsplash.com/photo-1436491865332-7a61a109cc05?auto=format&fit=crop&q=80&w=800") center/cover',
-              borderRadius: '50% 50% 50% 10%',
-              boxShadow: '0 0 50px rgba(0, 255, 163, 0.2)'
-            }}
-          />
+            style={{ flex: '1 1 500px', maxWidth: '600px' }}
+          >
+            <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '15px', textTransform: 'uppercase', letterSpacing: '1px' }}>
+              Free Assessment
+            </div>
+            <m.h2 
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
+              variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
+              style={{ fontSize: '3.5rem', lineHeight: 1.1, marginBottom: '30px', color: '#fff' }}
+            >
+              <SplitWord>Let's map out</SplitWord><br />
+              <SplitWord>your journey</SplitWord>
+            </m.h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '1.2rem', lineHeight: 1.6, marginBottom: '40px', maxWidth: '90%' }}>
+              Speak with our certified immigration consultants to evaluate your profile, explore your options, and craft a tailored strategy to achieve your global ambitions.
+            </p>
+            
+            <div style={{ display: 'flex', gap: '20px' }}>
+              <button className="btn-primary" style={{ padding: '16px 32px', fontSize: '1.1rem' }}>
+                Book Consultation
+              </button>
+              <button className="btn-secondary" style={{ padding: '16px 32px', fontSize: '1.1rem', background: 'transparent', border: '1px solid #fff', color: '#fff' }}>
+                Call Us Now
+              </button>
+            </div>
+          </m.div>
+
+          {/* Right Image */}
+          <m.div
+            initial={{ opacity: 0, scale: 0.9, rotate: -5 }}
+            whileInView={{ opacity: 1, scale: 1, rotate: 0 }}
+            transition={{ duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+            viewport={{ once: true }}
+            style={{ position: 'relative', flex: '1 1 400px', display: 'flex', justifyContent: 'center' }}
+          >
+            <div style={{ 
+              width: '100%', 
+              maxWidth: '450px', 
+              aspectRatio: '1/1', 
+              borderRadius: '30px',
+              overflow: 'hidden',
+              position: 'relative',
+              boxShadow: '0 30px 60px rgba(0,0,0,0.3)'
+            }}>
+              <img 
+                src="https://images.unsplash.com/photo-1573164713988-8665fc963095?auto=format&fit=crop&q=80&w=800" 
+                alt="Immigration Consultation" 
+                style={{ width: '100%', height: '100%', objectFit: 'cover' }}
+              />
+              <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(to top, rgba(21, 26, 31, 0.8), transparent)' }} />
+            </div>
+          </m.div>
         </div>
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(2, 1fr)', gap: '30px' }}>

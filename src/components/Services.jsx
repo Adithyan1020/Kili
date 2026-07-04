@@ -1,98 +1,102 @@
 import React, { useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 import { SplitWord } from './AnimatedText';
-import { CheckCircle2, Globe2, GraduationCap, Plane, Plus } from 'lucide-react';
+import { CheckCircle2, Globe2, GraduationCap, Plane, ArrowDown } from 'lucide-react';
 
 const services = [
   {
-    icon: <Globe2 size={32} />,
-    title: 'Immigration Solutions',
-    description: 'Helping you explore the right opportunities for your future.',
+    icon: <Globe2 size={24} />,
+    title: 'European Work Permits',
+    subtitle: 'Direct Employment Pathways',
+    description: 'Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term settlement.',
     features: [
-      'Permanent Residency Pathways',
-      'Skilled Migration Programs',
-      'Work Visa Assistance',
-      'Family Sponsorship Guidance',
-      'Business Immigration Support'
+      { title: 'Work Permit Processing', badge: 'Direct', desc: 'End-to-end support for European work permits.' },
+      { title: 'Employer Matching', badge: 'Full-Time', desc: 'Connecting skilled workers with European employers.' },
+      { title: 'Contract Assistance', badge: 'Legal', desc: 'Guidance on long-term employment contracts.' },
+      { title: 'Residency Pathways', badge: 'Settlement', desc: 'Navigating long-term settlement options in Europe.' }
     ]
   },
   {
-    icon: <GraduationCap size={32} />,
-    title: 'Study Abroad Services',
-    description: 'Helping students choose the right global education pathway.',
+    icon: <Plane size={24} />,
+    title: 'Seasonal & Visiting Visas',
+    subtitle: 'Short-Term & Seasonal Work',
+    description: 'For the USA, Canada, UK, and Australia, we specialize in processing visiting visas and facilitating seasonal work programs.',
     features: [
-      'University & Course Selection',
-      'Admission Assistance',
-      'Student Visa Support',
-      'Documentation Guidance',
-      'Scholarship Assistance'
+      { title: 'Seasonal Work Programs', badge: 'Temporary', desc: 'Matching workers with seasonal employment opportunities.' },
+      { title: 'Visiting Visas', badge: 'Short-Term', desc: 'Accurate preparation for tourist and visitor visas.' },
+      { title: 'Temporary Permits', badge: 'Legal', desc: 'Processing documentation for short-term stays.' },
+      { title: 'Compliance Support', badge: 'Guidance', desc: 'Ensuring strict adherence to temporary visa regulations.' }
     ]
   },
   {
-    icon: <Plane size={32} />,
-    title: 'Visitor Visa Services',
-    description: 'Making international travel easier and smoother.',
+    icon: <CheckCircle2 size={24} />,
+    title: 'Construction Recruitment',
+    subtitle: 'UAE Sector Specialists',
+    description: 'In the UAE, we are actively recruiting for large-scale construction work projects, handling recruitment, screening, and visa processing.',
     features: [
-      'Tourist Visas',
-      'Business Visitor Visas',
-      'Family Visit Visas'
+      { title: 'Sector Recruitment', badge: 'Construction', desc: 'Sourcing talent for major UAE projects.' },
+      { title: 'Visa Processing', badge: 'Employment', desc: 'Handling all Emirates employment visa requirements.' },
+      { title: 'Skills Assessment', badge: 'Vetting', desc: 'Ensuring candidates meet project requirements.' },
+      { title: 'Relocation Support', badge: 'End-to-End', desc: 'Flight booking and onboarding assistance.' }
     ]
   }
 ];
 
 const ServiceCard = ({ service }) => {
-  const [isHovered, setIsHovered] = useState(false);
+  const [isExpanded, setIsExpanded] = useState(false);
 
   return (
     <m.div
-      onMouseEnter={() => window.matchMedia('(hover: hover)').matches && setIsHovered(true)}
-      onMouseLeave={() => window.matchMedia('(hover: hover)').matches && setIsHovered(false)}
-      onClick={() => setIsHovered(!isHovered)}
+      onMouseEnter={() => window.matchMedia('(hover: hover)').matches && setIsExpanded(true)}
+      onMouseLeave={() => window.matchMedia('(hover: hover)').matches && setIsExpanded(false)}
+      onClick={() => !window.matchMedia('(hover: hover)').matches && setIsExpanded(!isExpanded)}
       style={{
-        minWidth: 'min(350px, 85vw)',
-        width: 'min(350px, 85vw)',
+        minWidth: 'min(400px, 90vw)',
+        width: 'min(400px, 90vw)',
         position: 'relative',
-        background: isHovered ? 'var(--color-accent)' : 'var(--card-bg)',
+        background: isExpanded ? 'var(--color-accent)' : 'var(--card-bg)',
         border: '1px solid var(--color-border)',
         borderRadius: '24px',
-        padding: '30px',
+        padding: '35px',
         display: 'flex',
         flexDirection: 'column',
-        overflow: 'hidden',
         transition: 'background 0.4s ease, transform 0.3s ease',
         cursor: 'pointer',
         scrollSnapAlign: 'start',
-        flexShrink: 0
+        flexShrink: 0,
+        color: isExpanded ? 'var(--bg-primary)' : 'var(--text-primary)',
+        boxShadow: isExpanded ? '0 20px 40px rgba(0,0,0,0.2)' : 'none'
       }}
       whileHover={{ y: -10 }}
     >
-      {/* Icon */}
-      <m.div 
-        animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--color-accent)' }}
-        transition={{ duration: 0.3 }}
-        style={{ marginBottom: '20px' }}
-      >
-        {service.icon}
-      </m.div>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+          <m.div 
+            animate={{ color: isExpanded ? 'var(--bg-primary)' : 'var(--text-primary)' }}
+            transition={{ duration: 0.3 }}
+          >
+            {service.icon}
+          </m.div>
+          <h3 style={{ fontSize: '1.4rem', fontWeight: '600', margin: 0 }}>
+            {service.title}
+          </h3>
+        </div>
+      </div>
 
-      {/* Title & Desc */}
-      <m.h3 
-        animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--text-primary)' }}
-        style={{ fontSize: '1.8rem', marginBottom: '15px', fontWeight: '600' }}
-      >
-        {service.title}
-      </m.h3>
-      
-      <m.p 
-        animate={{ color: isHovered ? 'var(--bg-primary)' : 'var(--text-secondary)' }}
-        style={{ fontSize: '1.1rem', marginBottom: '20px', lineHeight: 1.6 }}
-      >
+      {/* Subtitle & Desc */}
+      <h4 style={{ fontSize: '2.2rem', fontWeight: '700', lineHeight: 1.2, marginBottom: '20px' }}>
+        {service.subtitle}
+      </h4>
+      <p style={{ fontSize: '1.1rem', lineHeight: 1.6, opacity: 0.9, marginBottom: '25px' }}>
         {service.description}
-      </m.p>
+      </p>
 
-      {/* Expandable Features */}
+      {/* Divider */}
+      <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.3)' : 'var(--color-border)', marginBottom: '25px', width: '100%' }} />
+
+      {/* Expandable Features list */}
       <AnimatePresence>
-        {isHovered && (
+        {isExpanded && (
           <m.div
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
@@ -100,15 +104,28 @@ const ServiceCard = ({ service }) => {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', paddingTop: '10px', paddingBottom: '30px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: '40px' }}>
               {service.features.map((feature, i) => (
-                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
-                  <div style={{ marginTop: '3px' }}>
-                    <CheckCircle2 size={18} color="currentColor" />
+                <div key={i} style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
+                    <div style={{ marginTop: '4px' }}>
+                      <CheckCircle2 size={20} color="currentColor" />
+                    </div>
+                    <div style={{ flex: 1 }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+                          {feature.title}
+                        </span>
+                      </div>
+                      <p style={{ fontSize: '0.95rem', lineHeight: 1.5, opacity: 0.8, margin: 0 }}>
+                        {feature.desc}
+                      </p>
+                    </div>
                   </div>
-                  <span style={{ color: 'var(--bg-primary)', fontSize: '1.05rem', lineHeight: 1.4, fontWeight: '500' }}>
-                    {feature}
-                  </span>
+                  {/* Internal divider for all except last */}
+                  {i < service.features.length - 1 && (
+                    <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.15)' : 'var(--color-border)', marginTop: '20px', marginLeft: '35px' }} />
+                  )}
                 </div>
               ))}
             </div>
@@ -116,13 +133,12 @@ const ServiceCard = ({ service }) => {
         )}
       </AnimatePresence>
 
-      {/* Plus Button Micro Interaction */}
+      {/* Expand/Collapse Arrow */}
       <div style={{ flexGrow: 1 }} />
       <m.div
         animate={{ 
-          backgroundColor: isHovered ? 'var(--bg-primary)' : 'var(--card-bg)',
-          color: isHovered ? 'var(--color-accent)' : 'var(--text-primary)',
-          rotate: isHovered ? 45 : 0
+          backgroundColor: isExpanded ? 'rgba(255,255,255,0.2)' : 'var(--card-bg)',
+          rotate: isExpanded ? 180 : 0
         }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
@@ -132,11 +148,12 @@ const ServiceCard = ({ service }) => {
           display: 'flex',
           alignItems: 'center',
           justifyContent: 'center',
-          alignSelf: 'flex-end',
-          marginTop: 'auto'
+          alignSelf: 'center',
+          marginTop: 'auto',
+          border: `1px solid ${isExpanded ? 'rgba(255,255,255,0.3)' : 'var(--color-border)'}`
         }}
       >
-        <Plus size={24} />
+        <ArrowDown size={24} color="currentColor" />
       </m.div>
     </m.div>
   );
@@ -166,11 +183,19 @@ const Services = () => {
             >
               <SplitWord>Our Expertise</SplitWord>
             </m.h2>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', maxWidth: '400px', margin: 0, lineHeight: 1.6 }}>
-              Every successful journey begins with the right advice. TRUVIQ provides end-to-end immigration solutions.
-            </p>
           </div>
         </m.div>
+
+        {/* Scroll affordance for mobile */}
+        <div className="scroll-hint-mobile" style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem', marginBottom: '15px', alignItems: 'center', gap: '8px' }}>
+          <span>Swipe to explore services</span>
+          <m.div 
+            animate={{ x: [0, 5, 0] }}
+            transition={{ repeat: Infinity, duration: 1.5 }}
+          >
+            →
+          </m.div>
+        </div>
 
         {/* Horizontal Scrolling Container */}
         <div 
@@ -179,15 +204,18 @@ const Services = () => {
             display: 'flex', 
             gap: '30px', 
             overflowX: 'auto', 
+            paddingTop: '20px',
+            marginTop: '-20px',
             paddingBottom: '40px',
             scrollSnapType: 'x mandatory',
-            WebkitOverflowScrolling: 'touch'
+            WebkitOverflowScrolling: 'touch',
+            alignItems: 'stretch'
           }}
         >
           {services.map((service, index) => (
             <ServiceCard key={index} service={service} />
           ))}
-          {/* Spacer to allow scrolling past the last item on mobile */}
+          {/* Spacer */}
           <div style={{ minWidth: '1px' }} />
         </div>
       </div>

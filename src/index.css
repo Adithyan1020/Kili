@@ -15,7 +15,7 @@
 
 [data-theme='light'] {
   --bg-primary: #EAFDF6;
-  --bg-secondary: rgba(255, 255, 255, 0.5);
+  --bg-secondary: rgba(255, 255, 255, 0.85);
   --text-primary: #151A1F;
   --text-secondary: #3B4758;
   --color-accent: #0C707D;
@@ -31,7 +31,7 @@
 
 [data-theme='dark'] {
   --bg-primary: #151A1F;
-  --bg-secondary: rgba(30, 39, 50, 0.5);
+  --bg-secondary: rgba(21, 26, 31, 0.85);
   --text-primary: #FFFFFF;
   --text-secondary: #A0ABC0;
   --color-accent: #5BEEFC;
@@ -206,6 +206,10 @@ section {
   scrollbar-width: none;
 }
 
+.scroll-hint-mobile {
+  display: none;
+}
+
 /* Bento Box Grid */
 .bento-grid {
   display: grid;
@@ -300,6 +304,10 @@ section {
     display: block;
   }
 
+  .scroll-hint-mobile {
+    display: flex !important;
+  }
+
   h1 {
     font-size: clamp(2rem, 8vw, 2.5rem) !important;
   }
@@ -335,4 +343,20 @@ section {
 
 .hero-globe-container {
   transform: scale(1.2);
+}
+
+/* Footer Link Styles */
+.footer-link {
+  color: var(--text-secondary);
+  transition: color 0.2s;
+}
+
+.footer-link:hover {
+  color: var(--text-primary);
+}
+
+/* Accessibility */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 4px;
 }

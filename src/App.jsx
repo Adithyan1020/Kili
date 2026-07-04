@@ -4,7 +4,6 @@ import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhyTrustUs from './components/WhyTrustUs';
 import Destinations from './components/Destinations';
-import Testimonials from './components/Testimonials';
 import Services from './components/Services';
 import Process from './components/Process';
 import Footer from './components/Footer';
@@ -13,7 +12,7 @@ import './index.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState('light');
+  const [theme, setTheme] = useState('dark');
 
   useEffect(() => {
     document.documentElement.setAttribute('data-theme', theme);
@@ -35,7 +34,6 @@ function App() {
       <Services />
       <Process />
       <Destinations />
-      <Testimonials />
       <Footer />
         </div>
       )}

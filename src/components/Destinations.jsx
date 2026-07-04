@@ -4,16 +4,50 @@ import { SplitWord } from './AnimatedText';
 import { CheckCircle2 } from 'lucide-react';
 
 const countries = [
-  { id: 'fr', name: 'France', flag: 'https://flagcdn.com/w80/fr.png', map: '/map/France_map.svg' },
-  { id: 'pl', name: 'Poland', flag: 'https://flagcdn.com/w80/pl.png', map: '/map/Poland_map_flag.svg.png' },
-  { id: 'de', name: 'Germany', flag: 'https://flagcdn.com/w80/de.png', map: '/map/german_map.png' },
-  { id: 'us', name: 'USA', flag: 'https://flagcdn.com/w80/us.png', map: '/map/USA_Flag_Map.svg' },
-  { id: 'it', name: 'Italy', flag: 'https://flagcdn.com/w80/it.png', map: '/map/italy.png' },
-  { id: 'gb', name: 'UK', flag: 'https://flagcdn.com/w80/gb.png', map: '/map/uk.png' },
+  { 
+    id: 'eu', 
+    name: 'Europe', 
+    flag: 'https://flagcdn.com/w80/eu.png', 
+    map: '/map/europe.webp',
+    about: 'In Europe, securing a direct Work Permit is our primary aim. We focus on matching skilled professionals with long-term employment opportunities and navigating the work permit process.',
+    perks: ['Direct Work Permits', 'Skilled Employment', 'Long-term Contracts', 'Application Processing', 'Employer Matching']
+  },
+  { 
+    id: 'us', 
+    name: 'USA', 
+    flag: 'https://flagcdn.com/w80/us.png', 
+    map: '/map/usa.webp',
+    about: 'For the United States, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
+    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Application Processing', 'Compliance Support']
+  },
+  { 
+    id: 'ca', 
+    name: 'Canada', 
+    flag: 'https://flagcdn.com/w80/ca.png', 
+    map: '/map/canada.webp',
+    about: 'In Canada, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
+    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Employer Matching', 'Compliance Support']
+  },
+  { 
+    id: 'au', 
+    name: 'Australia', 
+    flag: 'https://flagcdn.com/w80/au.png', 
+    map: '/map/australia.png',
+    about: 'For Australia, our programs are strictly focused on Seasonal Work opportunities and Visiting Visas.',
+    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Employer Matching', 'Compliance Support']
+  },
+  { 
+    id: 'ae', 
+    name: 'UAE', 
+    flag: 'https://flagcdn.com/w80/ae.png', 
+    map: '/map/uae.webp',
+    about: 'In the UAE, we are actively recruiting for large-scale Construction Work projects. We handle the recruitment, screening, and visa processing for workers heading to the Emirates.',
+    perks: ['Construction Sector Recruitment', 'Employment Visa Processing', 'Skills Assessment', 'Contract Guidance', 'Relocation Support']
+  },
 ];
 
 const Destinations = () => {
-  const [selectedCountry, setSelectedCountry] = useState('it');
+  const [selectedCountry, setSelectedCountry] = useState('ca');
 
   return (
     <section className="section-light" id="countries" style={{ padding: '80px 0' }}>
@@ -22,27 +56,29 @@ const Destinations = () => {
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           style={{ textAlign: 'center', marginBottom: '60px' }}
         >
-          <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px' }}>you want</div>
+          <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
+            Global Reach
+          </div>
           <m.h2 
             initial="hidden"
             whileInView="visible"
-            viewport={{ once: false }}
+            viewport={{ once: true }}
             variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ color: 'var(--text-primary)', fontSize: '2.5rem', perspective: '1000px' }}
+            style={{ color: 'var(--text-primary)', fontSize: '2.5rem', perspective: '1000px', marginBottom: '15px' }}
           >
-            <SplitWord>Which Country?</SplitWord>
+            <SplitWord>Choose Your Destination</SplitWord>
           </m.h2>
           <m.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: false }}
-            style={{ color: 'var(--color-text-muted)', maxWidth: '500px', margin: '0 auto' }}
+            viewport={{ once: true }}
+            style={{ color: 'var(--text-secondary)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}
           >
-            Explore our top destination countries and discover the perfect place to build your future.
+            Explore the specialized recruitment and visa programs we facilitate across our primary operational regions.
           </m.p>
         </m.div>
 
@@ -50,7 +86,7 @@ const Destinations = () => {
         <m.div 
           initial="hidden"
           whileInView="visible"
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           variants={{
             visible: { transition: { staggerChildren: 0.1 } }
           }}
@@ -90,7 +126,7 @@ const Destinations = () => {
         <m.div
           initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: false, margin: "-50px" }}
+          viewport={{ once: true, margin: "-50px" }}
           transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
         >
           <AnimatePresence mode="wait">
@@ -106,11 +142,14 @@ const Destinations = () => {
             }}
           >
             <div>
-              <img 
-                src={countries.find(c => c.id === selectedCountry)?.map} 
-                alt={`${countries.find(c => c.id === selectedCountry)?.name} Map`} 
-                style={{ width: '100%', maxWidth: '400px', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }}
-              />
+              {countries.find(c => c.id === selectedCountry)?.map && (
+                <img 
+                  src={countries.find(c => c.id === selectedCountry)?.map} 
+                  alt={`${countries.find(c => c.id === selectedCountry)?.name} Map`} 
+                  style={{ width: '100%', maxWidth: '400px', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }}
+                  onError={(e) => e.target.style.display = 'none'}
+                />
+              )}
             </div>
             <div>
               <div style={{ color: 'var(--color-text-muted)', marginBottom: '5px' }}>About</div>
@@ -121,14 +160,14 @@ const Destinations = () => {
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: false }}
-                style={{ color: 'var(--color-text-muted)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
+                viewport={{ once: true }}
+                style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
               >
-                We provide comprehensive immigration services tailored to your specific goals. From work permits to permanent residency, our expert team will guide you through every step of the process.
+                {countries.find(c => c.id === selectedCountry)?.about}
               </m.p>
               
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
-                {['Visa cards', 'Fast book', 'Economy selected', 'International', 'Free network'].map((perk, i) => (
+                {countries.find(c => c.id === selectedCountry)?.perks.map((perk, i) => (
                   <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
                     <CheckCircle2 size={20} color="var(--color-accent)" />
                     <span style={{ fontWeight: '500' }}>{perk}</span>

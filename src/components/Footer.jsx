@@ -52,28 +52,18 @@ const Footer = () => {
           </div>
         </div>
 
-        {/* Bottom Bar */}
+        {/* Minimal Bottom Bar */}
         <div style={{ 
           marginTop: '60px', 
-          paddingTop: '30px', 
-          borderTop: '1px solid var(--color-border)', 
-          display: 'flex', 
-          justifyContent: 'space-between', 
-          alignItems: 'center',
-          flexWrap: 'wrap',
-          gap: '20px'
+          paddingTop: '30px',
         }}>
-          <div style={{ color: 'var(--color-text-muted)', fontSize: '0.9rem' }}>
-            © 2026 TRUVIQ Immigration & Consultancy. All rights reserved.
-          </div>
-          <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', fontSize: '0.9rem' }}>
-            <a href="#" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Home</a>
-            <a href="#about" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>About</a>
-            <a href="#services" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Services</a>
-            <a href="#countries" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Countries</a>
-            <a href="#contact" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Contact</a>
-            <a href="#" style={{ transition: 'color 0.2s', color: 'var(--text-secondary)' }} onMouseOver={e => e.target.style.color = 'var(--text-primary)'} onMouseOut={e => e.target.style.color = 'var(--text-secondary)'}>Privacy Policy</a>
-          </div>
+        </div>
+
+        {/* Bottom divider and copyright */}
+        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
+            &copy; {new Date().getFullYear()} TRUVIQ. All rights reserved.
+          </p>
         </div>
 
       </div>
@@ -82,4 +72,3 @@ const Footer = () => {
 };
 
 export default Footer;
-

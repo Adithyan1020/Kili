@@ -2,29 +2,29 @@ import React, { useEffect, useState } from 'react';
 import { m, AnimatePresence } from 'framer-motion';
 
 const assetsToPreload = [
-  'https://flagcdn.com/w80/fr.png',
-  '/map/France_map.svg',
-  'https://flagcdn.com/w80/pl.png',
-  '/map/Poland_map_flag.svg.png',
-  'https://flagcdn.com/w80/de.png',
-  '/map/german_map.png',
-  'https://flagcdn.com/w80/us.png',
-  '/map/USA_Flag_Map.svg',
-  'https://flagcdn.com/w80/it.png',
-  '/map/map-of-italy-and-flag.jpg',
+  'https://flagcdn.com/w80/ca.png',
+  'https://flagcdn.com/w80/au.png',
   'https://flagcdn.com/w80/gb.png',
-  '/map/Map-of-UK-Cartoon-Style-580x386.jpg',
-  'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?auto=format&fit=crop&q=80&w=1600',
-  'https://randomuser.me/api/portraits/women/44.jpg',
-  'https://randomuser.me/api/portraits/men/32.jpg',
-  'https://randomuser.me/api/portraits/women/68.jpg'
+  'https://flagcdn.com/w80/eu.png',
+  '/map/ca.webp',
+  '/map/au.webp',
+  '/map/gb.webp',
+  '/map/eu.webp'
 ];
 
 const Loader = ({ onComplete }) => {
   const [progress, setProgress] = useState(0);
   const [isFadingOut, setIsFadingOut] = useState(false);
+  const [shouldRender, setShouldRender] = useState(true);
 
   useEffect(() => {
+    // Check if loader has already run this session
+    if (sessionStorage.getItem('loaderCompleted') === 'true') {
+      setShouldRender(false);
+      onComplete();
+      return;
+    }
+
     let loadedCount = 0;
     
     // Safety timeout in case some images fail to load
@@ -36,6 +36,7 @@ const Loader = ({ onComplete }) => {
       clearTimeout(safetyTimeout);
       setIsFadingOut(true);
       setTimeout(() => {
+        sessionStorage.setItem('loaderCompleted', 'true');
         onComplete();
       }, 800); // Wait for fade out animation
     };
@@ -50,15 +51,21 @@ const Loader = ({ onComplete }) => {
       }
     };
 
-    assetsToPreload.forEach(src => {
-      const img = new Image();
-      img.onload = handleImageLoad;
-      img.onerror = handleImageLoad; // Continue even if one fails
-      img.src = src;
-    });
+    if (assetsToPreload.length === 0) {
+      document.fonts.ready.then(() => finishLoading());
+    } else {
+      assetsToPreload.forEach(src => {
+        const img = new Image();
+        img.onload = handleImageLoad;
+        img.onerror = handleImageLoad; // Continue even if one fails
+        img.src = src;
+      });
+    }
 
     return () => clearTimeout(safetyTimeout);
   }, [onComplete]);
+
+  if (!shouldRender) return null;
 
   return (
     <AnimatePresence>
@@ -69,7 +76,7 @@ const Loader = ({ onComplete }) => {
           style={{
             position: 'fixed',
             inset: 0,
-            backgroundColor: 'var(--color-bg-darker)',
+            backgroundColor: 'var(--color-bg-darker, #0b1115)',
             display: 'flex',
             flexDirection: 'column',
             justifyContent: 'center',
