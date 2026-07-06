@@ -51,13 +51,13 @@ const ServiceCard = ({ service }) => {
       onMouseLeave={() => window.matchMedia('(hover: hover)').matches && setIsExpanded(false)}
       onClick={() => !window.matchMedia('(hover: hover)').matches && setIsExpanded(!isExpanded)}
       style={{
-        minWidth: 'min(400px, 90vw)',
-        width: 'min(400px, 90vw)',
+        minWidth: 'min(350px, 85vw)',
+        width: 'min(350px, 85vw)',
         position: 'relative',
         background: isExpanded ? 'var(--color-accent)' : 'var(--card-bg)',
         border: '1px solid var(--color-border)',
-        borderRadius: '24px',
-        padding: '35px',
+        borderRadius: '20px',
+        padding: '25px',
         display: 'flex',
         flexDirection: 'column',
         transition: 'background 0.4s ease, transform 0.3s ease',
@@ -65,34 +65,34 @@ const ServiceCard = ({ service }) => {
         scrollSnapAlign: 'start',
         flexShrink: 0,
         color: isExpanded ? 'var(--bg-primary)' : 'var(--text-primary)',
-        boxShadow: isExpanded ? '0 20px 40px rgba(0,0,0,0.2)' : 'none'
+        boxShadow: isExpanded ? '0 15px 30px rgba(0,0,0,0.15)' : 'none'
       }}
-      whileHover={{ y: -10 }}
+      whileHover={{ y: -5 }}
     >
-      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '20px' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
+      <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '15px' }}>
+        <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
           <m.div 
             animate={{ color: isExpanded ? 'var(--bg-primary)' : 'var(--text-primary)' }}
             transition={{ duration: 0.3 }}
           >
             {service.icon}
           </m.div>
-          <h3 style={{ fontSize: '1.4rem', fontWeight: '600', margin: 0 }}>
+          <h3 style={{ fontSize: '1.2rem', fontWeight: '600', margin: 0 }}>
             {service.title}
           </h3>
         </div>
       </div>
 
       {/* Subtitle & Desc */}
-      <h4 style={{ fontSize: '2.2rem', fontWeight: '700', lineHeight: 1.2, marginBottom: '20px' }}>
+      <h4 style={{ fontSize: '1.8rem', fontWeight: '700', lineHeight: 1.2, marginBottom: '15px' }}>
         {service.subtitle}
       </h4>
-      <p style={{ fontSize: '1.1rem', lineHeight: 1.6, opacity: 0.9, marginBottom: '25px' }}>
+      <p style={{ fontSize: '1rem', lineHeight: 1.5, opacity: 0.9, marginBottom: '20px' }}>
         {service.description}
       </p>
 
       {/* Divider */}
-      <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.3)' : 'var(--color-border)', marginBottom: '25px', width: '100%' }} />
+      <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.3)' : 'var(--color-border)', marginBottom: '20px', width: '100%' }} />
 
       {/* Expandable Features list */}
       <AnimatePresence>
@@ -104,27 +104,27 @@ const ServiceCard = ({ service }) => {
             transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
             style={{ overflow: 'hidden' }}
           >
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '20px', paddingBottom: '40px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', paddingBottom: '25px' }}>
               {service.features.map((feature, i) => (
                 <div key={i} style={{ display: 'flex', flexDirection: 'column' }}>
-                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '15px' }}>
-                    <div style={{ marginTop: '4px' }}>
-                      <CheckCircle2 size={20} color="currentColor" />
+                  <div style={{ display: 'flex', alignItems: 'flex-start', gap: '12px' }}>
+                    <div style={{ marginTop: '3px' }}>
+                      <CheckCircle2 size={18} color="currentColor" />
                     </div>
                     <div style={{ flex: 1 }}>
-                      <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '5px', flexWrap: 'wrap' }}>
-                        <span style={{ fontSize: '1.1rem', fontWeight: '600' }}>
+                      <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '4px', flexWrap: 'wrap' }}>
+                        <span style={{ fontSize: '1rem', fontWeight: '600' }}>
                           {feature.title}
                         </span>
                       </div>
-                      <p style={{ fontSize: '0.95rem', lineHeight: 1.5, opacity: 0.8, margin: 0 }}>
+                      <p style={{ fontSize: '0.9rem', lineHeight: 1.4, opacity: 0.8, margin: 0 }}>
                         {feature.desc}
                       </p>
                     </div>
                   </div>
                   {/* Internal divider for all except last */}
                   {i < service.features.length - 1 && (
-                    <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.15)' : 'var(--color-border)', marginTop: '20px', marginLeft: '35px' }} />
+                    <div style={{ height: '1px', background: isExpanded ? 'rgba(255,255,255,0.15)' : 'var(--color-border)', marginTop: '15px', marginLeft: '30px' }} />
                   )}
                 </div>
               ))}
@@ -142,8 +142,8 @@ const ServiceCard = ({ service }) => {
         }}
         transition={{ duration: 0.4, ease: [0.16, 1, 0.3, 1] }}
         style={{
-          width: '50px',
-          height: '50px',
+          width: '40px',
+          height: '40px',
           borderRadius: '50%',
           display: 'flex',
           alignItems: 'center',
@@ -153,7 +153,7 @@ const ServiceCard = ({ service }) => {
           border: `1px solid ${isExpanded ? 'rgba(255,255,255,0.3)' : 'var(--color-border)'}`
         }}
       >
-        <ArrowDown size={24} color="currentColor" />
+        <ArrowDown size={20} color="currentColor" />
       </m.div>
     </m.div>
   );
