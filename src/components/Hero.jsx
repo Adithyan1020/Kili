@@ -16,13 +16,14 @@ const Hero = ({ theme }) => {
     const isSlowConnection = navigator.connection && 
       (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
     
-    // Better heuristic: check cores and memory if available, or if it's a mobile device to be safer
-    const lowCores = navigator.hardwareConcurrency && navigator.hardwareConcurrency < 4;
-    const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 4;
+    // Better heuristic: check memory if available, or if it's a mobile device to be safer
+    // Note: navigator.deviceMemory usually returns powers of 2 (e.g., 4, 8). 
+    // Using < 6 ensures that devices reporting 4GB or less will use the fallback.
+    const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 6;
     const isMobileSafari = /iPhone|iPad|iPod/i.test(navigator.userAgent) && /WebKit/i.test(navigator.userAgent) && !/CriOS/i.test(navigator.userAgent);
     
     // We fall back to the lightweight static visual if any of these criteria match, or if it's an older iPhone
-    if (prefersReducedMotion || isSlowConnection || lowCores || lowMemory || (isMobileSafari && window.screen.height < 800)) {
+    if (prefersReducedMotion || isSlowConnection || lowMemory || (isMobileSafari && window.screen.height < 800)) {
       setIsLowEnd(true);
     }
   }, []);
