@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import ScrollStack, { ScrollStackItem } from './ScrollStack';
+
 
 export default function Services() {
   const [isMobile, setIsMobile] = useState(false);
@@ -29,48 +29,27 @@ export default function Services() {
             <p>Three specialised practice areas, each handled by consultants who work exclusively within that region and route.</p>
           </div>
 
-          <div style={{ marginTop: '60px' }}>
-            <ScrollStack 
-              useWindowScroll={true} 
-              itemDistance={isMobile ? 20 : 40} 
-              baseScale={0.9} 
-              itemScale={0.05} 
-              itemStackDistance={isMobile ? 20 : 40}
-              blurAmount={2}
-            >
-              <ScrollStackItem itemClassName="service-card-stack">
-                <span className="service-idx">EU</span>
-                <div className="service-name">
-                  <h3>European Work Permits</h3>
-                  <span className="tag">Direct Employment Pathways</span>
-                </div>
-                <div className="service-desc">
-                  <p>Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.</p>
-                </div>
-              </ScrollStackItem>
-              
-              <ScrollStackItem itemClassName="service-card-stack">
-                <span className="service-idx">US·CA·UK·AU</span>
-                <div className="service-name">
-                  <h3>Seasonal &amp; Visiting Visas</h3>
-                  <span className="tag">Short-Term &amp; Seasonal Work</span>
-                </div>
-                <div className="service-desc">
-                  <p>For the USA, Canada, UK, and Australia, we specialize in processing visiting visas and facilitating seasonal work programs.</p>
-                </div>
-              </ScrollStackItem>
-              
-              <ScrollStackItem itemClassName="service-card-stack">
-                <span className="service-idx">UAE</span>
-                <div className="service-name">
-                  <h3>Construction Recruitment</h3>
-                  <span className="tag">UAE Sector Specialists</span>
-                </div>
-                <div className="service-desc">
-                  <p>In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.</p>
-                </div>
-              </ScrollStackItem>
-            </ScrollStack>
+          <div className="modern-services-grid reveal-stagger">
+            <div className="modern-service-card">
+              <span className="modern-service-idx">EU</span>
+              <h3>European Work Permits</h3>
+              <span className="tag">Direct Employment Pathways</span>
+              <p>Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.</p>
+            </div>
+            
+            <div className="modern-service-card">
+              <span className="modern-service-idx">US·CA·UK·AU</span>
+              <h3>Seasonal &amp; Visiting Visas</h3>
+              <span className="tag">Short-Term &amp; Seasonal Work</span>
+              <p>For the USA, Canada, UK, and Australia, we specialize in processing visiting visas and facilitating seasonal work programs.</p>
+            </div>
+            
+            <div className="modern-service-card">
+              <span className="modern-service-idx">UAE</span>
+              <h3>Construction Recruitment</h3>
+              <span className="tag">UAE Sector Specialists</span>
+              <p>In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.</p>
+            </div>
           </div>
         </div>
       </section>

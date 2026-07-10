@@ -1,8 +1,17 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
+import ScrollStack, { ScrollStackItem } from './ScrollStack';
 
 export default function WhyTrustUs() {
+  const [isMobile, setIsMobile] = useState(false);
   const numberRef1 = useRef(null);
   
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   useEffect(() => {
     const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
@@ -81,22 +90,32 @@ export default function WhyTrustUs() {
           </div>
         </div>
 
-        <div className="feature-grid reveal-stagger">
-          {featureCards.map((f, i) => {
-            const ref = React.createRef();
-            return (
-              <div 
-                key={i} 
-                className="feature-card" 
-                ref={ref} 
-                onMouseMove={(e) => handleMouseMove(e, ref)}
-              >
-                <span className="feature-num">{f.num}</span>
-                <h3>{f.title}</h3>
-                <p>{f.desc}</p>
-              </div>
-            );
-          })}
+        <div className="feature-grid-stack reveal-stagger" style={{ marginTop: '60px' }}>
+          <ScrollStack 
+            useWindowScroll={true} 
+            itemDistance={isMobile ? 20 : 40} 
+            baseScale={0.9} 
+            itemScale={0.05} 
+            itemStackDistance={isMobile ? 20 : 40}
+            blurAmount={2}
+          >
+            {featureCards.map((f, i) => {
+              const ref = React.createRef();
+              return (
+                <ScrollStackItem key={i} itemClassName="feature-card">
+                  <div 
+                    ref={ref} 
+                    onMouseMove={(e) => handleMouseMove(e, ref)}
+                    style={{ height: '100%' }}
+                  >
+                    <span className="feature-num">{f.num}</span>
+                    <h3>{f.title}</h3>
+                    <p>{f.desc}</p>
+                  </div>
+                </ScrollStackItem>
+              );
+            })}
+          </ScrollStack>
         </div>
       </div>
     </section>
