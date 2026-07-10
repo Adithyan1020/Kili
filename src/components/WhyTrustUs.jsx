@@ -1,124 +1,104 @@
-import React from 'react';
-import { m } from 'framer-motion';
-import { SplitWord } from './AnimatedText';
-import { ShieldCheck, Target, HeartHandshake, MessageSquare } from 'lucide-react';
+import React, { useEffect, useRef } from 'react';
 
-const containerVariants = {
-  hidden: { opacity: 0 },
-  visible: {
-    opacity: 1,
-    transition: { staggerChildren: 0.15 }
-  }
-};
+export default function WhyTrustUs() {
+  const numberRef1 = useRef(null);
+  
+  useEffect(() => {
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    const animateCount = (el) => {
+      const raw = el.textContent.trim();
+      const match = raw.match(/^(\d+)(.*)$/);
+      if (!match) return;
+      const target = parseInt(match[1], 10);
+      const suffix = match[2];
+      if (reduced) { el.textContent = target + suffix; return; }
+      
+      let start = null;
+      const dur = 1400;
+      const step = (ts) => {
+        if (!start) start = ts;
+        const p = Math.min((ts - start) / dur, 1);
+        const eased = 1 - Math.pow(1 - p, 3);
+        el.textContent = Math.floor(eased * target) + suffix;
+        if (p < 1) requestAnimationFrame(step);
+        else el.textContent = target + suffix;
+      };
+      requestAnimationFrame(step);
+    };
 
-const itemVariants = {
-  hidden: { opacity: 0, y: 30 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] }
-  }
-};
+    const countEls = [numberRef1.current].filter(Boolean);
+    const countIO = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          animateCount(entry.target);
+          countIO.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.6 });
+    
+    countEls.forEach((el) => {
+      if (/^\d/.test(el.textContent.trim())) countIO.observe(el);
+    });
 
-const WhyTrustUs = () => {
-  const points = [
-    {
-      icon: <ShieldCheck size={32} color="var(--color-accent)" />,
-      title: "Trusted Expertise",
-      desc: "Reliable advice based on your profile, goals, and eligibility."
-    },
-    {
-      icon: <Target size={32} color="var(--color-accent)" />,
-      title: "Personalized Strategy",
-      desc: "Every journey is different. We create solutions designed specifically for you."
-    },
-    {
-      icon: <HeartHandshake size={32} color="var(--color-accent)" />,
-      title: "Complete Support",
-      desc: "From your first consultation to final application preparation."
-    },
-    {
-      icon: <MessageSquare size={32} color="var(--color-accent)" />,
-      title: "Clear Communication",
-      desc: "No confusion. No hidden steps. Only a smooth and guided process."
-    }
+    return () => countIO.disconnect();
+  }, []);
+
+  const handleMouseMove = (e, cardRef) => {
+    if (!cardRef.current) return;
+    const r = cardRef.current.getBoundingClientRect();
+    cardRef.current.style.setProperty('--mx', (e.clientX - r.left) + 'px');
+    cardRef.current.style.setProperty('--my', (e.clientY - r.top) + 'px');
+  };
+
+  const featureCards = [
+    { num: '01', title: 'Trusted Expertise', desc: 'Reliable advice based on your profile, goals, and eligibility.' },
+    { num: '02', title: 'Complete Support', desc: 'From your first consultation to final application preparation.' },
+    { num: '03', title: 'Clear Communication', desc: 'No confusion, no hidden steps — only a smooth and guided process.' },
+    { num: '04', title: 'Personalized Strategy', desc: 'Every journey is different. We create solutions designed specifically for you.' }
   ];
 
   return (
-    <section id="about" className="section-dark" style={{ position: 'relative', padding: '100px 0' }}>
-      <div className="container">
-        <m.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: "-50px" }}
-          style={{ textAlign: 'center', marginBottom: '60px' }}
-        >
-          <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '1px' }}>
-            Professional Guidance. Transparent Process. Personal Commitment.
+    <section className="about" id="about" data-idx="02" data-label="About">
+      <div className="wrap">
+        <div className="about-intro">
+          <div className="about-text reveal">
+            <span className="eyebrow">Professional Guidance. Transparent Process. Personal Commitment.</span>
+            <h2>We turn complex immigration pathways into a clear, guided journey — built around who you are and where you're headed.</h2>
+            <div className="about-cols">
+              <p><b>At TRUVIQ, we help individuals, students, and families achieve their international goals</b> with strategic guidance, transparent processes, and personalized support. Every case is assessed on its own merits, never handled as a template.</p>
+              <p>Whether you are planning to study abroad, work overseas, migrate permanently, or visit your loved ones, our experts guide you at every stage of your journey — from the first conversation to the day you land.</p>
+            </div>
           </div>
-          <m.h2 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ color: 'var(--text-primary)', fontSize: '3rem', perspective: '1000px', marginBottom: '20px' }}
-          >
-            <SplitWord>Why Choose TRUVIQ?</SplitWord>
-          </m.h2>
+          <div className="about-image reveal">
+            <div className="about-image-card img-wipe">
+              <img src="https://images.unsplash.com/photo-1758518729908-d4220a678d81?auto=format&fit=crop&w=1200&q=80" alt="TRUVIQ consultant reviewing an application with a client" />
+            </div>
+            <div className="about-stat-badge">
+              <span className="about-stat-num" ref={numberRef1}>500+</span>
+              <span className="about-stat-label">Successful Placements Worldwide</span>
+            </div>
+          </div>
+        </div>
 
-          <m.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            style={{ color: 'var(--color-text-muted)', fontSize: '1.15rem', maxWidth: '800px', margin: '0 auto', lineHeight: 1.8 }}
-          >
-            At TRUVIQ, we help individuals, students, and families achieve their international goals with strategic guidance, transparent processes, and personalized support.<br/><br/>
-            Whether you are planning to study abroad, work overseas, migrate permanently, or visit your loved ones, our experts guide you at every stage of your journey.
-          </m.p>
-        </m.div>
-
-        <m.div 
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          className="bento-grid"
-        >
-          {points.map((point, index) => (
-            <m.div 
-              key={index} 
-              variants={itemVariants}
-              className={`bento-item-${index}`}
-              style={{
-                background: 'var(--card-bg)',
-                border: '1px solid var(--color-border)',
-                borderRadius: '24px',
-                padding: '30px',
-                display: 'flex',
-                flexDirection: 'column',
-                justifyContent: 'center',
-                alignItems: 'flex-start',
-                transition: 'transform 0.3s ease, background 0.3s ease'
-              }}
-              whileHover={{ scale: 0.98, background: 'var(--card-bg-hover)' }}
-            >
-              <div style={{ marginBottom: '15px' }}>{point.icon}</div>
-              <div style={{ textAlign: 'left' }}>
-                <h3 style={{ color: 'var(--text-primary)', fontSize: '1.4rem', marginBottom: '8px' }}>{point.title}</h3>
-                <p style={{ color: 'var(--text-secondary)', fontSize: '1.05rem', lineHeight: 1.6, margin: 0 }}>
-                  {point.desc}
-                </p>
+        <div className="feature-grid reveal-stagger">
+          {featureCards.map((f, i) => {
+            const ref = React.createRef();
+            return (
+              <div 
+                key={i} 
+                className="feature-card" 
+                ref={ref} 
+                onMouseMove={(e) => handleMouseMove(e, ref)}
+              >
+                <span className="feature-num">{f.num}</span>
+                <h3>{f.title}</h3>
+                <p>{f.desc}</p>
               </div>
-            </m.div>
-          ))}
-        </m.div>
-
+            );
+          })}
+        </div>
       </div>
     </section>
   );
-};
-
-export default WhyTrustUs;
-
+}

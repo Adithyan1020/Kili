@@ -1,183 +1,88 @@
-import React, { useState, useEffect } from 'react';
-import { m, useScroll, useTransform } from 'framer-motion';
-import { SplitWord } from './AnimatedText';
-import MilitaryMap from './MilitaryMap';
+import React, { useEffect, useRef } from 'react';
 
-const Hero = ({ theme }) => {
-  const { scrollY } = useScroll();
-  const opacity = useTransform(scrollY, [0, 400], [1, 0]);
-  const y = useTransform(scrollY, [0, 400], [0, 100]);
-  
-  const [isLowEnd, setIsLowEnd] = useState(false);
+export default function Hero() {
+  const heroRef = useRef(null);
+  const heroImgRef = useRef(null);
+  const heroContentRef = useRef(null);
 
   useEffect(() => {
-    // Detect low-end hardware, slow networks, or reduced motion preference
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const isSlowConnection = navigator.connection && 
-      (navigator.connection.saveData || navigator.connection.effectiveType === 'slow-2g' || navigator.connection.effectiveType === '2g');
+    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    if (reduced) return;
+
+    const updateParallax = () => {
+      if (!heroRef.current || !heroImgRef.current || !heroContentRef.current) return;
+      const heroH = heroRef.current.offsetHeight;
+      const y = window.scrollY;
+      const progress = Math.min(y / heroH, 1);
+      
+      heroImgRef.current.style.transform = `scale(1.08) translateY(${progress * 60}px)`;
+      heroContentRef.current.style.transform = `translateY(${progress * 70}px)`;
+      heroContentRef.current.style.opacity = 1 - progress * 0.9;
+    };
+
+    document.addEventListener('scroll', updateParallax, { passive: true });
+    updateParallax();
     
-    // Better heuristic: check memory if available, or if it's a mobile device to be safer
-    // Note: navigator.deviceMemory usually returns powers of 2 (e.g., 4, 8). 
-    // Using < 6 ensures that devices reporting 4GB or less will use the fallback.
-    const lowMemory = navigator.deviceMemory && navigator.deviceMemory < 6;
-    const isMobileSafari = /iPhone|iPad|iPod/i.test(navigator.userAgent) && /WebKit/i.test(navigator.userAgent) && !/CriOS/i.test(navigator.userAgent);
-    
-    // We fall back to the lightweight static visual if any of these criteria match, or if it's an older iPhone
-    if (prefersReducedMotion || isSlowConnection || lowMemory || (isMobileSafari && window.screen.height < 800)) {
-      setIsLowEnd(true);
-    }
+    return () => document.removeEventListener('scroll', updateParallax);
   }, []);
 
+  const renderStars = () => {
+    const stars = [];
+    for (let i = 0; i < 70; i++) {
+      const sx = Math.random() * 1400;
+      const sy = Math.random() * 420;
+      const sr = Math.random() * 1.3 + 0.3;
+      const opacity = (Math.random() * 0.5 + 0.15).toFixed(2);
+      stars.push(
+        <circle key={i} cx={sx} cy={sy} r={sr} fill="#F6F3EC" opacity={opacity} />
+      );
+    }
+    return stars;
+  };
+
   return (
-    <section 
-      style={{
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        background: 'transparent',
-        color: 'var(--text-primary)',
-        overflow: 'hidden',
-        paddingTop: '80px'
-      }}
-    >
-      <div className="container">
-        <div className="grid-2-col">
-          
-          {/* Left Text Content */}
-            <m.div 
-              className="hero-text-content"
-              style={{ opacity, y, textAlign: 'left' }}
-              initial={{ opacity: 0, y: 40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1.2, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            >
+    <section className="hero" id="hero" data-idx="01" data-label="Home" ref={heroRef}>
+      <div className="hero-cover" id="heroCover">
+        <img 
+          id="heroImg" 
+          ref={heroImgRef}
+          className="hero-photo" 
+          src="https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop&w=2200&q=80" 
+          alt="" 
+        />
+        <svg className="hero-overlay-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMax slice" xmlns="http://www.w3.org/2000/svg">
+          <g id="starLayer" opacity="0.5">
+            {renderStars()}
+          </g>
+          <g id="parallaxFar" opacity="0.5">
+            <circle cx="1140" cy="230" r="150" fill="none" stroke="#B8935B" strokeWidth="0.6" opacity="0.35"/>
+            <circle cx="1140" cy="230" r="220" fill="none" stroke="#B8935B" strokeWidth="0.5" opacity="0.2"/>
+            <circle cx="1140" cy="230" r="290" fill="none" stroke="#B8935B" strokeWidth="0.4" opacity="0.12"/>
+          </g>
+        </svg>
+      </div>
+      <div className="hero-vignette"></div>
 
-            
-            <m.h1 
-              initial="hidden"
-              animate="visible"
-              variants={{ visible: { transition: { staggerChildren: 0.05, delayChildren: 0.2 } } }}
-              style={{ 
-                fontSize: 'clamp(2.5rem, 4vw, 4rem)', 
-                lineHeight: 1.4, 
-                marginBottom: '20px',
-                textTransform: 'uppercase',
-                letterSpacing: '0px',
-                perspective: '1000px'
-              }}
-            >
-              <span style={{ color: 'var(--color-accent)' }}><SplitWord>TRUVIQ</SplitWord></span> <SplitWord>IMMIGRATION</SplitWord><br/>
-              <SplitWord>& CONSULTANCY</SplitWord>
-            </m.h1>
+      <div className="hero-content" ref={heroContentRef}>
+        <div className="hero-kicker eyebrow">Immigration &amp; Consultancy</div>
+        <h1 className="hero-title">
+          <span className="line"><span>TRUVIQ</span></span>
+        </h1>
+        <p className="hero-sub">Your Trusted Gateway to Global Opportunities</p>
+        <p className="hero-desc">Expert immigration &amp; visa solutions designed around your future — from first consultation to the day you arrive.</p>
+        <div className="hero-actions">
+          <a href="#contact" className="btn btn-solid">Book Expert Consultation <span className="btn-arrow">→</span></a>
+          <div className="hero-scroll-hint"><span className="scroll-line"></span> Scroll</div>
+        </div>
+      </div>
 
-            <m.p 
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.6, ease: [0.16, 1, 0.3, 1] }}
-              style={{
-                color: 'var(--color-text-muted)',
-                fontSize: '1.1rem',
-                marginBottom: '40px',
-                maxWidth: '550px',
-                lineHeight: 1.8
-              }}
-            >
-              <span style={{ fontSize: '1.4rem', color: 'var(--text-primary)', fontWeight: '600', display: 'block', marginBottom: '15px' }}>Your Trusted Gateway to Global Opportunities</span>
-              Expert Immigration & Visa Solutions Designed Around Your Future.
-            </m.p>
-            
-            <m.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 1, delay: 0.8, ease: [0.16, 1, 0.3, 1] }}
-              style={{ display: 'flex', gap: '20px', flexWrap: 'wrap', justifyContent: 'flex-start' }}
-            >
-              <button className="btn-primary" style={{ padding: '15px 30px', fontSize: '1.1rem' }}>Book Expert Consultation</button>
-            </m.div>
-
-          </m.div>
-
-          {/* Right Globe Content */}
-          <m.div
-            initial={{ opacity: 0, scale: 0.8 }}
-            animate={{ opacity: 1, scale: 1 }}
-            transition={{ duration: 1, delay: 0.5, ease: 'easeOut' }}
-            className="hero-globe-container"
-            style={{
-              position: 'relative',
-              display: 'flex',
-              justifyContent: 'center',
-              alignItems: 'center',
-              width: '100%',
-              aspectRatio: '1'
-            }}
-          >
-            {isLowEnd ? (
-              <div style={{ width: '100%', height: '100%', padding: '5%', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <img 
-                  src="/static_globe.png" 
-                  alt="Interactive Globe Static Fallback" 
-                  onError={(e) => {
-                    e.target.style.display = 'none';
-                    // Optional: show a glowing circle or just leave empty if image fails
-                  }}
-                  style={{ 
-                    width: '100%', 
-                    height: 'auto', 
-                    objectFit: 'contain',
-                    filter: theme === 'light' ? 'none' : 'brightness(0.9) contrast(1.1)' 
-                  }} 
-                />
-              </div>
-            ) : (
-              <MilitaryMap
-                interaction={{
-                  autoRotate: true,
-                  autoRotateSpeed: 4,
-                  rotateX: 0,
-                  rotateY: 20,
-                  rotateZ: -20,
-                  enableDrag: true,
-                  dragSensitivity: 0.4,
-                  glowColor: theme === 'light' ? "#0E8392" : "#5BEEFC",
-                  glowIntensity: 0.4,
-                  showStars: true,
-                  showLabels: true
-                }}
-                mapStyle={{
-                  oceanColor: "transparent",
-                  landFill: theme === 'light' ? "#F4F7F9" : "#1E2732",
-                  landStroke: theme === 'light' ? "#0E8392" : "#151A1F",
-                  strokeWidth: 0.8,
-                  hoverColor: theme === 'light' ? "#0E8392" : "#5BEEFC",
-                  disabledColor: theme === 'light' ? "#FFFFFF" : "#151A1F"
-                }}
-                countries={[
-                  {code: "CAN", name: "Canada", enabled: true},
-                  {code: "AUS", name: "Australia", enabled: true},
-                  {code: "GBR", name: "UK", enabled: true},
-                  {code: "FRA", name: "France", enabled: true},
-                  {code: "DEU", name: "Germany", enabled: true}
-                ]}
-                markers={[
-                  { label: "Canada", description: "Visa & Immigration", latitude: 56.1304, longitude: -106.3468, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
-                  { label: "Australia", description: "Visa & Immigration", latitude: -25.2744, longitude: 133.7751, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
-                  { label: "UK", description: "Visa & Immigration", latitude: 55.3781, longitude: -3.4360, color: theme === 'light' ? "#0C707D" : "#5BEEFC" },
-                  { label: "Europe", description: "Visa & Immigration", latitude: 48.8566, longitude: 2.3522, color: theme === 'light' ? "#0C707D" : "#5BEEFC" }
-                ]}
-                tooltip={{ show: true, background: "rgba(18, 20, 23, 0.92)", textColor: "#e7ece9", borderColor: "rgba(140, 150, 145, 0.32)" }}
-                grid={{ show: true, color: "#5b636a", opacity: 0.2 }}
-                layout={{ cornerRadius: 0, padding: 0, showBorder: false, borderColor: "transparent" }}
-              />
-            )}
-          </m.div>
-
+      <div className="hero-meta-row">
+        <div className="hero-meta-inner">
+          <span>Est. <b>Global Practice</b></span>
+          <span>Regions — <b>Europe · UK · USA · Canada · Australia · UAE</b></span>
+          <span><b>500+</b> Successful Placements</span>
         </div>
       </div>
     </section>
   );
-};
-
-export default Hero;
-
+}

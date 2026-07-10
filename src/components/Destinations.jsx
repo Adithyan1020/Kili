@@ -1,189 +1,124 @@
 import React, { useState } from 'react';
-import { m, AnimatePresence } from 'framer-motion';
-import { SplitWord } from './AnimatedText';
-import { CheckCircle2 } from 'lucide-react';
+import { motion, AnimatePresence } from 'motion/react';
 
-const countries = [
-  { 
-    id: 'eu', 
-    name: 'Europe', 
-    flag: 'https://flagcdn.com/w80/eu.png', 
-    map: '/map/europe.webp',
-    about: 'In Europe, securing a direct Work Permit is our primary aim. We focus on matching skilled professionals with long-term employment opportunities and navigating the work permit process.',
-    perks: ['Direct Work Permits', 'Skilled Employment', 'Long-term Contracts', 'Application Processing', 'Employer Matching']
+const destinationsData = [
+  {
+    code: 'CA', name: 'Canada',
+    img: 'https://images.unsplash.com/photo-1750479015832-b33a015d45b1?auto=format&fit=crop&w=2200&q=80',
+    desc: "In Canada, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.",
+    services: ['Seasonal Work Programs', 'Temporary Permits', 'Compliance Support', 'Visiting Visas', 'Employer Matching']
   },
-  { 
-    id: 'us', 
-    name: 'USA', 
-    flag: 'https://flagcdn.com/w80/us.png', 
-    map: '/map/usa.webp',
-    about: 'For the United States, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
-    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Application Processing', 'Compliance Support']
+  {
+    code: 'US', name: 'United States',
+    img: 'https://images.unsplash.com/photo-1729614501639-52af5f4576a2?auto=format&fit=crop&w=2200&q=80',
+    desc: "For the United States, we specialise in visiting visas and seasonal work programs, helping candidates navigate short-term entry with confidence.",
+    services: ['Visiting Visas', 'Seasonal Work Programs', 'Documentation Support', 'Interview Preparation']
   },
-  { 
-    id: 'ca', 
-    name: 'Canada', 
-    flag: 'https://flagcdn.com/w80/ca.png', 
-    map: '/map/canada.webp',
-    about: 'In Canada, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
-    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Employer Matching', 'Compliance Support']
+  {
+    code: 'UK', name: 'United Kingdom',
+    img: 'https://images.unsplash.com/photo-1758543144598-9d954f44799a?auto=format&fit=crop&w=2200&q=80',
+    desc: "In the UK, our consultants process visiting visas and seasonal work opportunities across a range of eligible sectors.",
+    services: ['Visiting Visas', 'Seasonal Work Programs', 'Sponsor Liaison', 'Compliance Support']
   },
-  { 
-    id: 'au', 
-    name: 'Australia', 
-    flag: 'https://flagcdn.com/w80/au.png', 
-    map: '/map/australia.png',
-    about: 'For Australia, our programs are strictly focused on Seasonal Work opportunities and Visiting Visas.',
-    perks: ['Seasonal Work Programs', 'Visiting Visas', 'Temporary Permits', 'Employer Matching', 'Compliance Support']
+  {
+    code: 'EU', name: 'Europe',
+    img: 'https://images.unsplash.com/photo-1743065272129-5e261bad0c46?auto=format&fit=crop&w=2200&q=80',
+    desc: "Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.",
+    services: ['Work Permits', 'Employer Contracts', 'Residence Pathways', 'Document Legalisation']
   },
-  { 
-    id: 'ae', 
-    name: 'UAE', 
-    flag: 'https://flagcdn.com/w80/ae.png', 
-    map: '/map/uae.webp',
-    about: 'In the UAE, we are actively recruiting for large-scale Construction Work projects. We handle the recruitment, screening, and visa processing for workers heading to the Emirates.',
-    perks: ['Construction Sector Recruitment', 'Employment Visa Processing', 'Skills Assessment', 'Contract Guidance', 'Relocation Support']
+  {
+    code: 'AE', name: 'UAE',
+    img: 'https://images.unsplash.com/photo-1749273858638-ea678cb48e94?auto=format&fit=crop&w=2200&q=80',
+    desc: "In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.",
+    services: ['Construction Recruitment', 'Candidate Screening', 'Visa Processing', 'Site Mobilisation']
   },
+  {
+    code: 'AU', name: 'Australia',
+    img: 'https://images.unsplash.com/photo-1692734761800-c4d8d88b65c8?auto=format&fit=crop&w=2200&q=80',
+    desc: "For Australia, we specialise in visiting visas and seasonal work programs suited to short-term employment and agricultural sectors.",
+    services: ['Visiting Visas', 'Seasonal Work Programs', 'Regional Placement', 'Employer Matching']
+  }
 ];
 
-const Destinations = () => {
-  const [selectedCountry, setSelectedCountry] = useState('ca');
+export default function Destinations() {
+  const [selectedCode, setSelectedCode] = useState('CA');
+  const [activeDest, setActiveDest] = useState(destinationsData[0]);
+
+  const handleSelect = (code) => {
+    if (code === selectedCode) return;
+    const dest = destinationsData.find(d => d.code === code);
+    setSelectedCode(code);
+    setActiveDest(dest);
+  };
 
   return (
-    <section className="section-light" id="countries" style={{ padding: '80px 0' }}>
-      <div className="container">
-        <m.div 
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          transition={{ duration: 1, ease: [0.16, 1, 0.3, 1] }}
-          viewport={{ once: true, margin: "-50px" }}
-          style={{ textAlign: 'center', marginBottom: '60px' }}
-        >
-          <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '10px', textTransform: 'uppercase', letterSpacing: '2px', fontSize: '0.9rem' }}>
-            Global Reach
-          </div>
-          <m.h2 
-            initial="hidden"
-            whileInView="visible"
-            viewport={{ once: true }}
-            variants={{ visible: { transition: { staggerChildren: 0.05 } } }}
-            style={{ color: 'var(--text-primary)', fontSize: '2.5rem', perspective: '1000px', marginBottom: '15px' }}
-          >
-            <SplitWord>Choose Your Destination</SplitWord>
-          </m.h2>
-          <m.p 
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ duration: 1, delay: 0.2, ease: [0.16, 1, 0.3, 1] }}
-            viewport={{ once: true }}
-            style={{ color: 'var(--text-secondary)', maxWidth: '500px', margin: '0 auto', lineHeight: 1.6 }}
-          >
-            Explore the specialized recruitment and visa programs we facilitate across our primary operational regions.
-          </m.p>
-        </m.div>
+    <section className="destinations cinematic-mode" id="destinations" data-idx="05" data-label="Destinations">
+      {/* Cinematic Background Layer */}
+      <div className="dest-cinematic-bg-container">
+        <AnimatePresence>
+          <motion.img
+            key={activeDest.code}
+            src={activeDest.img}
+            alt={activeDest.name}
+            className="dest-cinematic-bg"
+            initial={{ opacity: 0, scale: 1.05 }}
+            animate={{ opacity: 1, scale: 1 }}
+            exit={{ opacity: 0 }}
+            transition={{ duration: 0.8, ease: 'easeInOut' }}
+          />
+        </AnimatePresence>
+        <div className="dest-bg-overlay"></div>
+      </div>
 
-        {/* Flag Selection */}
-        <m.div 
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-50px" }}
-          variants={{
-            visible: { transition: { staggerChildren: 0.1 } }
-          }}
-          style={{ display: 'flex', justifyContent: 'center', gap: '20px', marginBottom: '60px', flexWrap: 'wrap' }}
-        >
-          {countries.map((c) => (
-            <m.button
-              key={c.id}
-              variants={{
-                hidden: { opacity: 0, y: 30 },
-                visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] } }
-              }}
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
-              onClick={() => setSelectedCountry(c.id)}
-              style={{
-                width: '80px',
-                height: '80px',
-                borderRadius: '16px',
-                background: selectedCountry === c.id ? 'rgba(255,255,255,0.1)' : 'transparent',
-                boxShadow: selectedCountry === c.id ? '0 10px 25px rgba(0,0,0,0.5)' : 'none',
-                border: selectedCountry === c.id ? '2px solid var(--color-accent)' : '2px solid transparent',
-                fontSize: '2.5rem',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                transition: 'all 0.3s ease',
-                cursor: 'pointer'
-              }}
+      <div className="wrap position-relative">
+        <div className="dest-head reveal">
+          <span className="eyebrow">Global Reach</span>
+          <h2>Choose your destination</h2>
+          <p>Explore the specialized recruitment and visa programs we facilitate across our primary operational regions.</p>
+        </div>
+
+        <div className="dest-grid reveal-stagger">
+          {destinationsData.map((d) => (
+            <div 
+              key={d.code} 
+              className={`dest-card ${selectedCode === d.code ? 'active' : ''}`}
+              data-code={d.code}
+              onClick={() => handleSelect(d.code)}
             >
-              <img src={c.flag} alt={`${c.name} flag`} style={{ width: '40px', height: 'auto', borderRadius: '4px' }} />
-            </m.button>
-          ))}
-        </m.div>
-
-        {/* Country Details */}
-        <m.div
-          initial={{ opacity: 0, y: 40 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-50px" }}
-          transition={{ duration: 1, delay: 0.3, ease: [0.16, 1, 0.3, 1] }}
-        >
-          <AnimatePresence mode="wait">
-          <m.div
-            className="grid-2-col"
-            key={selectedCountry}
-            initial={{ opacity: 0, x: 20 }}
-            animate={{ opacity: 1, x: 0 }}
-            exit={{ opacity: 0, x: -20 }}
-            transition={{ duration: 0.4 }}
-            style={{
-              padding: '20px 0',
-            }}
-          >
-            <div>
-              {countries.find(c => c.id === selectedCountry)?.map && (
-                <img 
-                  src={countries.find(c => c.id === selectedCountry)?.map} 
-                  alt={`${countries.find(c => c.id === selectedCountry)?.name} Map`} 
-                  style={{ width: '100%', maxWidth: '400px', filter: 'drop-shadow(0 20px 30px rgba(0,0,0,0.1))' }}
-                  onError={(e) => e.target.style.display = 'none'}
-                />
-              )}
-            </div>
-            <div>
-              <div style={{ color: 'var(--color-text-muted)', marginBottom: '5px' }}>About</div>
-              <h3 style={{ fontSize: '3rem', marginBottom: '20px', color: 'var(--text-primary)' }}>
-                {countries.find(c => c.id === selectedCountry)?.name.toUpperCase()}
-              </h3>
-              <m.p 
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                transition={{ duration: 1, delay: 0.4, ease: [0.16, 1, 0.3, 1] }}
-                viewport={{ once: true }}
-                style={{ color: 'var(--text-secondary)', fontSize: '1.1rem', marginBottom: '30px', lineHeight: 1.8 }}
-              >
-                {countries.find(c => c.id === selectedCountry)?.about}
-              </m.p>
-              
-              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '15px', marginBottom: '40px' }}>
-                {countries.find(c => c.id === selectedCountry)?.perks.map((perk, i) => (
-                  <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '10px', color: 'var(--text-primary)' }}>
-                    <CheckCircle2 size={20} color="var(--color-accent)" />
-                    <span style={{ fontWeight: '500' }}>{perk}</span>
-                  </div>
-                ))}
+              <img src={d.img} alt={d.name} loading="lazy" />
+              <div className="dest-card-label">
+                <span className="dest-card-code">{d.code}</span>
+                <span className="dest-card-name">{d.name}</span>
               </div>
-
-              <button className="btn-primary" style={{ padding: '12px 30px' }}>Get Started</button>
             </div>
-          </m.div>
-          </AnimatePresence>
-        </m.div>
+          ))}
+        </div>
+
+        <div className="dest-panel glassmorphism reveal">
+          <div className="dest-panel-wrap">
+            <AnimatePresence mode="wait">
+              <motion.div
+                key={activeDest.code}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.4 }}
+              >
+                <div className="dest-panel-country">{activeDest.name}</div>
+                <p className="dest-panel-desc">{activeDest.desc}</p>
+                <div className="dest-services">
+                  {activeDest.services.map((s, idx) => (
+                    <span key={idx} className="dest-service-chip">{s}</span>
+                  ))}
+                </div>
+              </motion.div>
+            </AnimatePresence>
+          </div>
+          <div className="dest-cta">
+            <a href="#contact" className="btn btn-solid">Get Started <span className="btn-arrow">→</span></a>
+          </div>
+        </div>
       </div>
     </section>
   );
-};
-
-export default Destinations;
-
+}

@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import { LazyMotion, domAnimation } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
 import WhyTrustUs from './components/WhyTrustUs';
@@ -8,36 +7,69 @@ import Services from './components/Services';
 import Process from './components/Process';
 import Footer from './components/Footer';
 import Loader from './components/Loader';
+import { useCustomCursor } from './hooks/useCustomCursor';
+import { useScrollProgress } from './hooks/useScrollProgress';
+import { useScrollReveal } from './hooks/useScrollReveal';
+import ScrollVelocity from './components/ScrollVelocity';
 import './index.css';
 
 function App() {
   const [isLoading, setIsLoading] = useState(true);
-  const [theme, setTheme] = useState('dark');
+
+  // Initialize hooks
+  useCustomCursor();
+  useScrollProgress();
+  useScrollReveal();
 
   useEffect(() => {
-    document.documentElement.setAttribute('data-theme', theme);
-  }, [theme]);
-
-  const toggleTheme = () => {
-    setTheme(prev => prev === 'light' ? 'dark' : 'light');
-  };
+    // Add loaded class to hero once loader finishes
+    if (!isLoading) {
+      const heroEl = document.getElementById('hero');
+      if (heroEl) {
+        requestAnimationFrame(() => {
+          setTimeout(() => {
+            heroEl.classList.add('loaded');
+          }, 120);
+        });
+      }
+    }
+  }, [isLoading]);
 
   return (
-    <LazyMotion features={domAnimation}>
-      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+    <>
+      <div className="grain-overlay" aria-hidden="true"></div>
       
-      {!isLoading && (
-        <div style={{ minHeight: '100vh', transition: 'background-color var(--transition-speed)' }}>
-      <Navbar theme={theme} toggleTheme={toggleTheme} />
-      <Hero theme={theme} />
-      <WhyTrustUs />
-      <Services />
-      <Process />
-      <Destinations />
+      {isLoading && <Loader onComplete={() => setIsLoading(false)} />}
+
+      <div className="scroll-progress" id="scrollProgress"></div>
+      <div className="cursor-dot" id="cursorDot"></div>
+      <div className="cursor-ring" id="cursorRing"></div>
+
+      <div className="section-index" id="sectionIndex">
+        <span className="section-index-num" id="sectionIndexNum">01</span>
+        <span className="section-index-total">/ 06</span>
+        <span className="section-index-label" id="sectionIndexLabel">Home</span>
+      </div>
+
+      <Navbar />
+
+      <main id="top">
+        <Hero />
+        
+        <ScrollVelocity
+          texts={['GLOBAL OPPORTUNITIES', 'EXPERT IMMIGRATION']}
+          velocity={60}
+          className="custom-scroll-text"
+        />
+
+        <WhyTrustUs />
+        <Services />
+        <Process />
+        <Destinations />
+      </main>
+
       <Footer />
-        </div>
-      )}
-    </LazyMotion>
+    </>
   );
 }
 

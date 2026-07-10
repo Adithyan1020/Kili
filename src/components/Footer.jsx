@@ -1,74 +1,60 @@
 import React from 'react';
-import { m } from 'framer-motion';
-import { Phone, Mail, MapPin } from 'lucide-react';
 
-const Footer = () => {
+export default function Footer() {
   return (
-    <footer id="contact" className="section-dark" style={{ paddingTop: '80px', borderTop: '1px solid var(--color-border)' }}>
-      <div className="container">
-        
-        {/* Top Grid */}
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: '60px', marginBottom: '60px' }}>
-          
-          {/* About Section */}
-          <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
-            <h3 style={{ fontSize: '2rem', marginBottom: '10px', color: 'var(--text-primary)' }}>
-              TRU<span style={{ color: 'var(--color-accent)' }}>VIQ</span>
-            </h3>
-            <div style={{ color: 'var(--color-accent)', fontWeight: '600', marginBottom: '20px', textTransform: 'uppercase', letterSpacing: '1px', fontSize: '0.9rem' }}>
-              Your Journey. Our Commitment.
+    <footer className="site-footer" id="contact" data-idx="06" data-label="Contact">
+      <div className="section-divider section-divider-dark reveal" style={{ paddingTop: '60px' }}>
+        <span className="divider-line"></span>
+        <span className="divider-ornament"></span>
+        <span className="divider-line"></span>
+      </div>
+      <div className="wrap footer-main">
+        <div>
+          <div className="footer-brand">
+            <span className="brand-glyph">TQ</span>
+            <span className="brand-word">TRUVIQ</span>
+          </div>
+          <div className="footer-tag">Your Journey. Our Commitment.</div>
+          <p className="footer-desc">TRUVIQ Immigration &amp; Consultancy is dedicated to helping people unlock opportunities abroad through honest guidance, careful preparation, and a process built entirely around your goals.</p>
+          <p className="footer-mission">"Our mission is simple: make global dreams achievable through ethical, client-first guidance."</p>
+        </div>
+
+        <div className="footer-right">
+          <h3>Start your global journey today</h3>
+          <p>Your future abroad begins with one conversation.</p>
+
+          <div className="footer-contact">
+            <div>
+              <span className="eyebrow">Phone</span>
+              <p>+1 (234) 567-8900</p>
             </div>
-            <p style={{ color: 'var(--color-text-muted)', lineHeight: 1.8, marginBottom: '20px' }}>
-              TRUVIQ Immigration & Consultancy is dedicated to helping people unlock international opportunities through ethical advice, professional expertise, and client-focused solutions.
-            </p>
-            <p style={{ color: 'var(--text-primary)', fontStyle: 'italic', borderLeft: '3px solid var(--color-accent)', paddingLeft: '15px' }}>
-              Our mission is simple: Make global dreams achievable through the right guidance.
-            </p>
+            <div>
+              <span className="eyebrow">Email</span>
+              <p>contact@truviq.com</p>
+            </div>
+            <div>
+              <span className="eyebrow">Address</span>
+              <p>123 Global Ave, Suite 400, NY</p>
+            </div>
+            <div>
+              <span className="eyebrow">Hours</span>
+              <p>Mon–Fri, 9am–6pm EST</p>
+            </div>
           </div>
 
-          {/* Contact Section */}
-          <div>
-            <h4 style={{ fontSize: '1.4rem', color: 'var(--text-primary)', marginBottom: '20px' }}>Start Your Global Journey Today</h4>
-            <p style={{ color: 'var(--color-text-muted)', marginBottom: '30px' }}>
-              Your future abroad begins with one conversation.
-            </p>
-
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '15px', marginBottom: '30px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'var(--text-secondary)' }}>
-                <Phone size={20} color="var(--color-accent)" />
-                <span>+1 (234) 567-8900</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'var(--text-secondary)' }}>
-                <Mail size={20} color="var(--color-accent)" />
-                <span>contact@truviq.com</span>
-              </div>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '15px', color: 'var(--text-secondary)' }}>
-                <MapPin size={20} color="var(--color-accent)" />
-                <span>123 Global Ave, Suite 400, NY</span>
-              </div>
-            </div>
-
-            <button className="btn-primary" style={{ width: '100%' }}>Get Your Free Consultation</button>
+          <div className="footer-cta">
+            <a href="#contact" className="btn btn-solid">Get Your Free Consultation <span className="btn-arrow">→</span></a>
           </div>
         </div>
+      </div>
 
-        {/* Minimal Bottom Bar */}
-        <div style={{ 
-          marginTop: '60px', 
-          paddingTop: '30px',
-        }}>
+      <div className="wrap footer-bottom">
+        <p>© 2025 TRUVIQ. All rights reserved.</p>
+        <div className="footer-legal">
+          <a href="#">Privacy Policy</a>
+          <a href="#">Terms of Service</a>
         </div>
-
-        {/* Bottom divider and copyright */}
-        <div style={{ borderTop: '1px solid var(--color-border)', paddingTop: '30px', display: 'flex', justifyContent: 'space-between', alignItems: 'center', flexWrap: 'wrap', gap: '20px' }}>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
-            &copy; {new Date().getFullYear()} TRUVIQ. All rights reserved.
-          </p>
-        </div>
-
       </div>
     </footer>
   );
-};
-
-export default Footer;
+}
