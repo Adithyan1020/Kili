@@ -65,6 +65,7 @@ export default function Destinations() {
             animate={{ opacity: 1, scale: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.8, ease: 'easeInOut' }}
+            decoding="async"
           />
         </AnimatePresence>
         <div className="dest-bg-overlay"></div>
@@ -85,7 +86,7 @@ export default function Destinations() {
               data-code={d.code}
               onClick={() => handleSelect(d.code)}
             >
-              <img src={d.img} alt={d.name} loading="lazy" />
+              <img src={d.img.replace('w=2200', 'w=600')} alt={d.name} loading="lazy" decoding="async" />
               <div className="dest-card-label">
                 <span className="dest-card-code">{d.code}</span>
                 <span className="dest-card-name">{d.name}</span>

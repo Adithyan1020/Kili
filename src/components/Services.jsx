@@ -1,7 +1,16 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import ScrollStack, { ScrollStackItem } from './ScrollStack';
 
 export default function Services() {
+  const [isMobile, setIsMobile] = useState(false);
+
+  useEffect(() => {
+    const checkMobile = () => setIsMobile(window.innerWidth < 768);
+    checkMobile();
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
+
   return (
     <>
       <div className="section-divider reveal">
@@ -23,10 +32,10 @@ export default function Services() {
           <div style={{ marginTop: '60px' }}>
             <ScrollStack 
               useWindowScroll={true} 
-              itemDistance={40} 
+              itemDistance={isMobile ? 20 : 40} 
               baseScale={0.9} 
               itemScale={0.05} 
-              itemStackDistance={40}
+              itemStackDistance={isMobile ? 20 : 40}
               blurAmount={2}
             >
               <ScrollStackItem itemClassName="service-card-stack">
