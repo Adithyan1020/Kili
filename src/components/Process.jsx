@@ -25,12 +25,12 @@ export default function Process() {
             <h3>Prepare Your Application</h3>
             <p>We support you with accurate documentation.</p>
           </div>
-          <div className="process-step">
+          <div className="process-step active">
             <div className="step-dot">04</div>
             <h3>Submit With Confidence</h3>
             <p>We guide you through the application process.</p>
           </div>
-          <div className="process-step">
+          <div className="process-step active">
             <div className="step-dot">05</div>
             <h3>Achieve Your Goal</h3>
             <p>We stand beside you until you reach your destination.</p>
