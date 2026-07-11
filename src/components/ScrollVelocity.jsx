@@ -117,7 +117,7 @@ export const ScrollVelocity = ({
   }
 
   return (
-    <section style={{ padding: '80px 0', background: 'var(--ink)', color: 'var(--paper)' }}>
+    <section style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
       {texts.map((text, index) => (
         <VelocityText
           key={index}

@@ -3,54 +3,12 @@ import ScrollStack, { ScrollStackItem } from './ScrollStack';
 
 export default function WhyTrustUs() {
   const [isMobile, setIsMobile] = useState(false);
-  const numberRef1 = useRef(null);
   
   useEffect(() => {
     const checkMobile = () => setIsMobile(window.innerWidth < 768);
     checkMobile();
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
-  }, []);
-
-  useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    const animateCount = (el) => {
-      const raw = el.textContent.trim();
-      const match = raw.match(/^(\d+)(.*)$/);
-      if (!match) return;
-      const target = parseInt(match[1], 10);
-      const suffix = match[2];
-      if (reduced) { el.textContent = target + suffix; return; }
-      
-      let start = null;
-      const dur = 1400;
-      const step = (ts) => {
-        if (!start) start = ts;
-        const p = Math.min((ts - start) / dur, 1);
-        const eased = 1 - Math.pow(1 - p, 3);
-        el.textContent = Math.floor(eased * target) + suffix;
-        if (p < 1) requestAnimationFrame(step);
-        else el.textContent = target + suffix;
-      };
-      requestAnimationFrame(step);
-    };
-
-    const countEls = [numberRef1.current].filter(Boolean);
-    const countIO = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (entry.isIntersecting) {
-          animateCount(entry.target);
-          countIO.unobserve(entry.target);
-        }
-      });
-    }, { threshold: 0.6 });
-    
-    countEls.forEach((el) => {
-      if (/^\d/.test(el.textContent.trim())) countIO.observe(el);
-    });
-
-    return () => countIO.disconnect();
   }, []);
 
   const handleMouseMove = (e, cardRef) => {
@@ -82,10 +40,6 @@ export default function WhyTrustUs() {
           <div className="about-image reveal">
             <div className="about-image-card img-wipe">
               <img src="https://images.unsplash.com/photo-1758518729908-d4220a678d81?auto=format&fit=crop&w=1200&q=80" alt="TRUVIQ consultant reviewing an application with a client" />
-            </div>
-            <div className="about-stat-badge">
-              <span className="about-stat-num" ref={numberRef1}>500+</span>
-              <span className="about-stat-label">Successful Placements Worldwide</span>
             </div>
           </div>
         </div>
