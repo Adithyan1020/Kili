@@ -1,125 +1,189 @@
 import { useState } from 'react';
-import { motion, AnimatePresence } from 'motion/react';
+import Flag from './Flag';
+import { DESTINATIONS, VISA_GROUPS } from '../data/destinations';
+import { whatsappLink, emailLink } from '../data/contact';
 
-const destinationsData = [
-  {
-    code: 'CA', name: 'Canada',
-    img: 'https://images.unsplash.com/photo-1750479015832-b33a015d45b1',
-    desc: 'In Canada, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
-    services: ['Seasonal Work Programs', 'Temporary Permits', 'Compliance Support', 'Visiting Visas', 'Employer Matching']
-  },
-  {
-    code: 'US', name: 'United States',
-    img: 'https://images.unsplash.com/photo-1729614501639-52af5f4576a2',
-    desc: 'For the United States, we specialise in visiting visas and seasonal work programs, helping candidates navigate short-term entry with confidence.',
-    services: ['Visiting Visas', 'Seasonal Work Programs', 'Documentation Support', 'Interview Preparation']
-  },
-  {
-    code: 'UK', name: 'United Kingdom',
-    img: 'https://images.unsplash.com/photo-1758543144598-9d954f44799a',
-    desc: 'In the UK, our consultants process visiting visas and seasonal work opportunities across a range of eligible sectors.',
-    services: ['Visiting Visas', 'Seasonal Work Programs', 'Sponsor Liaison', 'Compliance Support']
-  },
-  {
-    code: 'EU', name: 'Europe',
-    img: 'https://images.unsplash.com/photo-1743065272129-5e261bad0c46',
-    desc: 'Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.',
-    services: ['Work Permits', 'Employer Contracts', 'Residence Pathways', 'Document Legalisation']
-  },
-  {
-    code: 'AE', name: 'UAE',
-    img: 'https://images.unsplash.com/photo-1749273858638-ea678cb48e94',
-    desc: 'In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.',
-    services: ['Construction Recruitment', 'Candidate Screening', 'Visa Processing', 'Site Mobilisation']
-  },
-  {
-    code: 'AU', name: 'Australia',
-    img: 'https://images.unsplash.com/photo-1692734761800-c4d8d88b65c8',
-    desc: 'For Australia, we specialise in visiting visas and seasonal work programs suited to short-term employment and agricultural sectors.',
-    services: ['Visiting Visas', 'Seasonal Work Programs', 'Regional Placement', 'Employer Matching']
-  }
-];
+// Text whose letters flip into place once, when the board scrolls into view
+// (CSS keys off .board.in). Screen readers get the plain text.
+function FlipText({ text, offset = 0, className = '' }) {
+  return (
+    <span className={`flip ${className}`}>
+      <span className="visually-hidden">{text}</span>
+      <span className="flip-chars" aria-hidden="true">
+        {[...text].map((c, i) => (
+          <span key={i} className="ch" style={{ '--d': `${(offset + i) * 28}ms` }}>
+            {c === ' ' ? ' ' : c}
+          </span>
+        ))}
+      </span>
+    </span>
+  );
+}
 
-const sized = (base, w, q = 72) => `${base}?auto=format&fit=crop&w=${w}&q=${q}`;
+function ChatIcon() {
+  return (
+    <svg width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+      <path
+        d="M4 5.5A2.5 2.5 0 0 1 6.5 3h11A2.5 2.5 0 0 1 20 5.5v8a2.5 2.5 0 0 1-2.5 2.5H10l-4.5 4v-4h0A2.5 2.5 0 0 1 4 13.5z"
+        fill="none" stroke="currentColor" strokeWidth="2" strokeLinejoin="round"
+      />
+      <path d="M8.5 8.5h7M8.5 11.5h4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+    </svg>
+  );
+}
+
+const matches = (d, group, q) =>
+  (group === 'all' || d.group === group) &&
+  (!q ||
+    d.name.toLowerCase().includes(q) ||
+    d.visa.toLowerCase().includes(q) ||
+    d.aliases.some((a) => a.includes(q)));
 
 export default function Destinations() {
-  const [activeDest, setActiveDest] = useState(destinationsData[0]);
+  const [query, setQuery] = useState('');
+  const [group, setGroup] = useState('all');
+  const [open, setOpen] = useState(null);
+
+  const q = query.trim().toLowerCase();
+  const visible = DESTINATIONS.filter((d) => matches(d, group, q));
+  const groupInfo = VISA_GROUPS.find((g) => g.id === group);
 
   return (
-    <section className="destinations cinematic-mode" id="destinations" data-idx="05" data-label="Destinations">
-      {/* Cinematic background (decorative) */}
-      <div className="dest-cinematic-bg-container" aria-hidden="true">
-        <AnimatePresence>
-          <motion.img
-            key={activeDest.code}
-            src={sized(activeDest.img, 1600)}
-            srcSet={`${sized(activeDest.img, 900)} 900w, ${sized(activeDest.img, 1600)} 1600w`}
-            sizes="100vw"
-            alt=""
-            className="dest-cinematic-bg"
-            loading="lazy"
-            decoding="async"
-            initial={{ opacity: 0, scale: 1.05 }}
-            animate={{ opacity: 1, scale: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.8, ease: 'easeInOut' }}
-          />
-        </AnimatePresence>
-        <div className="dest-bg-overlay"></div>
-      </div>
-
-      <div className="wrap position-relative">
-        <div className="dest-head reveal">
-          <span className="eyebrow">Global Reach</span>
-          <h2>Choose your destination</h2>
-          <p>Explore the specialized recruitment and visa programs we facilitate across our primary operational regions.</p>
+    <section className="section section-alt destinations" id="destinations" aria-labelledby="destinations-title">
+      <div className="wrap">
+        <div className="section-head">
+          <span className="eyebrow">Departures</span>
+          <h2 id="destinations-title">Pick your destination</h2>
+          <p>Tap a country to see what you need.</p>
         </div>
 
-        <div className="dest-grid reveal-stagger" role="group" aria-label="Destinations">
-          {destinationsData.map((d) => {
-            const active = activeDest.code === d.code;
-            return (
+        <div className="board-tools">
+          <div className="search">
+            <label htmlFor="dest-search" className="visually-hidden">Search a country</label>
+            <svg className="search-icon" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+              <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" strokeWidth="2" />
+              <path d="M16 16l4.5 4.5" stroke="currentColor" strokeWidth="2" strokeLinecap="round" />
+            </svg>
+            <input
+              id="dest-search"
+              type="search"
+              placeholder="Search a country"
+              autoComplete="off"
+              enterKeyHint="search"
+              value={query}
+              onChange={(e) => setQuery(e.target.value)}
+            />
+          </div>
+
+          {/* #services kept as an anchor: the old Services section lives here now */}
+          <div className="chips anchor" id="services" role="group" aria-label="Visa type">
+            {VISA_GROUPS.map((g) => (
               <button
-                key={d.code}
+                key={g.id}
                 type="button"
-                className={`dest-card ${active ? 'active' : ''}`}
-                aria-pressed={active}
-                aria-controls="destPanel"
-                onClick={() => setActiveDest(d)}
+                className="chip"
+                aria-pressed={group === g.id}
+                onClick={() => setGroup(g.id)}
               >
-                <img src={sized(d.img, 600)} alt="" loading="lazy" decoding="async" width="600" height="800" />
-                <span className="dest-card-label">
-                  <span className="dest-card-code">{d.code}</span>
-                  <span className="dest-card-name">{d.name}</span>
-                </span>
+                {g.label}
               </button>
-            );
-          })}
+            ))}
+          </div>
+          <p className="chips-desc">{groupInfo.desc}</p>
         </div>
 
-        <div className="dest-panel glassmorphism reveal" id="destPanel" aria-live="polite">
-          <div className="dest-panel-wrap">
-            <AnimatePresence mode="wait">
-              <motion.div
-                key={activeDest.code}
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                exit={{ opacity: 0, y: -10 }}
-                transition={{ duration: 0.4 }}
-              >
-                <h3 className="dest-panel-country">{activeDest.name}</h3>
-                <p className="dest-panel-desc">{activeDest.desc}</p>
-                <ul className="dest-services">
-                  {activeDest.services.map((s) => (
-                    <li key={s} className="dest-service-chip">{s}</li>
-                  ))}
-                </ul>
-              </motion.div>
-            </AnimatePresence>
+        <div className="board" data-reveal>
+          <div className="board-top mono">
+            <span className="board-title">
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path fill="currentColor" d="M21 16v-2l-8-5V3.5a1.5 1.5 0 0 0-3 0V9l-8 5v2l8-2.5V19l-2 1.5V22l3.5-1 3.5 1v-1.5L13 19v-5.5z" />
+              </svg>
+              Departures
+            </span>
+            <span className="board-count" aria-live="polite">
+              {visible.length} {visible.length === 1 ? 'destination' : 'destinations'}
+            </span>
           </div>
-          <div className="dest-cta">
-            <a href="#contact" className="btn btn-solid">Get Started <span className="btn-arrow" aria-hidden="true">→</span></a>
+
+          <div className="board-cols mono" aria-hidden="true">
+            <span></span>
+            <span>Destination</span>
+            <span className="col-visa">Visa</span>
+            <span className="col-time">Processing</span>
+            <span></span>
           </div>
+
+          <ul className="board-rows">
+            {DESTINATIONS.map((d, row) => {
+              const isOpen = open === d.code;
+              const panelId = `dest-${d.code}`;
+              return (
+                <li key={d.code} className={`board-row${isOpen ? ' is-open' : ''}`} hidden={!visible.includes(d)}>
+                  <h3 className="board-row-h">
+                    <button
+                      type="button"
+                      className="board-btn"
+                      aria-expanded={isOpen}
+                      aria-controls={panelId}
+                      onClick={() => setOpen(isOpen ? null : d.code)}
+                    >
+                      <Flag code={d.code} />
+                      <span className="board-dest">
+                        <FlipText text={d.name.toUpperCase()} offset={row * 4} className="board-name" />
+                        <span className="board-visa">{d.visa}</span>
+                      </span>
+                      <span className="board-time">
+                        <span className="visually-hidden">, processing about </span>
+                        <FlipText text={d.time} offset={row * 4 + 6} />
+                      </span>
+                      <svg className="board-chev" width="20" height="20" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                        <path d="M6 9l6 6 6-6" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+                      </svg>
+                    </button>
+                  </h3>
+
+                  <div className="board-detail" id={panelId} hidden={!isOpen}>
+                    <p className="board-desc">{d.desc}</p>
+                    <div className="board-detail-cols">
+                      <div>
+                        <h4 className="mono">We help with</h4>
+                        <ul className="tag-list">
+                          {d.services.map((s) => <li key={s}>{s}</li>)}
+                        </ul>
+                      </div>
+                      <div>
+                        <h4 className="mono">Documents you usually need</h4>
+                        <ul className="doc-list">
+                          {d.docs.map((doc) => <li key={doc}>{doc}</li>)}
+                        </ul>
+                      </div>
+                    </div>
+                    <div className="board-actions">
+                      <a
+                        className="button"
+                        href={whatsappLink(`Hi TRUVIQ, I want help with a visa for ${d.name}.`)}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                      >
+                        <ChatIcon /> Chat on WhatsApp
+                      </a>
+                      <a className="text-link" href={emailLink(`Visa for ${d.name}`)}>or email us</a>
+                    </div>
+                    <p className="board-note">Processing times are typical estimates, not a guarantee.</p>
+                  </div>
+                </li>
+              );
+            })}
+          </ul>
+
+          {visible.length === 0 && (
+            <p className="board-empty">
+              No match for “{query}”. We may still help —{' '}
+              <a className="text-link" href={whatsappLink(`Hi TRUVIQ, do you help with visas for ${query}?`)} target="_blank" rel="noopener noreferrer">
+                ask us on WhatsApp
+              </a>.
+            </p>
+          )}
         </div>
       </div>
     </section>
