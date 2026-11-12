@@ -361,3 +361,48 @@ section[id], footer[id], [id].anchor{ scroll-margin-top:calc(var(--header-h) + 8
   .board-detail{ padding:8px 24px 28px 74px; }
   .board-detail-cols{ grid-template-columns:1fr 1fr; gap:32px; }
 }
+
+/* ============ HOW IT WORKS (flight route) ============ */
+/* one dotted leg per stop, drawn in sequence by sliding a cover off it */
+.route-leg{
+  position:absolute; left:22px; top:48px; bottom:0; width:4px;
+  overflow:hidden;
+  background:radial-gradient(circle, var(--accent) 1.6px, transparent 2px) center 4px / 4px 11px repeat-y;
+}
+.route-cover{
+  position:absolute; inset:0; background:var(--bg);
+  transform:translateY(101%);
+  transition:transform .6s linear;
+  transition-delay:calc(var(--i) * .6s + .2s);
+}
+.js .route:not(.in) .route-cover{ transform:none; }
+
+.stop{ position:relative; display:grid; grid-template-columns:48px 1fr; gap:16px; padding-bottom:36px; }
+.stop:last-child{ padding-bottom:0; }
+.stop-dot{
+  position:relative; z-index:1;
+  width:48px; height:48px; border-radius:50%;
+  display:flex; align-items:center; justify-content:center;
+  background:var(--bg); border:2px solid var(--text); color:var(--text);
+  font-size:14px; letter-spacing:0;
+}
+.stop-dot.is-last{ background:var(--accent); border-color:var(--accent); color:#fff; }
+.stop-body{ padding-top:2px; }
+.stop-tag{ display:block; font-size:12px; color:var(--accent); margin-bottom:4px; }
+.stop p{ margin-top:6px; color:var(--muted); }
+
+/* each stop lands as the line reaches it */
+.stop-dot, .stop-body{ transition:opacity .45s var(--ease), transform .45s var(--ease); transition-delay:calc(var(--i) * .6s); }
+.js .route:not(.in) .stop-dot{ opacity:0; transform:scale(.6); }
+.js .route:not(.in) .stop-body{ opacity:0; transform:translateY(10px); }
+
+@media (min-width: 900px){
+  .route-stops{ display:grid; grid-template-columns:repeat(4, 1fr); }
+  .stop{ grid-template-columns:1fr; align-content:start; justify-items:center; text-align:center; padding:0 16px; gap:20px; }
+  .stop p{ max-width:26ch; margin-left:auto; margin-right:auto; }
+  .route-leg{
+    left:calc(50% + 24px); width:calc(100% - 48px); top:22px; bottom:auto; height:4px;
+    background:radial-gradient(circle, var(--accent) 1.6px, transparent 2px) 4px center / 11px 4px repeat-x;
+  }
+  .route-cover{ transform:translateX(101%); }
+}
