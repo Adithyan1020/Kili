@@ -1,5 +1,5 @@
-import ScrollRibbon from './ScrollRibbon';
-import { loop } from '../lib/ribbon';
+import ScrollFlight from './ScrollFlight';
+import { loop } from '../lib/flightPath';
 
 // Answers only restate what the rest of the site already says.
 // FAQPage structured data is emitted alongside so Google can show rich results.
@@ -30,10 +30,10 @@ const faqs = [
   },
 ];
 
-// Ribbon route: enters from the left, loops in the empty space under the
+// Flight route: enters from the left, loops in the empty space under the
 // heading, then sweeps along the bottom and exits right. Hidden on phones,
 // where there's no empty column for it.
-const RIBBON = [
+const ROUTE = [
   { x: -0.04, y: 0.6, oy: 70 },
   { x: 0.09, y: 0.6, oy: 80 },
   ...loop(0.2, 0.6, 80, 90, -1),
@@ -57,7 +57,7 @@ const faqSchema = {
 export default function Faq() {
   return (
     <section className="faq" id="faq" data-idx="06" data-label="FAQ">
-      <ScrollRibbon points={RIBBON} mobilePoints={null} mobileBreak={900} />
+      <ScrollFlight points={ROUTE} mobileBreak={900} />
       <div className="wrap faq-inner">
         <div className="faq-head reveal">
           <span className="eyebrow">Questions</span>

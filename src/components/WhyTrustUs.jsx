@@ -1,10 +1,10 @@
-import ScrollRibbon from './ScrollRibbon';
-import { loop } from '../lib/ribbon';
+import ScrollFlight from './ScrollFlight';
+import { loop } from '../lib/flightPath';
 
-// Ribbon route: enters top-left, loops in the gutter between the text and
+// Flight route: enters top-left, loops in the gutter between the text and
 // photo, runs down that gutter, curls under the photo, then slips behind the
 // feature grid and exits bottom-right.
-const RIBBON = [
+const ROUTE = [
   { x: -0.04, y: 0.05 },
   { x: 0.18, y: 0.035 },
   { x: 0.4, y: 0.06 },
@@ -18,20 +18,32 @@ const RIBBON = [
   { x: 0.9, y: 0.93 },
   { x: 1.04, y: 0.95 },
 ];
-// Phones: a single column, so the (thinner, softer) ribbon weaves an S
-// behind the copy, dives behind the photo and exits behind the cards.
-const RIBBON_MOBILE = [
-  { x: -0.08, y: 0.02 },
-  { x: 0.3, y: 0.035, oy: 30 },
-  ...loop(0.62, 0.035, 34, 90, -1),
-  { x: 0.9, y: 0.06, oy: 30 },
-  { x: 0.8, y: 0.17 },
-  { x: 0.25, y: 0.26 },
-  { x: 0.12, y: 0.36 },
-  { x: 0.5, y: 0.47 },
-  { x: 0.95, y: 0.6 },
-  { x: 0.4, y: 0.75 },
-  { x: -0.08, y: 0.82 },
+// Phones: one column with no side gutter, so the plane makes three passes
+// through the empty gaps — above the heading (with a loop), between the copy
+// and the photo (flying back), and between the photo and the cards. Each pass
+// plays as its gap crosses the screen. Anchored to the real elements so the
+// passes line up with the gaps at any screen width.
+const TEXT = { el: '.about-text' };
+const PHOTO = { el: '.about-image' };
+const CARDS = { el: '.feature-grid' };
+const LEGS_MOBILE = [
+  [
+    { x: -0.15, ...TEXT, oy: -50 },
+    { x: 0.3, ...TEXT, oy: -50 },
+    ...loop(0.58, 0, 24, 90, -1, { ...TEXT, oy: -74 }),
+    { x: 0.86, ...TEXT, oy: -50 },
+    { x: 1.15, ...TEXT, oy: -46 },
+  ],
+  [
+    { x: 1.15, ...PHOTO, oy: -38 },
+    { x: 0.5, ...PHOTO, oy: -32 },
+    { x: -0.15, ...PHOTO, oy: -38 },
+  ],
+  [
+    { x: -0.15, ...CARDS, oy: -48 },
+    { x: 0.5, ...CARDS, oy: -42 },
+    { x: 1.15, ...CARDS, oy: -48 },
+  ],
 ];
 
 const featureCards = [
@@ -52,7 +64,7 @@ const trackPointer = (e) => {
 export default function WhyTrustUs() {
   return (
     <section className="about" id="about" data-idx="02" data-label="About">
-      <ScrollRibbon points={RIBBON} mobilePoints={RIBBON_MOBILE} />
+      <ScrollFlight points={ROUTE} mobileLegs={LEGS_MOBILE} />
       <div className="wrap">
         <div className="about-intro">
           <div className="about-text reveal">

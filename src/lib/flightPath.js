@@ -1,4 +1,4 @@
-// Helpers for <ScrollRibbon>.
+// Helpers for <ScrollFlight>.
 // A route is a list of points: { x, y } are fractions of the host section's
 // width/height, { ox, oy } are pixel offsets (on desktop routes these are
 // scaled down a little on narrower screens).
@@ -9,11 +9,31 @@
  * (startDeg 90) and go counter-clockwise (dir -1), entering at the circle's
  * bottom height.
  */
-export function loop(cx, cy, r, startDeg = -90, dir = 1, { oy = 0, steps = 8 } = {}) {
+export function loop(cx, cy, r, startDeg = -90, dir = 1, { oy = 0, steps = 8, el, ey } = {}) {
   return Array.from({ length: steps + 1 }, (_, k) => {
     const a = ((startDeg + (dir * k * 360) / steps) * Math.PI) / 180;
-    return { x: cx, y: cy, ox: r * Math.cos(a), oy: oy + r * Math.sin(a) };
+    return { x: cx, y: cy, ox: r * Math.cos(a), oy: oy + r * Math.sin(a), el, ey };
   });
+}
+
+/**
+ * Vertical position of a route point inside `host`. A point may be anchored
+ * to an element instead of a fraction: { el: '.selector', ey: 0..1 } puts it
+ * at that fraction of the element's height (plus `oy`), so routes follow the
+ * real layout at any screen width. offsetTop is used so scroll-reveal
+ * transforms don't skew the measurement.
+ */
+export function pointY(pt, host, h, s) {
+  const oy = (pt.oy || 0) * s;
+  if (pt.el) {
+    const e = host.querySelector(pt.el);
+    if (e) {
+      let y = 0;
+      for (let n = e; n && n !== host; n = n.offsetParent) y += n.offsetTop;
+      return y + (pt.ey || 0) * e.offsetHeight + oy;
+    }
+  }
+  return pt.y * h + oy;
 }
 
 /** Smooth path through every point (uniform Catmull-Rom → cubic Bézier). */
