@@ -1,5 +1,3 @@
-import ScrollFlight from './ScrollFlight';
-
 // Answers only restate what the rest of the site already says.
 // FAQPage structured data is emitted alongside so Google can show rich results.
 const faqs = [
@@ -29,25 +27,6 @@ const faqs = [
   },
 ];
 
-// Flight route: rounded zigzag through the empty space under the heading,
-// then along the gap below the questions and out to the right. Anchored to
-// the real elements; hidden on phones, where there's no empty column for it.
-const HEAD = { el: '.faq-head', ey: 1 };
-const LIST = { el: '.faq-list', ey: 1 };
-const ROUTE = [
-  { x: -0.04, ...HEAD, oy: 70 },
-  { x: 0.08, ...HEAD, oy: 40 },
-  { x: 0.17, ...HEAD, oy: 110 },
-  { x: 0.26, ...HEAD, oy: 50 },
-  { x: 0.35, ...HEAD, oy: 130 },
-  { x: 0.43, ...LIST, oy: 42 },
-  { x: 0.55, ...LIST, oy: 72 },
-  { x: 0.67, ...LIST, oy: 36 },
-  { x: 0.79, ...LIST, oy: 72 },
-  { x: 0.91, ...LIST, oy: 38 },
-  { x: 1.05, ...LIST, oy: 56 },
-];
-
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -60,16 +39,15 @@ const faqSchema = {
 
 export default function Faq() {
   return (
-    <section className="faq" id="faq" data-idx="06" data-label="FAQ">
-      <ScrollFlight points={ROUTE} mobileBreak={900} />
+    <section className="section faq" id="faq" aria-labelledby="faq-title">
       <div className="wrap faq-inner">
-        <div className="faq-head reveal">
+        <div className="section-head">
           <span className="eyebrow">Questions</span>
-          <h2>Frequently asked questions</h2>
+          <h2 id="faq-title">Frequently asked questions</h2>
           <p>Straight answers about our work permit, visa and recruitment services.</p>
         </div>
 
-        <div className="faq-list reveal">
+        <div className="faq-list">
           {faqs.map((f) => (
             <details key={f.q} className="faq-item">
               <summary>

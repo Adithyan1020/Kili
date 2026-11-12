@@ -1,58 +1,66 @@
+import { EMAIL, whatsappLink, emailLink } from '../data/contact';
+
 export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="site-footer" id="contact" data-idx="07" data-label="Contact">
-      <div className="section-divider section-divider-dark reveal" style={{ paddingTop: '60px' }} aria-hidden="true">
-        <span className="divider-line"></span>
-        <span className="divider-ornament"></span>
-        <span className="divider-line"></span>
-      </div>
-      <div className="wrap footer-main">
-        <div>
-          <div className="footer-brand">
-            <span className="brand-glyph" aria-hidden="true">TQ</span>
-            <span className="brand-word">TRUVIQ</span>
+    <footer className="site-footer" id="contact" aria-labelledby="contact-title">
+      <div className="wrap">
+        <div className="footer-cta">
+          <span className="eyebrow">Talk to an agent</span>
+          <h2 id="contact-title">Start your global journey today</h2>
+          <p>Your future abroad begins with one conversation.</p>
+          <div className="footer-actions">
+            <a
+              className="button"
+              href={whatsappLink('Hi TRUVIQ, I would like a free consultation.')}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              Chat on WhatsApp
+            </a>
+            <a className="text-link" href={emailLink('Free consultation')}>or email {EMAIL}</a>
           </div>
-          <div className="footer-tag">Your Journey. Our Commitment.</div>
-          <p className="footer-desc">TRUVIQ Immigration &amp; Consultancy is dedicated to helping people unlock opportunities abroad through honest guidance, careful preparation, and a process built entirely around your goals.</p>
-          <p className="footer-mission">"Our mission is simple: make global dreams achievable through ethical, client-first guidance."</p>
         </div>
 
-        <div className="footer-right">
-          <h2>Start your global journey today</h2>
-          <p>Your future abroad begins with one conversation.</p>
+        <div className="footer-main">
+          <div className="footer-about">
+            <div className="footer-brand">
+              <span className="brand-glyph" aria-hidden="true">TQ</span>
+              <span className="brand-word">TRUVIQ</span>
+            </div>
+            <p className="footer-tag mono">Your Journey. Our Commitment.</p>
+            <p className="footer-desc">TRUVIQ Immigration &amp; Consultancy is dedicated to helping people unlock opportunities abroad through honest guidance, careful preparation, and a process built entirely around your goals.</p>
+            <p className="footer-mission">“Our mission is simple: make global dreams achievable through ethical, client-first guidance.”</p>
+          </div>
 
+          {/* Phone, address and hours are the existing placeholders (see README) */}
           <address className="footer-contact">
             <div>
-              <span className="eyebrow">Phone</span>
+              <span className="mono">Phone</span>
               <p><a href="tel:+12345678900">+1 (234) 567-8900</a></p>
             </div>
             <div>
-              <span className="eyebrow">Email</span>
-              <p><a href="mailto:contact@truviq.com">contact@truviq.com</a></p>
+              <span className="mono">Email</span>
+              <p><a href={`mailto:${EMAIL}`}>{EMAIL}</a></p>
             </div>
             <div>
-              <span className="eyebrow">Address</span>
+              <span className="mono">Address</span>
               <p>123 Global Ave, Suite 400, NY</p>
             </div>
             <div>
-              <span className="eyebrow">Hours</span>
+              <span className="mono">Hours</span>
               <p>Mon–Fri, 9am–6pm EST</p>
             </div>
           </address>
-
-          <div className="footer-cta">
-            <a href="#contact" className="btn btn-solid">Get Your Free Consultation <span className="btn-arrow" aria-hidden="true">→</span></a>
-          </div>
         </div>
-      </div>
 
-      <div className="wrap footer-bottom">
-        <p>© {year} TRUVIQ. All rights reserved.</p>
-        <div className="footer-legal">
-          <a href="#">Privacy Policy</a>
-          <a href="#">Terms of Service</a>
+        <div className="footer-bottom">
+          <p>© {year} TRUVIQ. All rights reserved.</p>
+          <div className="footer-legal">
+            <a href="#">Privacy Policy</a>
+            <a href="#">Terms of Service</a>
+          </div>
         </div>
       </div>
     </footer>
