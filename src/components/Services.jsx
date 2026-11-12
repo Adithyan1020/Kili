@@ -1,21 +1,34 @@
+import { useState } from 'react';
+
+const img = (id, w) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=${w}&q=72`;
+
 const services = [
   {
-    idx: 'EU',
+    code: 'EU',
     title: 'European Work Permits',
     tag: 'Direct Employment Pathways',
     desc: 'Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.',
+    includes: ['Work Permits', 'Employer Contracts', 'Residence Pathways', 'Document Legalisation'],
+    regions: 'Europe',
+    photo: 'photo-1743065272129-5e261bad0c46',
   },
   {
-    idx: 'US·CA·UK·AU',
+    code: 'US · CA · UK · AU',
     title: 'Seasonal & Visiting Visas',
     tag: 'Short-Term & Seasonal Work',
     desc: 'For the USA, Canada, UK, and Australia, we specialize in processing visiting visas and facilitating seasonal work programs.',
+    includes: ['Visiting Visas', 'Seasonal Work Programs', 'Documentation Support', 'Interview Preparation'],
+    regions: 'USA · Canada · UK · Australia',
+    photo: 'photo-1758543144598-9d954f44799a',
   },
   {
-    idx: 'UAE',
+    code: 'UAE',
     title: 'Construction Recruitment',
     tag: 'UAE Sector Specialists',
     desc: 'In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.',
+    includes: ['Construction Recruitment', 'Candidate Screening', 'Visa Processing', 'Site Mobilisation'],
+    regions: 'United Arab Emirates',
+    photo: 'photo-1749273858638-ea678cb48e94',
   },
 ];
 
@@ -30,6 +43,9 @@ function Divider() {
 }
 
 export default function Services() {
+  const [active, setActive] = useState(0);
+  const total = String(services.length).padStart(2, '0');
+
   return (
     <>
       <Divider />
@@ -44,15 +60,67 @@ export default function Services() {
             <p>Three specialised practice areas, each handled by consultants who work exclusively within that region and route.</p>
           </div>
 
-          <div className="modern-services-grid reveal-stagger">
-            {services.map((s) => (
-              <article key={s.idx} className="modern-service-card">
-                <span className="modern-service-idx">{s.idx}</span>
-                <h3>{s.title}</h3>
-                <span className="tag">{s.tag}</span>
-                <p>{s.desc}</p>
-              </article>
-            ))}
+          <div className="svc-panels reveal">
+            {services.map((s, i) => {
+              const isActive = active === i;
+              const num = String(i + 1).padStart(2, '0');
+              return (
+                <article
+                  key={s.code}
+                  className={`svc-panel ${isActive ? 'is-active' : ''}`}
+                  onMouseEnter={() => setActive(i)}
+                >
+                  <img
+                    className="svc-bg"
+                    src={img(s.photo, 1200)}
+                    srcSet={`${img(s.photo, 700)} 700w, ${img(s.photo, 1200)} 1200w`}
+                    sizes="(max-width: 900px) 100vw, 900px"
+                    alt=""
+                    loading="lazy"
+                    decoding="async"
+                  />
+                  <div className="svc-shade" aria-hidden="true"></div>
+
+                  {/* Whole-panel trigger for keyboard / touch; content sits above it */}
+                  <button
+                    type="button"
+                    className="svc-trigger"
+                    aria-expanded={isActive}
+                    aria-controls={`svc-body-${i}`}
+                    onClick={() => setActive(i)}
+                    onFocus={() => setActive(i)}
+                  >
+                    <span className="visually-hidden">Show {s.title}</span>
+                  </button>
+
+                  {/* Collapsed state: vertical label */}
+                  <div className="svc-rail" aria-hidden="true">
+                    <span className="svc-rail-num">{num}</span>
+                    <span className="svc-rail-title">{s.title}</span>
+                  </div>
+
+                  {/* Expanded state: full details */}
+                  <div className="svc-body" id={`svc-body-${i}`}>
+                    <div className="svc-meta">
+                      <span className="svc-num">{num} <span>/ {total}</span></span>
+                      <span className="svc-code">{s.code}</span>
+                    </div>
+                    <h3>{s.title}</h3>
+                    <span className="svc-tag">{s.tag}</span>
+                    <p className="svc-desc">{s.desc}</p>
+                    <ul className="svc-includes" aria-label={`${s.title} includes`}>
+                      {s.includes.map((x) => <li key={x}>{x}</li>)}
+                    </ul>
+                    <div className="svc-foot">
+                      <span className="svc-regions"><span>Regions</span>{s.regions}</span>
+                      <a href="#contact" className="svc-cta">
+                        Discuss this route <span className="btn-arrow" aria-hidden="true">→</span>
+                      </a>
+                    </div>
+                  </div>
+                </article>
+              );
+            })}
           </div>
         </div>
       </section>
