@@ -8,6 +8,7 @@ import { whatsappLink } from '../data/contact';
 // loaded on demand so they add nothing to the default page.
 const VARIANTS = {
   board: { label: 'Departure board' },
+  passport: { label: 'Passport page', load: () => import('./picker/PassportPage') },
   pass: { label: 'Boarding passes', load: () => import('./picker/BoardingPasses') },
 };
 
