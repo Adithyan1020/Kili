@@ -1,48 +1,59 @@
 import ScrollFlight from './ScrollFlight';
-import { loop } from '../lib/flightPath';
 
-// Flight route: enters top-left, loops in the gutter between the text and
-// photo, runs down that gutter, curls under the photo, then slips behind the
-// feature grid and exits bottom-right.
-const ROUTE = [
-  { x: -0.04, y: 0.05 },
-  { x: 0.18, y: 0.035 },
-  { x: 0.4, y: 0.06 },
-  ...loop(0.52, 0.12, 70, 180, 1),
-  { x: 0.519, y: 0.3 },
-  { x: 0.52, y: 0.48 },
-  { x: 0.6, y: 0.6 },
-  { x: 0.8, y: 0.6 },
-  ...loop(0.86, 0.62, 55, -150, -1),
-  { x: 0.66, y: 0.7 },
-  { x: 0.9, y: 0.93 },
-  { x: 1.04, y: 0.95 },
-];
-// Phones: one column with no side gutter, so the plane makes three passes
-// through the empty gaps — above the heading (with a loop), between the copy
-// and the photo (flying back), and between the photo and the cards. Each pass
-// plays as its gap crosses the screen. Anchored to the real elements so the
-// passes line up with the gaps at any screen width.
+// Route points are anchored to the real elements ({ el, ey, oy }) so the
+// flight lines up with the empty spaces at any screen size.
 const TEXT = { el: '.about-text' };
+const INTRO = { el: '.about-intro' };
 const PHOTO = { el: '.about-image' };
 const CARDS = { el: '.feature-grid' };
+
+// Desktop: rounded zigzag across the space above the heading, a gentle
+// weave down the gutter between the copy and the photo, then a zigzag
+// through the gap above the feature cards and out to the right.
+const ROUTE = [
+  { x: -0.04, ...TEXT, oy: -72 },
+  { x: 0.1, ...TEXT, oy: -98 },
+  { x: 0.22, ...TEXT, oy: -52 },
+  { x: 0.34, ...TEXT, oy: -98 },
+  { x: 0.45, ...TEXT, oy: -58 },
+  { x: 0.519, ...TEXT, oy: 10 },
+  { x: 0.508, ...INTRO, ey: 0.3 },
+  { x: 0.53, ...INTRO, ey: 0.55 },
+  { x: 0.508, ...INTRO, ey: 0.8 },
+  { x: 0.54, ...CARDS, oy: -58 },
+  { x: 0.64, ...CARDS, oy: -30 },
+  { x: 0.75, ...CARDS, oy: -64 },
+  { x: 0.86, ...CARDS, oy: -30 },
+  { x: 0.96, ...CARDS, oy: -60 },
+  { x: 1.05, ...CARDS, oy: -44 },
+];
+
+// Phones: one column with no side gutter, so the plane makes three zigzag
+// passes through the empty gaps — above the heading, between the copy and the
+// photo (flying back), and between the photo and the cards. Each pass plays
+// as its gap crosses the screen.
 const LEGS_MOBILE = [
   [
     { x: -0.15, ...TEXT, oy: -50 },
-    { x: 0.3, ...TEXT, oy: -50 },
-    ...loop(0.58, 0, 24, 90, -1, { ...TEXT, oy: -74 }),
-    { x: 0.86, ...TEXT, oy: -50 },
-    { x: 1.15, ...TEXT, oy: -46 },
+    { x: 0.12, ...TEXT, oy: -66 },
+    { x: 0.37, ...TEXT, oy: -36 },
+    { x: 0.62, ...TEXT, oy: -66 },
+    { x: 0.87, ...TEXT, oy: -36 },
+    { x: 1.15, ...TEXT, oy: -52 },
   ],
   [
-    { x: 1.15, ...PHOTO, oy: -38 },
-    { x: 0.5, ...PHOTO, oy: -32 },
-    { x: -0.15, ...PHOTO, oy: -38 },
+    { x: 1.15, ...PHOTO, oy: -36 },
+    { x: 0.82, ...PHOTO, oy: -48 },
+    { x: 0.5, ...PHOTO, oy: -24 },
+    { x: 0.18, ...PHOTO, oy: -48 },
+    { x: -0.15, ...PHOTO, oy: -34 },
   ],
   [
-    { x: -0.15, ...CARDS, oy: -48 },
-    { x: 0.5, ...CARDS, oy: -42 },
-    { x: 1.15, ...CARDS, oy: -48 },
+    { x: -0.15, ...CARDS, oy: -46 },
+    { x: 0.18, ...CARDS, oy: -60 },
+    { x: 0.5, ...CARDS, oy: -32 },
+    { x: 0.82, ...CARDS, oy: -60 },
+    { x: 1.15, ...CARDS, oy: -44 },
   ],
 ];
 

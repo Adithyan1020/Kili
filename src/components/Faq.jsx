@@ -1,5 +1,4 @@
 import ScrollFlight from './ScrollFlight';
-import { loop } from '../lib/flightPath';
 
 // Answers only restate what the rest of the site already says.
 // FAQPage structured data is emitted alongside so Google can show rich results.
@@ -30,18 +29,23 @@ const faqs = [
   },
 ];
 
-// Flight route: enters from the left, loops in the empty space under the
-// heading, then sweeps along the bottom and exits right. Hidden on phones,
-// where there's no empty column for it.
+// Flight route: rounded zigzag through the empty space under the heading,
+// then along the gap below the questions and out to the right. Anchored to
+// the real elements; hidden on phones, where there's no empty column for it.
+const HEAD = { el: '.faq-head', ey: 1 };
+const LIST = { el: '.faq-list', ey: 1 };
 const ROUTE = [
-  { x: -0.04, y: 0.6, oy: 70 },
-  { x: 0.09, y: 0.6, oy: 80 },
-  ...loop(0.2, 0.6, 80, 90, -1),
-  { x: 0.31, y: 0.6, oy: 90 },
-  { x: 0.42, y: 0.86 },
-  { x: 0.6, y: 0.93 },
-  { x: 0.82, y: 0.9 },
-  { x: 1.04, y: 0.8 },
+  { x: -0.04, ...HEAD, oy: 70 },
+  { x: 0.08, ...HEAD, oy: 40 },
+  { x: 0.17, ...HEAD, oy: 110 },
+  { x: 0.26, ...HEAD, oy: 50 },
+  { x: 0.35, ...HEAD, oy: 130 },
+  { x: 0.43, ...LIST, oy: 42 },
+  { x: 0.55, ...LIST, oy: 72 },
+  { x: 0.67, ...LIST, oy: 36 },
+  { x: 0.79, ...LIST, oy: 72 },
+  { x: 0.91, ...LIST, oy: 38 },
+  { x: 1.05, ...LIST, oy: 56 },
 ];
 
 const faqSchema = {
