@@ -1,7 +1,8 @@
 import { StrictMode } from 'react'
 import { createRoot, hydrateRoot } from 'react-dom/client'
-import './fonts.js'
+import './fonts.css'
 import './index.css'
+import './legacy.css' // temporary, removed once every section is redesigned
 import App from './App.jsx'
 
 const container = document.getElementById('root')

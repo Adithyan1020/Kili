@@ -10,6 +10,9 @@
     <meta name="robots" content="index, follow" />
     <meta name="theme-color" content="#0E1B2B" />
 
+    <!-- Lets CSS hide animate-in states only when JS will reveal them -->
+    <script>document.documentElement.classList.add('js')</script>
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
 
@@ -64,7 +67,7 @@
       </style>
     </noscript>
   </head>
-  <body>
+  <body id="top">
     <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
