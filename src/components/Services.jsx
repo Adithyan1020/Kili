@@ -46,6 +46,18 @@ export default function Services() {
   const [active, setActive] = useState(0);
   const total = String(services.length).padStart(2, '0');
 
+  // On phones the panels are an accordion: when the panel above collapses,
+  // the tapped banner can jump up out of view, so bring it back into view.
+  const openPanel = (i, trigger) => {
+    setActive(i);
+    if (!window.matchMedia('(max-width: 900px)').matches) return;
+    const panel = trigger.closest('.svc-panel');
+    setTimeout(() => {
+      const top = panel.getBoundingClientRect().top;
+      if (top < 80) window.scrollBy({ top: top - 90, behavior: 'smooth' });
+    }, 520);
+  };
+
   return (
     <>
       <Divider />
@@ -87,19 +99,21 @@ export default function Services() {
                     className="svc-trigger"
                     aria-expanded={isActive}
                     aria-controls={`svc-body-${i}`}
-                    onClick={() => setActive(i)}
+                    onClick={(e) => openPanel(i, e.currentTarget)}
                     onFocus={() => setActive(i)}
                   >
                     <span className="visually-hidden">Show {s.title}</span>
                   </button>
 
-                  {/* Collapsed state: vertical label */}
+                  {/* Label: vertical strip on desktop, banner header on phones */}
                   <div className="svc-rail" aria-hidden="true">
-                    <span className="svc-rail-num">{num}</span>
+                    <span className="svc-rail-num">{num}<span className="svc-rail-code">{s.code}</span></span>
                     <span className="svc-rail-title">{s.title}</span>
+                    <span className="svc-rail-icon"></span>
                   </div>
 
-                  {/* Expanded state: full details */}
+                  {/* Expanded state: full details (wrapper animates height on phones) */}
+                  <div className="svc-body-wrap">
                   <div className="svc-body" id={`svc-body-${i}`}>
                     <div className="svc-meta">
                       <span className="svc-num">{num} <span>/ {total}</span></span>
@@ -117,6 +131,7 @@ export default function Services() {
                         Discuss this route <span className="btn-arrow" aria-hidden="true">→</span>
                       </a>
                     </div>
+                  </div>
                   </div>
                 </article>
               );

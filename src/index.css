@@ -738,21 +738,84 @@ section[id], footer[id]{scroll-margin-top:72px;}
 .svc-cta:hover{ background:var(--brass-l); transform:translateY(-2px); }
 .svc-cta:hover .btn-arrow{ transform:translateX(4px); }
 
-/* Tablet & phone: stacked cards, every panel open */
+/* desktop: wrapper is layout-neutral; banner-only bits hidden */
+.svc-body-wrap{ display:contents; }
+.svc-rail-code, .svc-rail-icon{ display:none; }
+
+/* ---------- Tablet & phone: photo-banner accordion ---------- */
 @media(max-width:900px){
-  .svc-panels{ flex-direction:column; height:auto; margin-top:50px; }
-  .svc-panel, .svc-panel.is-active{ flex:none; border-color:var(--line-dark); }
-  .svc-panel::before{ transform:scaleX(1); }
-  .svc-trigger, .svc-rail{ display:none; }
-  .svc-bg, .svc-panel:hover .svc-bg{ filter:brightness(.55); transform:none; }
-  .svc-body{
-    position:relative; width:auto; padding:190px 26px 28px; pointer-events:auto;
-    opacity:1; visibility:visible; transform:none; transition:none;
+  .svc-panels{ --banner:132px; flex-direction:column; height:auto; gap:12px; margin-top:44px; }
+  .svc-panel{ flex:none; background:var(--ink-2); }
+  .svc-panel.is-active{ flex:none; }
+
+  /* photo + shade only fill the banner */
+  .svc-bg, .svc-shade{ inset:0 0 auto 0; height:var(--banner); }
+  .svc-bg{ filter:grayscale(.4) brightness(.5); transform:none; }
+  .svc-panel:hover .svc-bg{ filter:grayscale(.4) brightness(.5); }
+  .svc-panel.is-active .svc-bg{ filter:brightness(.6) saturate(1.05); transform:none; }
+  .svc-shade{
+    background:linear-gradient(90deg, rgba(14,27,43,0.85) 0%, rgba(14,27,43,0.35) 75%, rgba(14,27,43,0.2) 100%);
   }
+
+  /* tap target = the banner */
+  .svc-trigger{ inset:0 0 auto 0; height:var(--banner); }
+  .svc-panel.is-active .svc-trigger{ cursor:pointer; }
+
+  /* banner header */
+  .svc-rail, .svc-panel.is-active .svc-rail{
+    position:relative; inset:auto; height:var(--banner); opacity:1;
+    display:grid; grid-template-columns:1fr auto; grid-template-rows:auto 1fr;
+    align-items:end; padding:20px 22px; transition:none;
+  }
+  .svc-rail-num{ grid-column:1 / -1; display:flex; align-items:center; gap:12px; font-size:12px; }
+  .svc-rail-code{
+    display:inline; color:var(--paper); padding-left:12px; border-left:1px solid rgba(246,243,236,0.3);
+    letter-spacing:.1em;
+  }
+  .svc-rail-title{
+    writing-mode:horizontal-tb; transform:none; white-space:normal;
+    font-size:22px; font-weight:700; line-height:1.15; padding-right:16px;
+  }
+  .svc-rail-icon{
+    display:block; position:relative; width:34px; height:34px; border-radius:50%;
+    border:1px solid rgba(208,173,121,0.6); background:rgba(14,27,43,0.5);
+  }
+  .svc-rail-icon::before, .svc-rail-icon::after{
+    content:''; position:absolute; left:50%; top:50%; width:12px; height:1.5px; margin:-.75px 0 0 -6px;
+    background:var(--brass-l); transition:transform .4s var(--ease);
+  }
+  .svc-rail-icon::after{ transform:rotate(90deg); }
+  .svc-panel.is-active .svc-rail-icon::after{ transform:rotate(0deg); }
+  .svc-panel.is-active .svc-rail-icon{ background:var(--brass-l); border-color:var(--brass-l); }
+  .svc-panel.is-active .svc-rail-icon::before,
+  .svc-panel.is-active .svc-rail-icon::after{ background:var(--ink); }
+
+  /* details slide open below the banner (0fr → 1fr height animation) */
+  .svc-body-wrap{
+    display:grid; grid-template-rows:0fr;
+    transition:grid-template-rows .5s cubic-bezier(.65,0,.25,1);
+  }
+  .svc-panel.is-active .svc-body-wrap{ grid-template-rows:1fr; }
+  .svc-body{
+    position:relative; width:auto; min-height:0; overflow:hidden;
+    padding:0 22px; pointer-events:auto; transform:none;
+  }
+  .svc-panel.is-active .svc-body{ transform:none; transition:opacity .45s var(--ease) .2s, visibility 0s; }
+  .svc-body > :last-child{ margin-bottom:24px; }
+
+  /* the banner already shows number + title */
+  .svc-meta, .svc-body h3{
+    position:absolute; width:1px; height:1px; overflow:hidden; clip:rect(0 0 0 0); white-space:nowrap;
+  }
+  .svc-tag{ margin-top:22px; }
+  .svc-desc{ margin-top:16px; font-size:15.5px; line-height:1.7; }
+  .svc-includes{ margin-top:20px; }
+  .svc-foot{ margin-top:22px; padding-top:20px; }
 }
 @media(max-width:560px){
-  .svc-includes{ grid-template-columns:1fr; }
-  .svc-body{ padding-top:150px; }
+  .svc-includes{ grid-template-columns:1fr; gap:10px; }
+  .svc-foot{ flex-direction:column; align-items:stretch; gap:18px; }
+  .svc-cta{ justify-content:center; }
 }
 
 /* ============ FAQ ============ */
