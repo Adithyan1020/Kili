@@ -334,21 +334,25 @@ section[id], footer[id], [id].anchor{ scroll-margin-top:calc(var(--header-h) + 8
 .board-detail{ padding:4px 16px 24px; background:var(--board-2); }
 .board-row.is-open .board-detail{ animation:detailIn .3s var(--ease) both; }
 @keyframes detailIn{ from{ opacity:0; transform:translateY(-6px); } to{ opacity:1; transform:none; } }
-.board-desc{ color:var(--board-text); max-width:60ch; }
-.board-detail-cols{ display:grid; gap:20px; margin:20px 0 24px; }
-.board-detail h4{ font-size:12px; color:var(--board-muted); margin-bottom:10px; }
+
+/* requirements panel, shared by every picker design (light by default) */
+.dest-detail{ --d-text:var(--text); --d-muted:var(--muted); --d-line:var(--line); --d-accent:var(--accent); color:var(--d-text); }
+.board .dest-detail{ --d-text:var(--board-text); --d-muted:var(--board-muted); --d-line:var(--board-line); --d-accent:var(--board-accent); }
+.dest-desc{ max-width:60ch; }
+.dest-cols{ display:grid; gap:20px; margin:20px 0 24px; }
+.dest-detail h4{ font-size:12px; color:var(--d-muted); margin-bottom:10px; }
 .tag-list{ display:flex; flex-wrap:wrap; gap:8px; }
-.tag-list li{ padding:6px 12px; border:1px solid var(--board-line); border-radius:999px; font-size:14px; }
+.tag-list li{ padding:6px 12px; border:1px solid var(--d-line); border-radius:999px; font-size:14px; }
 .doc-list li{ position:relative; padding:5px 0 5px 28px; }
 .doc-list li::before{
   content:''; position:absolute; left:2px; top:11px; width:14px; height:8px;
-  border-left:2.5px solid var(--board-accent); border-bottom:2.5px solid var(--board-accent);
+  border-left:2.5px solid var(--d-accent); border-bottom:2.5px solid var(--d-accent);
   transform:rotate(-45deg);
 }
-.board-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; }
-.board .text-link{ color:var(--board-accent); }
-.board-note{ margin-top:14px; font-size:13px; color:var(--board-muted); }
-.board-empty{ padding:24px 16px; border-top:1px solid var(--board-line); }
+.dest-actions{ display:flex; flex-wrap:wrap; align-items:center; gap:8px 20px; }
+.dest-detail .text-link{ color:var(--d-accent); }
+.dest-note{ margin-top:14px; font-size:13px; color:var(--d-muted); }
+.picker-empty{ margin-top:16px; }
 
 @media (min-width: 720px){
   .board-cols, .board-btn{ grid-template-columns:30px minmax(0,1.3fr) minmax(0,1fr) 110px 20px; gap:20px; padding-left:24px; padding-right:24px; }
@@ -359,7 +363,7 @@ section[id], footer[id], [id].anchor{ scroll-margin-top:calc(var(--header-h) + 8
   .board-time{ font-size:15px; }
   .board-top{ padding:16px 24px; }
   .board-detail{ padding:8px 24px 28px 74px; }
-  .board-detail-cols{ grid-template-columns:1fr 1fr; gap:32px; }
+  .dest-cols{ grid-template-columns:1fr 1fr; gap:32px; }
 }
 
 /* ============ HOW IT WORKS (flight route) ============ */
@@ -532,3 +536,14 @@ section[id], footer[id], [id].anchor{ scroll-margin-top:calc(var(--header-h) + 8
   .site-footer{ padding-top:112px; }
   .footer-main{ grid-template-columns:1.2fr 1fr; gap:64px; }
 }
+
+/* ============ PICKER PROTOTYPE SWITCH (?picker=) ============ */
+.variant-switch{
+  display:flex; flex-wrap:wrap; align-items:center; gap:4px 8px;
+  margin-bottom:32px; padding:8px 12px;
+  border:2px dashed var(--accent); border-radius:var(--radius); background:var(--bg);
+}
+.variant-switch .mono{ font-size:11px; color:var(--accent); margin-right:4px; }
+.variant-switch a{ display:inline-flex; align-items:center; min-height:44px; padding:0 10px; border-radius:999px; font-weight:600; font-size:15px; text-decoration:none; }
+.variant-switch a[aria-current]{ background:var(--text); color:#fff; }
+.picker-loading{ min-height:520px; }

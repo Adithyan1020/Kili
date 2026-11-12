@@ -53,44 +53,46 @@ const DOCS = {
   ],
 };
 
+// `iata`: a main-hub airport code, used as decoration on ticket/tag designs
+// (Europe uses Frankfurt). Not a claim about where clients fly.
 export const DESTINATIONS = [
   {
-    code: 'EU', name: 'Europe', group: 'work', visa: 'Work permit',
+    code: 'EU', iata: 'FRA', name: 'Europe', group: 'work', visa: 'Work permit',
     time: '8–12 WKS', // PLACEHOLDER
     aliases: ['schengen', 'germany', 'france', 'italy', 'poland', 'eu'],
     desc: 'Our primary focus in Europe is securing standard work permits, helping you navigate the requirements for full-time employment and long-term residence.',
     services: ['Work Permits', 'Employer Contracts', 'Residence Pathways', 'Document Legalisation'],
   },
   {
-    code: 'AE', name: 'UAE', group: 'construction', visa: 'Construction jobs',
+    code: 'AE', iata: 'DXB', name: 'UAE', group: 'construction', visa: 'Construction jobs',
     time: '3–5 WKS', // PLACEHOLDER
     aliases: ['emirates', 'dubai', 'abu dhabi', 'united arab emirates'],
     desc: 'In the UAE, we are actively recruiting for large-scale construction projects, handling recruitment, screening, and visa processing.',
     services: ['Construction Recruitment', 'Candidate Screening', 'Visa Processing', 'Site Mobilisation'],
   },
   {
-    code: 'UK', name: 'United Kingdom', group: 'seasonal', visa: 'Seasonal & visiting',
+    code: 'UK', iata: 'LHR', name: 'United Kingdom', group: 'seasonal', visa: 'Seasonal & visiting',
     time: '3–6 WKS', // PLACEHOLDER
     aliases: ['uk', 'britain', 'england', 'london'],
     desc: 'In the UK, our consultants process visiting visas and seasonal work opportunities across a range of eligible sectors.',
     services: ['Visiting Visas', 'Seasonal Work Programs', 'Sponsor Liaison', 'Compliance Support'],
   },
   {
-    code: 'US', name: 'United States', group: 'seasonal', visa: 'Seasonal & visiting',
+    code: 'US', iata: 'JFK', name: 'United States', group: 'seasonal', visa: 'Seasonal & visiting',
     time: '4–10 WKS', // PLACEHOLDER
     aliases: ['usa', 'us', 'america'],
     desc: 'For the United States, we specialise in visiting visas and seasonal work programs, helping candidates navigate short-term entry with confidence.',
     services: ['Visiting Visas', 'Seasonal Work Programs', 'Documentation Support', 'Interview Preparation'],
   },
   {
-    code: 'CA', name: 'Canada', group: 'seasonal', visa: 'Seasonal & visiting',
+    code: 'CA', iata: 'YYZ', name: 'Canada', group: 'seasonal', visa: 'Seasonal & visiting',
     time: '4–8 WKS', // PLACEHOLDER
     aliases: ['ca'],
     desc: 'In Canada, our primary focus is on facilitating Seasonal Work programs and processing Visiting Visas for short-term stays and employment.',
     services: ['Seasonal Work Programs', 'Temporary Permits', 'Compliance Support', 'Visiting Visas', 'Employer Matching'],
   },
   {
-    code: 'AU', name: 'Australia', group: 'seasonal', visa: 'Seasonal & visiting',
+    code: 'AU', iata: 'SYD', name: 'Australia', group: 'seasonal', visa: 'Seasonal & visiting',
     time: '3–6 WKS', // PLACEHOLDER
     aliases: ['au', 'aus'],
     desc: 'For Australia, we specialise in visiting visas and seasonal work programs suited to short-term employment and agricultural sectors.',
