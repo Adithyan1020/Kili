@@ -10,6 +10,7 @@ const VARIANTS = {
   board: { label: 'Departure board' },
   passport: { label: 'Passport page', load: () => import('./picker/PassportPage') },
   pass: { label: 'Boarding passes', load: () => import('./picker/BoardingPasses') },
+  tags: { label: 'Luggage tags', load: () => import('./picker/LuggageTags') },
 };
 
 const matches = (d, group, q) =>
