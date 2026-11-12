@@ -26,9 +26,10 @@ export default function Navbar() {
   return (
     <header id="siteHeader" className="header">
       <div className="wrap header-inner">
-        <a href="#top" className="brand-mark" aria-label="TRUVIQ — back to top">
+        <a href="#top" className="brand-mark">
           <span className="brand-glyph" aria-hidden="true">TQ</span>
           <span className="brand-word">TRUVIQ</span>
+          <span className="visually-hidden">, back to top</span>
         </a>
         <nav className="nav-links" aria-label="Main">
           {links.map((l) => <a key={l.href} href={l.href}>{l.label}</a>)}
