@@ -1,3 +1,39 @@
+import ScrollRibbon from './ScrollRibbon';
+import { loop } from '../lib/ribbon';
+
+// Ribbon route: enters top-left, loops in the gutter between the text and
+// photo, runs down that gutter, curls under the photo, then slips behind the
+// feature grid and exits bottom-right.
+const RIBBON = [
+  { x: -0.04, y: 0.05 },
+  { x: 0.18, y: 0.035 },
+  { x: 0.4, y: 0.06 },
+  ...loop(0.52, 0.12, 70, 180, 1),
+  { x: 0.519, y: 0.3 },
+  { x: 0.52, y: 0.48 },
+  { x: 0.6, y: 0.6 },
+  { x: 0.8, y: 0.6 },
+  ...loop(0.86, 0.62, 55, -150, -1),
+  { x: 0.66, y: 0.7 },
+  { x: 0.9, y: 0.93 },
+  { x: 1.04, y: 0.95 },
+];
+// Phones: a single column, so the (thinner, softer) ribbon weaves an S
+// behind the copy, dives behind the photo and exits behind the cards.
+const RIBBON_MOBILE = [
+  { x: -0.08, y: 0.02 },
+  { x: 0.3, y: 0.035, oy: 30 },
+  ...loop(0.62, 0.035, 34, 90, -1),
+  { x: 0.9, y: 0.06, oy: 30 },
+  { x: 0.8, y: 0.17 },
+  { x: 0.25, y: 0.26 },
+  { x: 0.12, y: 0.36 },
+  { x: 0.5, y: 0.47 },
+  { x: 0.95, y: 0.6 },
+  { x: 0.4, y: 0.75 },
+  { x: -0.08, y: 0.82 },
+];
+
 const featureCards = [
   { num: '01', title: 'Trusted Expertise', desc: 'Reliable advice based on your profile, goals, and eligibility.' },
   { num: '02', title: 'Complete Support', desc: 'From your first consultation to final application preparation.' },
@@ -16,6 +52,7 @@ const trackPointer = (e) => {
 export default function WhyTrustUs() {
   return (
     <section className="about" id="about" data-idx="02" data-label="About">
+      <ScrollRibbon points={RIBBON} mobilePoints={RIBBON_MOBILE} />
       <div className="wrap">
         <div className="about-intro">
           <div className="about-text reveal">

@@ -1,3 +1,6 @@
+import ScrollRibbon from './ScrollRibbon';
+import { loop } from '../lib/ribbon';
+
 // Answers only restate what the rest of the site already says.
 // FAQPage structured data is emitted alongside so Google can show rich results.
 const faqs = [
@@ -27,6 +30,20 @@ const faqs = [
   },
 ];
 
+// Ribbon route: enters from the left, loops in the empty space under the
+// heading, then sweeps along the bottom and exits right. Hidden on phones,
+// where there's no empty column for it.
+const RIBBON = [
+  { x: -0.04, y: 0.6, oy: 70 },
+  { x: 0.09, y: 0.6, oy: 80 },
+  ...loop(0.2, 0.6, 80, 90, -1),
+  { x: 0.31, y: 0.6, oy: 90 },
+  { x: 0.42, y: 0.86 },
+  { x: 0.6, y: 0.93 },
+  { x: 0.82, y: 0.9 },
+  { x: 1.04, y: 0.8 },
+];
+
 const faqSchema = {
   '@context': 'https://schema.org',
   '@type': 'FAQPage',
@@ -40,6 +57,7 @@ const faqSchema = {
 export default function Faq() {
   return (
     <section className="faq" id="faq" data-idx="06" data-label="FAQ">
+      <ScrollRibbon points={RIBBON} mobilePoints={null} mobileBreak={900} />
       <div className="wrap faq-inner">
         <div className="faq-head reveal">
           <span className="eyebrow">Questions</span>
