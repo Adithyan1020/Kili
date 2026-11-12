@@ -1,108 +1,97 @@
-import { useEffect, useRef } from 'react';
+import { useEffect, useState } from 'react';
 
-const HERO_IMG = 'https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop';
+// The flap board flips through each destination once, then stays on the last.
+const WORDS = ['CANADA', 'THE UK', 'THE USA', 'AUSTRALIA', 'THE UAE', 'EUROPE'];
+// Fixed tile count (longest word) so the board never changes width: no layout shift.
+const TILES = 9;
+const STEP_MS = 1700;
 
-// Deterministic star field so server-rendered and client markup match.
-function makeStars(count, seed) {
-  let s = seed >>> 0;
-  const rnd = () => {
-    s = (s + 0x6d2b79f5) >>> 0;
-    let t = s;
-    t = Math.imul(t ^ (t >>> 15), t | 1);
-    t ^= t + Math.imul(t ^ (t >>> 7), t | 61);
-    return ((t ^ (t >>> 14)) >>> 0) / 4294967296;
-  };
-  return Array.from({ length: count }, () => ({
-    cx: +(rnd() * 1400).toFixed(1),
-    cy: +(rnd() * 420).toFixed(1),
-    r: +(rnd() * 1.3 + 0.3).toFixed(2),
-    o: +(rnd() * 0.5 + 0.15).toFixed(2),
-    d: +(0.5 + rnd() * 0.9).toFixed(2), // intro fade-in delay (s)
-    t: +(3 + rnd() * 4).toFixed(2),     // twinkle period (s)
-  }));
+function FlapBoard({ word }) {
+  return (
+    <span className="flap" aria-hidden="true">
+      {Array.from({ length: TILES }, (_, i) => {
+        const ch = word[i] && word[i] !== ' ' ? word[i] : '';
+        return (
+          <span key={i} className={`flap-tile${ch ? '' : ' is-blank'}`}>
+            {/* new key when the letter changes -> only that tile re-flips */}
+            <span key={ch || '_'} className="flap-ch" style={{ '--i': i }}>
+              {ch || ' '}
+            </span>
+          </span>
+        );
+      })}
+    </span>
+  );
 }
-const STARS = makeStars(70, 1584243068);
+
+function Stamp() {
+  return (
+    <svg className="hero-stamp" viewBox="0 0 160 160" aria-hidden="true" focusable="false">
+      <defs>
+        <path id="stampText" d="M80,80 m-54,0 a54,54 0 1,1 108,0 a54,54 0 1,1 -108,0" />
+      </defs>
+      <circle cx="80" cy="80" r="74" fill="none" stroke="currentColor" strokeWidth="4" />
+      <circle cx="80" cy="80" r="66" fill="none" stroke="currentColor" strokeWidth="1.5" />
+      <circle cx="80" cy="80" r="40" fill="none" stroke="currentColor" strokeWidth="1.5" strokeDasharray="3 4" />
+      <text fontFamily="var(--font-mono)" fontSize="12.5" fontWeight="500" letterSpacing="3" fill="currentColor">
+        <textPath href="#stampText">TRUVIQ · VISA SERVICES · ENTRY ·</textPath>
+      </text>
+      {/* small plane, pointing up-right */}
+      <path
+        transform="translate(80 74) rotate(-45) scale(.9)"
+        fill="currentColor"
+        d="M18,0 C18,-1.4 16.8,-2.2 14.8,-2.2 L4,-2.2 L-4,-15 L-7.6,-15 L-3.2,-2.2 L-11.2,-2.2 L-15.6,-7.2 L-18,-7.2 L-15.6,-1.2 L-16.8,-1 L-16.8,1 L-15.6,1.2 L-18,7.2 L-15.6,7.2 L-11.2,2.2 L-3.2,2.2 L-7.6,15 L-4,15 L4,2.2 L14.8,2.2 C16.8,2.2 18,1.4 18,0 Z"
+      />
+      <text x="80" y="104" textAnchor="middle" fontFamily="var(--font-mono)" fontSize="9" fontWeight="500" letterSpacing="1.5" fill="currentColor">
+        APPROVED
+      </text>
+    </svg>
+  );
+}
 
 export default function Hero() {
-  const heroRef = useRef(null);
-  const heroImgRef = useRef(null);
-  const heroContentRef = useRef(null);
+  const [idx, setIdx] = useState(0);
 
   useEffect(() => {
-    const reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    if (reduced) return;
-
-    let ticking = false;
-    const updateParallax = () => {
-      ticking = false;
-      if (!heroRef.current || !heroImgRef.current || !heroContentRef.current) return;
-      const progress = Math.min(window.scrollY / heroRef.current.offsetHeight, 1);
-      heroImgRef.current.style.transform = `scale(1.08) translateY(${progress * 60}px)`;
-      heroContentRef.current.style.transform = `translateY(${progress * 70}px)`;
-      heroContentRef.current.style.opacity = 1 - progress * 0.9;
+    // Reduced motion: no cycling, the first destination stays put.
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    let timer;
+    const tick = () => {
+      setIdx((i) => {
+        const next = Math.min(i + 1, WORDS.length - 1);
+        if (next < WORDS.length - 1) timer = setTimeout(tick, STEP_MS);
+        return next;
+      });
     };
-    const onScroll = () => {
-      if (!ticking) { ticking = true; requestAnimationFrame(updateParallax); }
-    };
-
-    document.addEventListener('scroll', onScroll, { passive: true });
-    updateParallax();
-    return () => document.removeEventListener('scroll', onScroll);
+    timer = setTimeout(tick, STEP_MS + 600);
+    return () => clearTimeout(timer);
   }, []);
 
   return (
-    <section className="hero" id="hero" data-idx="01" data-label="Home" ref={heroRef}>
-      <div className="hero-cover">
-        <img
-          ref={heroImgRef}
-          className="hero-photo"
-          src={`${HERO_IMG}&w=1600&q=75`}
-          srcSet={`${HERO_IMG}&w=800&q=70 800w, ${HERO_IMG}&w=1600&q=75 1600w, ${HERO_IMG}&w=2200&q=75 2200w`}
-          sizes="100vw"
-          fetchPriority="high"
-          decoding="async"
-          alt=""
-        />
-        <svg className="hero-overlay-svg" viewBox="0 0 1400 900" preserveAspectRatio="xMidYMax slice" aria-hidden="true">
-          <g opacity="0.5">
-            {STARS.map((st, i) => (
-              <circle
-                key={i}
-                className="hero-star"
-                cx={st.cx} cy={st.cy} r={st.r} fill="#F6F3EC"
-                style={{ '--o': st.o, '--d': `${st.d}s`, '--t': `${st.t}s` }}
-              />
-            ))}
-          </g>
-          <g opacity="0.5" transform="rotate(-90 1140 230)">
-            <circle className="hero-ring" pathLength="1" cx="1140" cy="230" r="150" fill="none" stroke="#B8935B" strokeWidth="0.6" opacity="0.35" />
-            <circle className="hero-ring" pathLength="1" cx="1140" cy="230" r="220" fill="none" stroke="#B8935B" strokeWidth="0.5" opacity="0.2" />
-            <circle className="hero-ring" pathLength="1" cx="1140" cy="230" r="290" fill="none" stroke="#B8935B" strokeWidth="0.4" opacity="0.12" />
-          </g>
-        </svg>
-      </div>
-      <div className="hero-vignette"></div>
+    <section className="hero" id="hero">
+      <div className="wrap hero-inner">
+        <p className="eyebrow hero-kicker">Immigration &amp; Consultancy</p>
 
-      <div className="hero-content" ref={heroContentRef}>
-        <div className="hero-kicker eyebrow">TRUVIQ · Immigration &amp; Consultancy</div>
         <h1 className="hero-title">
-          <span className="line"><span>Work Permits &amp; Visas</span></span>
-          <span className="line line-accent"><span>for Europe, UAE &amp; Beyond</span></span>
+          <span className="hero-line">Your visa to</span>
+          <span className="visually-hidden"> Europe, the UK, the USA, Canada, Australia or the UAE</span>
+          <FlapBoard word={WORDS[idx]} />
         </h1>
-        <p className="hero-sub">Your Trusted Gateway to Global Opportunities</p>
-        <p className="hero-desc">Expert immigration &amp; visa solutions designed around your future — from first consultation to the day you arrive.</p>
-        <div className="hero-actions">
-          <a href="#contact" className="btn btn-solid">Book Expert Consultation <span className="btn-arrow" aria-hidden="true">→</span></a>
-          <div className="hero-scroll-hint" aria-hidden="true"><span className="scroll-line"></span> Scroll</div>
-        </div>
-      </div>
 
-      <div className="hero-meta-row">
-        <div className="hero-meta-inner">
-          <span>Focus — <b>Work · Seasonal · Visiting Visas</b></span>
-          <span>Regions — <b>Europe · UK · USA · Canada · Australia · UAE</b></span>
-          <span><b>500+</b> Successful Placements</span>
+        <p className="hero-sub">Work permits and visas for Europe, the UAE, the UK, the USA, Canada and Australia.</p>
+
+        <div className="hero-foot">
+          <div className="hero-actions">
+            <a href="#destinations" className="button">
+              Pick your destination
+              <svg width="18" height="18" viewBox="0 0 24 24" aria-hidden="true" focusable="false">
+                <path d="M12 4v16m0 0l-7-7m7 7l7-7" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round" />
+              </svg>
+            </a>
+            <p className="hero-note mono">Free first consultation</p>
+          </div>
         </div>
+        <Stamp />
       </div>
     </section>
   );
