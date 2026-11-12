@@ -117,7 +117,7 @@ export const ScrollVelocity = ({
   }
 
   return (
-    <section style={{ background: 'var(--ink)', color: 'var(--paper)' }}>
+    <div className="velocity-band" aria-hidden="true">
       {texts.map((text, index) => (
         <VelocityText
           key={index}
@@ -136,7 +136,7 @@ export const ScrollVelocity = ({
           {text}
         </VelocityText>
       ))}
-    </section>
+    </div>
   );
 };
 

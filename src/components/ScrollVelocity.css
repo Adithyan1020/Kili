@@ -1,3 +1,11 @@
+.velocity-band {
+  background: var(--ink);
+  color: var(--paper);
+  padding: 28px 0;
+  border-top: 1px solid var(--line-dark);
+  overflow: hidden;
+}
+
 .parallax {
   position: relative;
   overflow: hidden;
@@ -6,21 +14,37 @@
 .scroller {
   display: flex;
   white-space: nowrap;
-  text-align: center;
-  font-family: sans-serif;
-  font-size: 1.5rem;
-  font-weight: bold;
-  letter-spacing: -0.02em;
-  filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.1));
+  font-family: var(--display);
+  font-size: 1.75rem;
+  line-height: 1.25;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
 
 .scroller span {
   flex-shrink: 0;
 }
 
+.custom-scroll-text {
+  color: var(--paper);
+  padding-right: 0.5em;
+}
+.custom-scroll-text::after {
+  content: '✦';
+  color: var(--brass);
+  font-size: 0.5em;
+  vertical-align: middle;
+  margin-left: 0.6em;
+}
+
+/* Second line: outlined brass for contrast with the solid first line */
+.parallax:nth-child(2) .custom-scroll-text {
+  color: transparent;
+  -webkit-text-stroke: 1px var(--brass-l);
+}
+
 @media (min-width: 768px) {
   .scroller {
-    font-size: 3rem;
-    line-height: 3rem;
+    font-size: 3.25rem;
   }
 }

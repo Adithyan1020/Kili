@@ -1,9 +1,9 @@
-import React from 'react';
-
 export default function Footer() {
+  const year = new Date().getFullYear();
+
   return (
-    <footer className="site-footer" id="contact" data-idx="06" data-label="Contact">
-      <div className="section-divider section-divider-dark reveal" style={{ paddingTop: '60px' }}>
+    <footer className="site-footer" id="contact" data-idx="07" data-label="Contact">
+      <div className="section-divider section-divider-dark reveal" style={{ paddingTop: '60px' }} aria-hidden="true">
         <span className="divider-line"></span>
         <span className="divider-ornament"></span>
         <span className="divider-line"></span>
@@ -11,7 +11,7 @@ export default function Footer() {
       <div className="wrap footer-main">
         <div>
           <div className="footer-brand">
-            <span className="brand-glyph">TQ</span>
+            <span className="brand-glyph" aria-hidden="true">TQ</span>
             <span className="brand-word">TRUVIQ</span>
           </div>
           <div className="footer-tag">Your Journey. Our Commitment.</div>
@@ -20,17 +20,17 @@ export default function Footer() {
         </div>
 
         <div className="footer-right">
-          <h3>Start your global journey today</h3>
+          <h2>Start your global journey today</h2>
           <p>Your future abroad begins with one conversation.</p>
 
-          <div className="footer-contact">
+          <address className="footer-contact">
             <div>
               <span className="eyebrow">Phone</span>
-              <p>+1 (234) 567-8900</p>
+              <p><a href="tel:+12345678900">+1 (234) 567-8900</a></p>
             </div>
             <div>
               <span className="eyebrow">Email</span>
-              <p>contact@truviq.com</p>
+              <p><a href="mailto:contact@truviq.com">contact@truviq.com</a></p>
             </div>
             <div>
               <span className="eyebrow">Address</span>
@@ -40,16 +40,16 @@ export default function Footer() {
               <span className="eyebrow">Hours</span>
               <p>Mon–Fri, 9am–6pm EST</p>
             </div>
-          </div>
+          </address>
 
           <div className="footer-cta">
-            <a href="#contact" className="btn btn-solid">Get Your Free Consultation <span className="btn-arrow">→</span></a>
+            <a href="#contact" className="btn btn-solid">Get Your Free Consultation <span className="btn-arrow" aria-hidden="true">→</span></a>
           </div>
         </div>
       </div>
 
       <div className="wrap footer-bottom">
-        <p>© 2025 TRUVIQ. All rights reserved.</p>
+        <p>© {year} TRUVIQ. All rights reserved.</p>
         <div className="footer-legal">
           <a href="#">Privacy Policy</a>
           <a href="#">Terms of Service</a>

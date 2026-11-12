@@ -2,16 +2,70 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>eli-app</title>
-    <!-- Preconnect to Google Fonts for faster loading -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Manrope:wght@400;500;600;700;800&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet" />
+
+    <title>TRUVIQ | Europe Work Permits, UAE Jobs &amp; Visa Consultancy</title>
+    <meta name="description" content="TRUVIQ helps you secure European work permits, UAE construction jobs, and visiting or seasonal work visas for the UK, USA, Canada and Australia. Book a free consultation." />
+    <link rel="canonical" href="https://www.truviq.com/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="theme-color" content="#0E1B2B" />
+
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+    <!-- Open Graph / social previews -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="TRUVIQ" />
+    <meta property="og:url" content="https://www.truviq.com/" />
+    <meta property="og:title" content="TRUVIQ | Immigration &amp; Visa Consultancy" />
+    <meta property="og:description" content="European work permits, UAE construction recruitment, and visiting &amp; seasonal visas for the UK, USA, Canada and Australia." />
+    <meta property="og:image" content="https://www.truviq.com/og-image.jpg" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="TRUVIQ — Your trusted gateway to global opportunities" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="TRUVIQ | Immigration &amp; Visa Consultancy" />
+    <meta name="twitter:description" content="European work permits, UAE construction recruitment, and visiting &amp; seasonal visas." />
+    <meta name="twitter:image" content="https://www.truviq.com/og-image.jpg" />
+
+    <!-- Hero image is the largest paint: start fetching it immediately -->
+    <link rel="preconnect" href="https://images.unsplash.com" crossorigin />
+    <link
+      rel="preload"
+      as="image"
+      fetchpriority="high"
+      href="https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop&w=1600&q=75"
+      imagesrcset="https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop&w=800&q=70 800w, https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop&w=1600&q=75 1600w, https://images.unsplash.com/photo-1771450092348-5f33e2cc2963?auto=format&fit=crop&w=2200&q=75 2200w"
+      imagesizes="100vw"
+    />
+
+    <!-- Structured data: business -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "ProfessionalService",
+        "name": "TRUVIQ Immigration & Consultancy",
+        "url": "https://www.truviq.com/",
+        "logo": "https://www.truviq.com/favicon.svg",
+        "image": "https://www.truviq.com/og-image.jpg",
+        "description": "Immigration and visa consultancy specialising in European work permits, UAE construction recruitment, and visiting and seasonal work visas for the UK, USA, Canada and Australia.",
+        "email": "contact@truviq.com",
+        "slogan": "Your Journey. Our Commitment.",
+        "areaServed": ["Europe", "United Kingdom", "United States", "Canada", "Australia", "United Arab Emirates"],
+        "knowsAbout": ["Work permits", "Seasonal work visas", "Visiting visas", "Construction recruitment", "Immigration consultancy"]
+      }
+    </script>
+
+    <!-- Without JS, show scroll-reveal content immediately -->
+    <noscript>
+      <style>
+        .reveal, .reveal-stagger > *, .section-divider .divider-line::after { opacity: 1 !important; transform: none !important; width: 100% !important; }
+        .img-wipe { clip-path: none !important; }
+      </style>
+    </noscript>
   </head>
   <body>
-    <div id="root"></div>
+    <div id="root"><!--app-html--></div>
     <script type="module" src="/src/main.jsx"></script>
   </body>
 </html>
