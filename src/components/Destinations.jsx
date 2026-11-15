@@ -1,14 +1,14 @@
 import { useEffect, useState } from 'react';
-import DepartureBoard from './picker/DepartureBoard';
+import PassportPage from './picker/PassportPage';
 import { DESTINATIONS, VISA_GROUPS } from '../data/destinations';
 import { whatsappLink } from '../data/contact';
 
-// PROTOTYPE: alternative picker designs, chosen with ?picker=<id>.
-// The board is the default (and what is pre-rendered); the others are
-// loaded on demand so they add nothing to the default page.
+// The passport page (tap a country to stamp it) is the picker, and what is
+// pre-rendered. PROTOTYPE: the other designs can still be viewed with
+// ?picker=<id>; they are loaded on demand so they add nothing to the page.
 const VARIANTS = {
-  board: { label: 'Departure board' },
-  passport: { label: 'Passport page', load: () => import('./picker/PassportPage') },
+  passport: { label: 'Passport page' },
+  board: { label: 'Departure board', load: () => import('./picker/DepartureBoard') },
   pass: { label: 'Boarding passes', load: () => import('./picker/BoardingPasses') },
   tags: { label: 'Luggage tags', load: () => import('./picker/LuggageTags') },
 };
@@ -38,7 +38,7 @@ export default function Destinations() {
   const visible = new Set(DESTINATIONS.filter((d) => matches(d, group, q)).map((d) => d.code));
   const groupInfo = VISA_GROUPS.find((g) => g.id === group);
   const pickerProps = { list: DESTINATIONS, visible, open, setOpen };
-  const ActivePicker = variant && variant !== 'board' ? Picker : DepartureBoard;
+  const ActivePicker = variant && VARIANTS[variant].load ? Picker : PassportPage;
 
   return (
     <section className="section section-alt destinations" id="destinations" aria-labelledby="destinations-title">
@@ -55,9 +55,9 @@ export default function Destinations() {
         )}
 
         <div className="section-head">
-          <span className="eyebrow">Departures</span>
+          <span className="eyebrow">Passport</span>
           <h2 id="destinations-title">Pick your destination</h2>
-          <p>Tap a country to see what you need.</p>
+          <p>Tap a country to stamp it and see what you need.</p>
         </div>
 
         <div className="board-tools">
